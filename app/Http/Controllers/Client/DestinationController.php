@@ -50,13 +50,26 @@ class DestinationController extends Controller
 
         }
 
+        $destinations_q = Destination::with(['translation','latestImage']);
 
+        if($tags = $request->get('tag')){
+            $tags = explode(',',$tags);
+            $destinations_q->leftJoin('destination_categories','destination_categories.destination_id','destinations.id');
+            $destinations_q->whereIn('destination_categories.category_id',$tags);
+            $destinations_q->groupBy('destinations.id');
+        }
 
+        $destinations = $destinations_q->paginate(8);
+        //dd($destinations);
+
+        $categories = Category::with('translation')->where('status',1)->get();
 
 
             //dd($wishlist);
         //dd($products);
         return Inertia::render('Destinations/Destinations',[
+            'destinations' => $destinations,
+            'categories' => $categories,
             'images' => $images,
             'page' => $page,
             "seo" => [

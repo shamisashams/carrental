@@ -23,6 +23,19 @@ export const Hashtag = ({ text }) => {
   );
 };
 
+export const Hashtag2 = ({ text, onClick, active }) => {
+    //const [active, setActive] = useState();
+
+    return (
+        <button
+            onClick={onClick}
+            className={`hashtag ${active && "active"}`}
+        >
+            {text}
+        </button>
+    );
+};
+
 export const DestinationBox = (props) => {
   return (
     <div className="destinationBox">

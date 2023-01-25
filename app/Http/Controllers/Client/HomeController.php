@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Destination;
 use App\Models\News;
 use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Product;
 use App\Models\ProductSet;
 use App\Models\Slider;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 use App\Repositories\Eloquent\ProductRepository;
@@ -16,7 +19,7 @@ use App\Repositories\Eloquent\ProductRepository;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
 
@@ -37,8 +40,25 @@ class HomeController extends Controller
         $sliders = Slider::query()->where("status", 1)->with(['file', 'translations','desktop','mobile'])->get();
 //
 
+        $destinations_q = Destination::with(['translation','latestImage']);
 
-        return Inertia::render('Home/Home', ["sliders" => $sliders,
+        if($tags = $request->get('tag')){
+            $tags = explode(',',$tags);
+            $destinations_q->leftJoin('destination_categories','destination_categories.destination_id','destinations.id');
+            $destinations_q->whereIn('destination_categories.category_id',$tags);
+            $destinations_q->groupBy('destinations.id');
+        }
+
+        $destinations = $destinations_q->limit(3)->inRandomOrder()->get();
+        //dd($destinations);
+
+        $categories = Category::with('translation')->where('status',1)->get();
+
+
+        return Inertia::render('Home/Home', [
+            'destinations' => $destinations,
+            'categories' => $categories,
+            "sliders" => $sliders,
             "page" => $page, "seo" => [
             "title"=>$page->meta_title,
             "description"=>$page->meta_description,

@@ -11,15 +11,64 @@ import { MdRemoveRedEye } from "react-icons/md";
 import {
   DestinationBox,
   DropoffDate,
-  Hashtag,
+  Hashtag2,
   PickupDate,
   PickupLocation,
   TimeSelect,
 } from "../../components/Shared/Shared";
 
 import Layout from "@/Layouts/Layout";
+import {Inertia} from "@inertiajs/inertia";
 
 const Home = ({seo}) => {
+
+    const { localizations, destinations, categories } = usePage().props;
+
+    let appliedFilters = [];
+    let urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.forEach((value, index) => {
+        appliedFilters[index] = value.split(",");
+    });
+
+
+    function removeA(arr) {
+        var what,
+            a = arguments,
+            L = a.length,
+            ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
+    const handleFilterClick = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+        delete appliedFilters['page'];
+        console.log(event);
+        if (event === false) {
+            if (appliedFilters.hasOwnProperty(code)) {
+                appliedFilters[code].push(value);
+            } else appliedFilters[code] = [value];
+        } else {
+            if (appliedFilters[code].length > 1)
+                removeA(appliedFilters[code], value.toString());
+            else delete appliedFilters[code];
+        }
+
+        let params = [];
+
+        for (let key in appliedFilters) {
+            params.push(key + "=" + appliedFilters[key].join(","));
+        }
+
+        Inertia.visit("?" + params.join("&"));
+    };
+
   const [diffLoc, setDiffLoc] = useState(false);
   const dropLocationCheck = useRef();
   useEffect(() => {
@@ -30,6 +79,8 @@ const Home = ({seo}) => {
       setDiffLoc(true);
     }
   }, [dropLocationCheck, diffLoc]);
+
+
 
   return (
       <Layout seo={seo}>
@@ -123,7 +174,7 @@ const Home = ({seo}) => {
                           Delivered dejection necessary objection do mr prevailed. feeling do
                           chiefly cordial in do.{" "}
                       </p>
-                      <Link href="/">
+                      <Link href={route('client.destination.index')}>
                           <MdRemoveRedEye
                               style={{
                                   fontSize: "18px",
@@ -137,19 +188,32 @@ const Home = ({seo}) => {
                   </div>
                   <div className="right">
                       <div className="tags">
-                          {tags.map((tag, index) => {
-                              return <Hashtag key={index} text={tag} />;
+                          {categories.map((tag, index) => {
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('tag')) {
+                                  if (
+                                      appliedFilters['tag'].includes(
+                                          tag.id.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return <Hashtag2 key={index} text={tag.title} onClick={(e)=>{
+                                  handleFilterClick(checked,'tag',tag.id);
+                              }} active={checked} />;
                           })}
                       </div>
                       <div className="destinationGrid">
-                          {destinations.slice(0, 3).map((item, index) => {
+                          {destinations.map((item, index) => {
                               return (
                                   <DestinationBox
                                       key={index}
-                                      link={item.link}
-                                      img={item.img}
+                                      link={route('client.destination.show',item.slug)}
+                                      img={item.latest_image?item.latest_image.file_full_url:null}
                                       title={item.title}
-                                      para={item.para}
+                                      para={item.short_description}
                                   />
                               );
                           })}
