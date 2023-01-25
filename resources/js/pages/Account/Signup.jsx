@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 //import { Link } from "react-router-dom";
-import { Link, usePage } from "@inertiajs/inertia-react";
+import { Link, usePage, useForm } from "@inertiajs/inertia-react";
 import "./Account.css";
 import Layout from "@/Layouts/Layout";
 
@@ -9,32 +9,27 @@ import { Inertia } from "@inertiajs/inertia";
 const Signup = ({seo}) => {
 
     const { errors, localizations } = usePage().props;
-    const [values, setValues] = useState({
-        name: "",
-        Surname: "",
-        id: "",
-        email: "",
-        password: "",
-        password_repeat: "",
-        phone: "",
-        agree: false,
+
+
+    const { data, setData, post, progress } = useForm({
+        name: null,
+        surname: null,
+        email: null,
+        phone: null,
+        password: null,
+        id_1: null,
+        id_2: null,
+        drl_1: null,
+        drl_2: null
     });
 
     function handleChange(e) {
-        const key = e.target.name;
-        let value = e.target.value;
-        if (e.target.name === "agree") {
-            value = e.target.checked ? true : false;
-        }
-        setValues((values) => ({
-            ...values,
-            [key]: value,
-        }));
+        setData(e.target.name, e.target.value)
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-        Inertia.post(route("client.register"), values);
+        post(route("client.register"));
     }
 
   return (
@@ -54,16 +49,24 @@ const Signup = ({seo}) => {
                   <div>Upload documents</div>
                   <div className="grid">
                       <div className="input">
-                          <input type="file" name="file1" id="" />
+                          <input type="file" name="file1" onChange={(e) =>
+                              setData("id_1", e.target.files[0])
+                          } />
                       </div>
                       <div className="input">
-                          <input type="file" name="file2" id="" />
+                          <input type="file" name="file2" onChange={(e) =>
+                              setData("id_2", e.target.files[0])
+                          } />
                       </div>
                       <div className="input">
-                          <input type="file" name="file3" id="" />
+                          <input type="file" name="file3" onChange={(e) =>
+                              setData("drl_1", e.target.files[0])
+                          } />
                       </div>
                       <div className="input">
-                          <input type="file" name="file4" id="" />
+                          <input type="file" name="file4" onChange={(e) =>
+                              setData("drl_2", e.target.files[0])
+                          } />
                       </div>
                   </div>
                   <div className="flex center">

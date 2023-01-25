@@ -80,11 +80,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function files(): MorphMany
     {
-        return $this->morphMany(File::class, 'fileable')->where('type','!=',File::CV);
+        return $this->morphMany(File::class, 'fileable');
     }
 
     public function cv(): MorphOne{
-        return $this->morphOne(File::class,'fileable')->where('type',File::CV);
+        return $this->morphOne(File::class,'fileable');
     }
 
     public function partner(): HasOne{

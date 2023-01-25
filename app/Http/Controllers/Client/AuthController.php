@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Partner;
 use App\Models\User;
+use App\Repositories\Eloquent\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -203,7 +204,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:3',
             'password_repeat' => 'required|same:password',
-            'agree' => Rule::in([true]),
+            //'agree' => Rule::in([true]),
         ]);
 
         $attributes = $request->except(['agree']);
@@ -214,6 +215,12 @@ class AuthController extends Controller
         //dd($attributes);
 
         $user = User::query()->create($attributes);
+
+        $userRepo = new UserRepository($user);
+
+        $userRepo->uploadId($user,$request);
+        $userRepo->uploadDrl($user,$request);
+
 
         if ($user){
             event(new Registered($user));

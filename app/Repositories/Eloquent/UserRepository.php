@@ -31,23 +31,36 @@ class UserRepository extends BaseRepository
         parent::__construct($model);
     }
 
-    public function uploadCv($model, $request){
-        if ($request->hasFile('cv')) {
-            $this->model = $model;
-            //dd($this->model);
-            // Get Name Of model
-            $reflection = new ReflectionClass(get_class($this->model));
-            $modelName = $reflection->getShortName();
+    public function uploadId($model, $request){
+        $this->model = $model;
+        //dd($this->model);
+        // Get Name Of model
+        $reflection = new ReflectionClass(get_class($this->model));
+        $modelName = $reflection->getShortName();
+        $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/id';
+        if ($request->hasFile('id_1')) {
 
+            $imagename = date('Ymhs') . str_replace(' ', '', $request->file('id_1')->getClientOriginalName());
 
-            $imagename = date('Ymhs') . str_replace(' ', '', $request->file('cv')->getClientOriginalName());
-            $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/cv';
-            $request->file('cv')->move($destination, $imagename);
+            $request->file('id_1')->move($destination, $imagename);
             $this->model->files()->create([
                 'title' => $imagename,
                 'path' => 'storage/' . $modelName . '/' . $this->model->id . '/cv',
-                'format' => $request->file('cv')->getClientOriginalExtension(),
-                'type' => File::CV,
+                'format' => $request->file('id_1')->getClientOriginalExtension(),
+                'type' => File::ID1,
+                'main' => 0
+            ]);
+
+        }
+        if ($request->hasFile('id_2')) {
+
+            $imagename = date('Ymhs') . str_replace(' ', '', $request->file('id_2')->getClientOriginalName());
+            $request->file('id_2')->move($destination, $imagename);
+            $this->model->files()->create([
+                'title' => $imagename,
+                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/cv',
+                'format' => $request->file('id_2')->getClientOriginalExtension(),
+                'type' => File::ID2,
                 'main' => 0
             ]);
 
@@ -56,39 +69,46 @@ class UserRepository extends BaseRepository
         return $this->model;
     }
 
-    public function uploadId($request){
-        if ($request->hasFile('avatar')) {
-            // Get Name Of model
-            $reflection = new ReflectionClass(get_class($this->model));
-            $modelName = $reflection->getShortName();
+    public function uploadDrl($model, $request){
+        $this->model = $model;
+        //dd($this->model);
+        // Get Name Of model
+        $reflection = new ReflectionClass(get_class($this->model));
+        $modelName = $reflection->getShortName();
+        $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/drl';
+        if ($request->hasFile('drl_1')) {
 
+            $imagename = date('Ymhs') . str_replace(' ', '', $request->file('drl_1')->getClientOriginalName());
 
+            $request->file('drl_1')->move($destination, $imagename);
+            $this->model->files()->create([
+                'title' => $imagename,
+                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/drl',
+                'format' => $request->file('drl_1')->getClientOriginalExtension(),
+                'type' => File::DRL1,
+                'main' => 0
+            ]);
 
-            foreach ($request->file('avatar') as $key => $file) {
-                $imagename = date('Ymhs') . str_replace(' ', '', $file->getClientOriginalName());
-                $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/id';
-                $request->file('avatar')[$key]->move($destination, $imagename);
-                $this->model->files()->create([
-                    'title' => $imagename,
-                    'path' => 'storage/' . $modelName . '/' . $this->model->id . '/id',
-                    'format' => $file->getClientOriginalExtension(),
-                    'type' => File::ID,
-                    'main' => 0
-                ]);
-            }
+        }
+        if ($request->hasFile('drl_2')) {
+
+            $imagename = date('Ymhs') . str_replace(' ', '', $request->file('drl_2')->getClientOriginalName());
+            $request->file('drl_2')->move($destination, $imagename);
+            $this->model->files()->create([
+                'title' => $imagename,
+                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/drl',
+                'format' => $request->file('drl_2')->getClientOriginalExtension(),
+                'type' => File::DRL2,
+                'main' => 0
+            ]);
 
         }
 
         return $this->model;
     }
 
-    public function getPartners(Request $request){
 
-        return $this->model->filter($request)->where('is_partner',1)->paginate(10);
-    }
 
-    public function getCustomers(Request $request){
-        return $this->model->filter($request)->where('is_partner',0)->where('is_admin',0)->paginate(10);
-    }
+
 
 }
