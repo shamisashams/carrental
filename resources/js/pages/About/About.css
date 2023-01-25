@@ -1,0 +1,50 @@
+.aboutPage {
+  padding: 160px 0;
+  max-width: 560px;
+  text-align: center;
+}
+.aboutPage h3 {
+  margin: 30px auto 50px auto;
+}
+.aboutPage p {
+  opacity: 1;
+  text-align: justify;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+@media screen and (max-width: 850px) {
+  .aboutPage {
+    padding: 66px 0;
+  }
+  .aboutPage h3 {
+    margin: 8px auto 25px auto;
+  }
+}
+
+.faqPage {
+  background: #f2f3f3;
+}
+.faqPage .wrapper {
+  padding: 155px 0;
+  max-width: 600px;
+}
+.faqPage h3 {
+  margin-bottom: 50px;
+}
+.faqPage .qna {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #b9ccd0;
+}
+.faqPage .qna div {
+  font-size: 14px;
+  margin-top: 15px;
+}
+@media screen and (max-width: 600px) {
+  .faqPage .wrapper {
+    padding: 111px 0;
+  }
+  .faqPage h3 {
+    margin-bottom: 29px;
+  }
+}

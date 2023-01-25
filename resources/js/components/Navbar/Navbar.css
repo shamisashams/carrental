@@ -1,0 +1,125 @@
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0;
+  z-index: 1000;
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-elements {
+  position: relative;
+  display: inline-block;
+  margin: 0 15px;
+}
+.navbar-elements::after {
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 8px;
+  background: url(/client/assets/images/hover.png) no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0;
+  scale: 0 1;
+  transition: 0.3s;
+}
+.navbar-elements:hover::after,
+.navbar-elements.active::after {
+  opacity: 1;
+  scale: 1 1;
+}
+.navbar .languages {
+  position: relative;
+}
+.navbar .languages svg {
+  display: inline-block;
+  font-size: 18px;
+  vertical-align: middle;
+  transition: 0.3s;
+}
+.navbar .languages:hover svg {
+  rotate: 180deg;
+}
+.navbar .languages .dropdown {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  opacity: 0;
+  transition: 0.3s;
+  translate: 0 -23px;
+  margin-left: 20px;
+}
+.navbar .languages:hover .dropdown {
+  opacity: 1;
+  translate: 0;
+}
+.navbar .log-in {
+  margin: 0 28px;
+}
+.navbar .aut-seg {
+  align-items: center;
+}
+.mobile_content {
+  display: none;
+}
+.closeMenu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 25px;
+  display: none;
+}
+
+@media screen and (max-width: 1100px) {
+  .navbar {
+    font-size: 14px;
+    padding: 15px 0;
+  }
+  .navbar .log-in {
+    margin: 0 11px;
+  }
+  .navbar-elements {
+    margin: 0 8px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .mobile_content {
+    display: flex;
+  }
+  .header-content {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    z-index: 10000;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-30px);
+  }
+  .header-content.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .header-content ul {
+    margin: 60px;
+    text-align: center;
+  }
+  .header-content ul li {
+    margin: 10px 15px;
+  }
+  .closeMenu {
+    display: block;
+  }
+}

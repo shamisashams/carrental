@@ -1,0 +1,185 @@
+{
+    "menu": [
+        {
+            "url": "javascript:void(0)",
+            "name": "1. პროდუქცია",
+            "i18n": "user",
+            "icon": "brightness_low",
+            "slug": "user",
+            "submenu": [
+                {
+                    "url": "category.index",
+                    "name": "კატეგორიები",
+                    "i18n": "category",
+                    "icon": "language",
+                    "slug": "category"
+                },
+                {
+                    "url": "attribute.index",
+                    "name": "ატრიბუტები",
+                    "i18n": "attributes",
+                    "icon": "language",
+                    "slug": "attribute"
+                },
+                {
+                    "url": "brand.index",
+                    "name": "brand",
+                    "i18n": "brand",
+                    "icon": "brand",
+                    "slug": "brand"
+                },
+                {
+                    "url": "car_type.index",
+                    "name": "car_type",
+                    "i18n": "car_type",
+                    "icon": "car_type",
+                    "slug": "car_type"
+                },
+                {
+                    "url": "car.index",
+                    "name": "car",
+                    "i18n": "car",
+                    "icon": "car",
+                    "slug": "car"
+                },
+                {
+                    "url": "address.index",
+                    "name": "address",
+                    "i18n": "address",
+                    "icon": "address",
+                    "slug": "address"
+                }
+            ]
+        },
+                {
+            "url": "javascript:void(0)",
+            "name": "2. შეკვეთები და მართვა",
+            "i18n": "user",
+            "icon": "brightness_low",
+            "slug": "user",
+            "submenu": [
+                {
+                    "url": "user.index",
+                    "name": "მომხმარებელი",
+                    "i18n": "user",
+                    "icon": "user",
+                    "slug": "user"
+                }
+
+            ]
+        },
+        {
+            "url": "javascript:void(0)",
+            "name": "3. ენები",
+            "i18n": "language",
+            "icon": "brightness_low",
+            "slug": "user",
+            "submenu": [
+                {
+                    "url": "language.index",
+                    "name": "ენები",
+                    "i18n": "language",
+                    "icon": "language",
+                    "slug": "language"
+                },
+                {
+                    "url": "translation.index",
+                    "name": "თარგმნა",
+                    "i18n": "translation",
+                    "icon": "g_translate",
+                    "slug": "translation"
+                }
+            ]
+        },
+
+        {
+            "url": "javascript:void(0)",
+            "name": "4. საიტი და კონტენტი",
+            "i18n": "user",
+            "icon": "brightness_low",
+            "slug": "user",
+            "submenu": [
+                {
+                    "url": "slider.index",
+                    "name": "სლაიდერი",
+                    "i18n": "slider",
+                    "icon": "language",
+                    "slug": "slider"
+                },
+                {
+                    "url": "page.index",
+                    "name": "გვერდები",
+                    "i18n": "page",
+                    "icon": "language",
+                    "slug": "page"
+                },
+                {
+                    "url": "setting.index",
+                    "name": "პარამეტრები",
+                    "i18n": "setting",
+                    "icon": "language",
+                    "slug": "setting"
+                },
+                {
+                    "url": "faq.index",
+                    "name": "FAQ",
+                    "i18n": "faq",
+                    "icon": "g_translate",
+                    "slug": "faq"
+                },
+                {
+                    "url": "destination.index",
+                    "name": "destination",
+                    "i18n": "destination",
+                    "icon": "destination",
+                    "slug": "destination"
+                },
+                {
+                    "url": "password.index",
+                    "name": "პაროლის შეცვლა",
+                    "i18n": "change password",
+                    "icon": "g_translate",
+                    "slug": "change_password"
+                },
+                {
+                    "url": "mail-template.index",
+                    "name": "ფოსტის პარამეტრები",
+                    "i18n": "mail",
+                    "icon": "mail",
+                    "slug": "mail"
+                }
+            ]
+        }
+
+    ],
+    "_comment": [
+        {
+            "url": "certificate.index",
+            "name": "certificate",
+            "i18n": "certificate",
+            "icon": "language",
+            "slug": "certificate"
+        },
+        {
+            "url": "category.index",
+            "name": "category",
+            "i18n": "category",
+            "icon": "language",
+            "slug": "category"
+        },
+        {
+            "url": "product.index",
+            "name": "product",
+            "i18n": "product",
+            "icon": "language",
+            "slug": "product"
+        },
+        {
+            "url": "project.index",
+            "name": "project",
+            "i18n": "project",
+            "icon": "language",
+            "slug": "project"
+        }
+    ]
+}

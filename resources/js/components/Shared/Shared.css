@@ -1,0 +1,375 @@
+/* hashtag */
+
+.hashtag {
+  background-color: #f2f3f3;
+  color: #1b5a65;
+  border-radius: 40px;
+  padding: 18px 50px;
+  font-size: 18px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+.hashtag:hover {
+  background-color: #1aa3ba;
+  color: #fff;
+}
+.hashtag.active {
+  background-color: #ff715a;
+  color: #fff;
+}
+@media screen and (max-width: 1400px) {
+  .hashtag {
+    padding: 11px 31px;
+    font-size: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* destination box */
+
+.destinationBox {
+  width: 100%;
+  height: 100%;
+  max-width: 328px;
+}
+.destinationBox .img {
+  display: block;
+  width: 100%;
+  height: 328px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  position: relative;
+}
+.destinationBox .img .overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  transition: 0.5s;
+}
+.destinationBox .img .overlay button {
+  background: #fff;
+  padding: 18px 50px;
+  border-radius: 50px;
+  box-shadow: 0 3px 10px #101d301e;
+  font-size: 18px;
+  transform: translateY(30px);
+  transition: 0.5s;
+}
+.destinationBox p {
+  margin-top: 20px;
+  height: 76px;
+  overflow: hidden;
+  font-size: 15px;
+}
+.destinationBox .img:hover .overlay {
+  opacity: 1;
+}
+.destinationBox .img:hover .overlay button {
+  transform: translateY(0);
+}
+@media screen and (max-width: 1400px) {
+  .destinationBox .img {
+    height: 236px;
+    margin-bottom: 18px;
+  }
+  .destinationBox p {
+    margin-top: 11px;
+  }
+  .destinationBox .img .overlay button {
+    padding: 12px 29px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .destinationBox .img {
+    border-radius: 10px;
+  }
+}
+
+/* select boxes */
+
+.selectBox {
+  width: 100%;
+  position: relative;
+  font-size: 14px;
+}
+.selectBox .box {
+  position: relative;
+  width: 100%;
+  padding: 13px;
+  padding-right: 35px;
+  border-radius: 10px;
+  white-space: nowrap;
+  border: #1b5a654b 1px solid;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.pickupLocation .box {
+  padding: 0;
+  padding-right: 0;
+  padding-left: 13px;
+}
+.pickupLocation .box::after {
+  top: 0;
+  left: 51%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 0;
+  border-right: #1b5a654b 0.5px solid;
+  opacity: 0;
+  transition: 0.4s;
+}
+.pickupLocation.diffLoc .box::after {
+  opacity: 1;
+}
+.pickupLocation .inner_box {
+  position: relative;
+  width: 100%;
+  transition: 0.4s;
+  padding-right: 35px;
+  padding: 13px 0;
+}
+.pickupLocation .inner_box:last-child {
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  margin-left: 0;
+  width: 0;
+  padding-right: 0;
+}
+.pickupLocation.diffLoc .inner_box:last-child {
+  opacity: 1;
+  visibility: visible;
+  margin-left: 15px;
+  padding-right: 35px;
+}
+.pickupLocation.diffLoc .inner_box {
+  width: 50%;
+}
+.selectBox .dropdown {
+  position: absolute;
+  left: 0;
+  top: 120%;
+  width: 100%;
+  padding: 20px 12px;
+  background: #fff;
+  box-shadow: 0 3px 10px #040b172a;
+  z-index: 10;
+  transition: 0.4s;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+.selectBox .dropdown.calendar_drop {
+  width: 297px;
+  padding: 0;
+}
+.selectBox .dropdown.time {
+  padding: 5px 0;
+}
+.selectBox .dropdown.time button {
+  padding: 5px;
+  text-align: center;
+}
+.selectBox .dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.selectBox .dropdown .main-btn {
+  width: 60px;
+  height: 46px;
+  margin-left: 7px;
+  text-align: center;
+  font-size: 18px;
+  padding: 0;
+}
+.selectBox .dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+}
+.selectBox .dropdown button .icon {
+  color: #1b5a65;
+}
+.selectBox .dropdown button:hover {
+  background: #141d3610;
+}
+.selectBox .gap {
+  padding: 0 10px;
+}
+.selectBox .box .icon {
+  display: inline;
+  margin-right: 10px;
+  vertical-align: middle;
+  margin-bottom: 3px;
+  color: #ff715a;
+}
+.selectBox .box .chevron {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 17px;
+  background: #1b5a651f;
+  border-radius: 50%;
+  transition: 0.4s;
+  transform-origin: center;
+}
+.selectBox .box .chevron.rotate {
+  transform: rotate(180deg) translateY(50%);
+}
+.selectBox .box.date {
+  width: 200px;
+  flex-shrink: 0;
+}
+@media screen and (max-width: 1300px) {
+  .selectBox .box.date {
+    width: auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .selectBox .dropdown .main-btn {
+    width: 48px;
+    height: 38px;
+    margin-left: 5px;
+    font-size: 16px;
+  }
+  .selectBox .dropdown input {
+    height: 39px;
+    padding-left: 8px;
+    border-radius: 5px;
+  }
+  .selectBox .dropdown button {
+    padding: 5px;
+  }
+  .selectBox .box.date {
+    width: 100%;
+  }
+  .pickupLocation {
+    margin-bottom: 10px;
+  }
+  .selectBox .box {
+    margin-bottom: 10px;
+  }
+  .pickupLocation.diffLoc .inner_box {
+    width: 100%;
+  }
+  .pickupLocation.diffLoc .inner_box:last-child {
+    margin-left: 0;
+    height: 100%;
+    margin-top: 20px;
+  }
+  .pickupLocation .inner_box:last-child {
+    height: 0;
+    overflow: hidden;
+    margin-top: 0;
+  }
+  .pickupLocation .box::after {
+    top: 50%;
+    left: 0;
+    transform: none;
+    height: 0;
+    width: 100%;
+    border-top: #1b5a654b 0.5px solid;
+    border-right: none;
+  }
+}
+
+/* car box */
+
+.carBox {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+.carBox h5 {
+  margin-bottom: 10px;
+}
+.carBox::before {
+  left: 0;
+  top: -10px;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: linear-gradient(to right, #1b5a6549, transparent);
+}
+.carBox .img {
+  width: 30%;
+  height: 147px;
+}
+.carBox .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.carBox .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 30px;
+  margin: 0 20px;
+}
+.carBox .grid span {
+  font-size: 23px;
+  vertical-align: middle;
+  padding-right: 10px;
+}
+.carBox .main-btn-sml {
+  margin-top: 6px;
+}
+@media screen and (max-width: 1400px) {
+  .carBox .grid {
+    gap: 7px 5px;
+    margin: 0px 16px;
+  }
+  .carBox .grid span {
+    font-size: 20px;
+    padding-right: 8px;
+  }
+  .carBox h3 {
+    font-size: 25px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .carBox .flex {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .carBox .img {
+    width: 200px;
+    height: 112px;
+  }
+  .carBox .grid {
+    gap: 4px 5px;
+    margin: 0px;
+  }
+}
+
+/* pagination */
+
+.pagination button {
+  margin: 0 19px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.pagination button svg {
+  color: #ff715a;
+  font-size: 18px;
+  vertical-align: middle;
+}
+.pagination button.active {
+  opacity: 0.5;
+}
+@media screen and (max-width: 700px) {
+  .pagination button {
+    margin: 0 11px;
+  }
+}
