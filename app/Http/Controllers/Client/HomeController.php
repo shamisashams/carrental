@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\Category;
 use App\Models\Destination;
 use App\Models\News;
@@ -54,8 +55,11 @@ class HomeController extends Controller
 
         $categories = Category::with('translation')->where('status',1)->get();
 
+        $cars = Car::with(['translation','latestImage','brand.translation','carType.translation','bag.translation','transmission.translation','fuel.translation'])->where('special',1)->limit(6)->inRandomOrder()->get();
+
 
         return Inertia::render('Home/Home', [
+            'cars' => $cars,
             'destinations' => $destinations,
             'categories' => $categories,
             "sliders" => $sliders,

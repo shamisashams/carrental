@@ -38,7 +38,7 @@ class CarRepository extends BaseRepository
 
 
 
-    public function getAll(){
+    public function getAll($special = null){
 
 
         //dd(request()->post());
@@ -47,6 +47,9 @@ class CarRepository extends BaseRepository
         $query =  $this->model->select('cars.*');
 
 
+        if ($special !== null){
+            $query->where('cars.special',1);
+        }
 
 
         if (isset($params['type'])){

@@ -136,6 +136,7 @@ class CarController extends Controller
         $saveData = $request->except('_token');
         $saveData['status'] = isset($saveData['status']);
         $saveData['air_conditioning'] = isset($saveData['air_conditioning']);
+        $saveData['special'] = isset($saveData['special']);
 
 
 
@@ -239,6 +240,7 @@ class CarController extends Controller
         $saveData = Arr::except($request->except('_token'), []);
         $saveData['status'] = isset($saveData['status']);
         $saveData['air_conditioning'] = isset($saveData['air_conditioning']);
+        $saveData['special'] = isset($saveData['special']);
 
 
 

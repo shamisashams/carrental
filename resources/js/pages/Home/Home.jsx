@@ -22,7 +22,7 @@ import {Inertia} from "@inertiajs/inertia";
 
 const Home = ({seo}) => {
 
-    const { localizations, destinations, categories } = usePage().props;
+    const { localizations, destinations, categories, cars } = usePage().props;
 
     let appliedFilters = [];
     let urlParams = new URLSearchParams(window.location.search);
@@ -140,11 +140,11 @@ const Home = ({seo}) => {
               <section className="wrapper carSlider_section">
                   <div className="flex">
                       <h3>Best deals</h3>
-                      <Link href="/cars">
+                      <Link href={route('client.car.special')}>
                           <h5>See all</h5>
                       </Link>
                   </div>
-                  <CarSlider cars={[]} />
+                  <CarSlider cars={cars} />
               </section>
               <section className="easyFastSafe wrapper">
                   <h1>easy, fast & safe</h1>

@@ -255,6 +255,7 @@ Route::prefix('{locale?}')
 
         Route::get('cars', [\App\Http\Controllers\Client\CarController::class, 'index'])->name('client.car.index');
         Route::get('car/{car}', [\App\Http\Controllers\Client\CarController::class, 'show'])->name('client.car.show');
+        Route::get('cars/special', [\App\Http\Controllers\Client\CarController::class, 'special'])->name('client.car.special');
 
             Route::get('terms-conditions', [\App\Http\Controllers\Client\TermController::class, 'index'])->name('client.terms');
 

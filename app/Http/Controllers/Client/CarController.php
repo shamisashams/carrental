@@ -143,6 +143,60 @@ class CarController extends Controller
 
 
 
+    public function special(string $locale, Request $request)
+    {
+        $page = Page::where('key', 'cars')->firstOrFail();
+        $cars = $this->carRepository->getAll(true);
+
+        $images = [];
+        foreach ($page->sections as $sections){
+            if($sections->file){
+                $images[] = asset($sections->file->getFileUrlAttribute());
+            } else {
+                $images[] = null;
+            }
+
+        }
+
+        //dd($cars);
+
+        $carTypes = CarType::with('translation')->has('cars')->get();
+
+        $fuelTypes = Fuel::with('translation')->has('cars')->get();
+
+        $transmissions = Transmission::with('translation')->has('cars')->get();
+
+        $bagTypes = Bag::with('translation')->has('cars')->get();
+
+
+        //dd($wishlist);
+        //dd($products);
+        return Inertia::render('Cars/Cars',[
+            'carTypes' => $carTypes,
+            'fuelTypes' => $fuelTypes,
+            'transmissions' => $transmissions,
+            'bagTypes' => $bagTypes,
+            'cars' => $cars,
+            'images' => $images,
+            'page' => $page,
+            "seo" => [
+                "title"=>$page->meta_title,
+                "description"=>$page->meta_description,
+                "keywords"=>$page->meta_keyword,
+                "og_title"=>$page->meta_og_title,
+                "og_description"=>$page->meta_og_description,
+//            "image" => "imgg",
+//            "locale" => App::getLocale()
+            ]
+        ])->withViewData([
+            'meta_title' => $page->meta_title,
+            'meta_description' => $page->meta_description,
+            'meta_keyword' => $page->meta_keyword,
+            "image" => $page->file,
+            'og_title' => $page->meta_og_title,
+            'og_description' => $page->meta_og_description
+        ]);
+    }
 
 
 }

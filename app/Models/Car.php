@@ -51,7 +51,8 @@ class Car extends Model implements Searchable
         'car_type_id',
         'transmission_id',
         'fuel_id',
-        'bag_id'
+        'bag_id',
+        'special'
     ];
 
     /** @var string */

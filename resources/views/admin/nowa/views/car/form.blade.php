@@ -351,11 +351,21 @@
 
                     <div class="form-group">
                         <label class="ckbox">
+                            <input type="checkbox" name="special"
+                                   value="true" {{$model->special ? 'checked' : (old('special') ? 'checked' : '')}}>
+                            <span>{{__('admin.special')}}</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="ckbox">
                             <input type="checkbox" name="air_conditioning"
                                    value="true" {{$model->air_conditioning ? 'checked' : (old('air_conditioning') ? 'checked' : '')}}>
                             <span>{{__('admin.air_conditioning')}}</span>
                         </label>
                     </div>
+
+
 
                     <div class="form-group">
                         <label class="ckbox">
