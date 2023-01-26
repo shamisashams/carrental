@@ -160,13 +160,21 @@ class CarController extends Controller
 
         //dd($cars);
 
-        $carTypes = CarType::with('translation')->has('cars')->get();
+        $carTypes = CarType::with('translation')->whereHas('cars',function ($q){
+            $q->where('special',1);
+        })->get();
 
-        $fuelTypes = Fuel::with('translation')->has('cars')->get();
+        $fuelTypes = Fuel::with('translation')->whereHas('cars',function ($q){
+            $q->where('special',1);
+        })->get();
 
-        $transmissions = Transmission::with('translation')->has('cars')->get();
+        $transmissions = Transmission::with('translation')->whereHas('cars',function ($q){
+            $q->where('special',1);
+        })->get();
 
-        $bagTypes = Bag::with('translation')->has('cars')->get();
+        $bagTypes = Bag::with('translation')->whereHas('cars',function ($q){
+            $q->where('special',1);
+        })->get();
 
 
         //dd($wishlist);
