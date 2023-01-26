@@ -108,17 +108,20 @@ class CarController extends Controller
         //\Illuminate\Support\Facades\DB::enableQueryLog();
 
         //dd($slug);
-        $product = Car::where(['status' => true, 'slug' => $slug])->with(['translation','latestImage','brand.translation'])->firstOrFail();
+        $product = Car::where(['status' => true, 'slug' => $slug])->with(['translation','latestImage','brand.translation','fuel.translation','transmission.translation','bag.translation'])->firstOrFail();
 
         $features = Feature::with('translation')->where('status',1)->get();
 
         $extra_options = ExtraOption::with('translation')->get();
 
+        $cars = Car::with(['translation','latestImage','brand.translation','carType.translation','bag.translation','transmission.translation','fuel.translation'])->where('id','!=',$product->id)->limit(6)->inRandomOrder()->get();
 
+        //dd($product->type);
         return Inertia::render('SingleCar/SingleCar',[
             'features' => $features,
             'extra_options' => $extra_options,
             'car' => $product,
+            'cars' => $cars,
             "seo" => [
                 "title"=>$product->meta_title,
                 "description"=>$product->meta_description,

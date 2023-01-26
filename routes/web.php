@@ -130,6 +130,9 @@ Route::prefix('{locale?}')
                 Route::resource('fuel', \App\Http\Controllers\Admin\FuelController::class);
                 Route::get('fuel/{fuel}/destroy', [\App\Http\Controllers\Admin\FuelController::class, 'destroy'])->name('fuel.destroy');
 
+                Route::resource('bag', \App\Http\Controllers\Admin\BagController::class);
+                Route::get('bag/{bag}/destroy', [\App\Http\Controllers\Admin\BagController::class, 'destroy'])->name('bag.destroy');
+
 
 
                 Route::resource('user', \App\Http\Controllers\Admin\UserController::class);

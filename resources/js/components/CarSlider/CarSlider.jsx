@@ -10,7 +10,7 @@ import { Navigation, Pagination } from "swiper";
 import React, { useRef } from "react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 
-export default () => {
+export default ({cars}) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -47,29 +47,29 @@ export default () => {
         },
       }}
     >
-      {carSlideData.map((item, index) => {
+      {cars.map((item, index) => {
         return (
           <SwiperSlide key={index}>
             <div className="carSlider_item">
-              <h5>{item.model}</h5>
+              <h5>{item.brand?item.brand.title:''} {item.model}</h5>
               <div className="block">
                 <p>
-                  <FaCar /> {item.type}
+                  <FaCar /> {item.car_type?item.car_type.title:''}
                 </p>
                 <p>
-                  <MdLocalGasStation /> {item.fuel}
+                  <MdLocalGasStation /> {item.fuel?item.fuel.title:''}
                 </p>
                 <p>
-                  <MdAirlineSeatReclineNormal /> {item.seats}
+                  <MdAirlineSeatReclineNormal /> {item.seat}
                 </p>
                 <p>
-                  <GiGearStickPattern /> {item.transmission}
+                  <GiGearStickPattern /> {item.transmission?item.transmission.title:''}
                 </p>
               </div>
               <h4>{item.price}</h4>
               <h3 className="orange">{item.newPrice}</h3>
               <div className="img">
-                <img src={item.img} alt="" />
+                <img src={item.latest_image?item.latest_image.file_full_url:null} alt="" />
               </div>
               <button className="main-btn">Book now</button>
             </div>

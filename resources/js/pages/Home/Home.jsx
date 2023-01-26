@@ -144,7 +144,7 @@ const Home = ({seo}) => {
                           <h5>See all</h5>
                       </Link>
                   </div>
-                  <CarSlider />
+                  <CarSlider cars={[]} />
               </section>
               <section className="easyFastSafe wrapper">
                   <h1>easy, fast & safe</h1>

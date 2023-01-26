@@ -175,7 +175,7 @@ const Cars = ({seo}) => {
 
     //const [aicChecked, setAicChecked] = useState(aic_checked);
 
-    console.log(cars);
+    //console.log(cars);
 
     return (
       <Layout seo={seo}>
@@ -305,6 +305,35 @@ const Cars = ({seo}) => {
                                   </div>
                               )
                           })}
+
+                          {bagTypes.map((item,index)=>{
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('bag')) {
+                                  if (
+                                      appliedFilters['bag'].includes(
+                                          item.id.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return (
+                                  <div key={index} className="flex">
+                                      <label htmlFor={`carFeature4_${item.id}`}>Bag Type - {item.title}</label>
+                                      <input defaultChecked={checked} type="checkbox" name="" id={`carFeature4_${item.id}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'bag',
+                                              item.id
+                                          );
+                                      }} />
+                                      <label htmlFor={`carFeature4_${item.id}`}>
+                                          <div></div>
+                                      </label>
+                                  </div>
+                              )
+                          })}
                           {/*<div className="flex">
                               <label htmlFor="carFeature_2">Transmission - Automatic</label>
                               <input type="checkbox" name="" id="carFeature_2" />
@@ -329,7 +358,7 @@ const Cars = ({seo}) => {
                               return (
                                   <CarBox
                                       key={index}
-                                      model={`${item.brand.title} ${item.model}`}
+                                      model={`${item.brand?item.brand.title:''} ${item.model}`}
                                       img={item.latest_image?item.latest_image.file_full_url:null}
                                       price={item.price}
                                       slug={item.slug}

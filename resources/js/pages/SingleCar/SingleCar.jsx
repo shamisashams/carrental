@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./SingleCar.css";
 import CarSlider from "../../components/CarSlider/CarSlider";
 //import Car5 from "../../assets/images/cars/5.png";
-import { carFeatures } from "../../components/Data";
+//import { carFeatures } from "../../components/Data";
 import { BiDetail } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiErrorWarningFill } from "react-icons/ri";
@@ -15,10 +15,13 @@ import {
 import { Link, usePage } from "@inertiajs/inertia-react";
 
 import Layout from "@/Layouts/Layout";
+import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-icons/md";
+import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
+import {BsSnow2} from "react-icons/bs";
 
 const SingleCar = ({seo}) => {
 
-    const {car, features, extra_options, localizations} = usePage().props;
+    const {car, cars, features, extra_options, localizations} = usePage().props;
 
     const [price, setPrice] = useState(car.price);
 
@@ -55,12 +58,40 @@ const SingleCar = ({seo}) => {
     "Baby car seat - Price per day: 25 GEL",
     "Roof basket 1254 - Price per day: 47 GEL",
   ];
+
+    const carFeatures = [
+        {
+            icon: <MdAirlineSeatReclineNormal />,
+            text: `${car.seat} Seats`,
+        },
+        {
+            icon: <GiCarDoor />,
+            text: `${car.door} doors`,
+        },
+        {
+            icon: <MdLocalGasStation />,
+            text: car.fuel?car.fuel.title:'unknown',
+        },
+        {
+            icon: <MdLuggage />,
+            text: car.bag?car.bag.title:'unknown',
+        },
+        {
+            icon: <GiGearStickPattern />,
+            text: car.transmission?car.transmission.title:'unknown',
+        },
+        {
+            icon: <BsSnow2 />,
+            text: car.air_conditioning?'Air conditioning':'none',
+        },
+    ];
+
   return (
       <Layout seo={seo}>
           <div className="wrapper singleCar">
               <div className="flex car_info">
                   <div className="gray_box">
-                      <h3>{car.brand.title} {car.model} {/*2019*/}</h3>
+                      <h3>{car.brand?car.brand.title:''} {car.model} {/*2019*/}</h3>
                       <div className="flex">
                           <div className="img">
                               <img src={car.latest_image?car.latest_image.file_full_url:null} alt="" />
@@ -141,7 +172,7 @@ const SingleCar = ({seo}) => {
                   </div>
               </div>
               <h6 style={{ fontSize: "16px" }}>You may like</h6>
-              <CarSlider />
+              <CarSlider cars={cars} />
           </div>
       </Layout>
 

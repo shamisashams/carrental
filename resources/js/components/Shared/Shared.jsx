@@ -288,7 +288,7 @@ export const CarBox = (props) => {
         },
         {
             icon: <MdLuggage />,
-            text: "5 small bags",
+            text: props.car.bag?props.car.bag.title:'unknown',
         },
         {
             icon: <GiGearStickPattern />,

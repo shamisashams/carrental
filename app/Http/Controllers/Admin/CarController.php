@@ -127,8 +127,10 @@ class CarController extends Controller
 
 
         $request->validate([
-            'brand_id' => 'required',
-            'car_type_id' => 'required'
+            //'brand_id' => 'required',
+            'model' => 'required',
+            'price' => 'required',
+            'slug' => 'required|alpha_dash|unique:cars,slug'
         ]);
         //dd($request->all());
         $saveData = $request->except('_token');
@@ -227,8 +229,10 @@ class CarController extends Controller
         //dd($request->all());
 
         $request->validate([
-            'brand_id' => 'required',
-            'car_type_id' => 'required'
+            //'brand_id' => 'required',
+            'model' => 'required',
+            'price' => 'required',
+            'slug' => 'required|alpha_dash|unique:cars,slug,'.$car->id
         ]);
 
         //dd($request->all());

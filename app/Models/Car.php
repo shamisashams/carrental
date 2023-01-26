@@ -168,7 +168,7 @@ class Car extends Model implements Searchable
         return $this->belongsTo(Brand::class);
     }
 
-    public function type(){
+    public function carType(){
         return $this->belongsTo(CarType::class);
     }
 

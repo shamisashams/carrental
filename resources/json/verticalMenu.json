@@ -50,6 +50,13 @@
                     "slug": "fuel"
                 },
                 {
+                    "url": "bag.index",
+                    "name": "bag",
+                    "i18n": "bag",
+                    "icon": "bag",
+                    "slug": "bag"
+                },
+                {
                     "url": "car.index",
                     "name": "car",
                     "i18n": "car",
