@@ -57,12 +57,13 @@ class CarController extends Controller
 
         }
 
+        //dd($cars);
 
         $carTypes = CarType::with('translation')->has('cars')->get();
 
         $fuelTypes = Fuel::with('translation')->has('cars')->get();
 
-        $transmissions = Transmission::with('translation')->get();
+        $transmissions = Transmission::with('translation')->has('cars')->get();
 
         $bagTypes = Bag::with('translation')->has('cars')->get();
 

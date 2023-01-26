@@ -14,6 +14,7 @@ use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Attribute;
 use App\Models\Brand;
 use App\Models\CarType;
+use App\Models\Fuel;
 use App\Models\News;
 use App\Models\Category;
 use App\Models\Product;
@@ -66,7 +67,7 @@ class FuelController extends Controller
             'products' => $this->productRepository->getData($request, ['translations', 'categories'])
         ]);*/
 
-        return view('admin.nowa.views.transmission.index', [
+        return view('admin.nowa.views.fuel.index', [
             'data' => $this->fuelRepository->getData($request, ['translations'])
         ]);
     }
@@ -84,7 +85,7 @@ class FuelController extends Controller
 
 
 
-        $url = locale_route('transmission.store', [], false);
+        $url = locale_route('fuel.store', [], false);
         $method = 'POST';
 
         /*return view('admin.pages.product.form', [
@@ -94,7 +95,7 @@ class FuelController extends Controller
             'categories' => $this->categories
         ]);*/
 
-        return view('admin.nowa.views.transmission.form', [
+        return view('admin.nowa.views.fuel.form', [
             'model' => $blog,
             'url' => $url,
             'method' => $method,
@@ -131,7 +132,7 @@ class FuelController extends Controller
 
 
 
-        return redirect(locale_route('transmission.index', $news->id))->with('success', __('admin.create_successfully'));
+        return redirect(locale_route('fuel.index', $news->id))->with('success', __('admin.create_successfully'));
 
     }
 
@@ -145,9 +146,9 @@ class FuelController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function edit(string $locale, Transmission $transmission)
+    public function edit(string $locale, Fuel $fuel)
     {
-        $url = locale_route('transmission.update', $transmission->id, false);
+        $url = locale_route('fuel.update', $fuel->id, false);
         $method = 'PUT';
 
         /*return view('admin.pages.product.form', [
@@ -157,8 +158,8 @@ class FuelController extends Controller
             'categories' => $this->categories
         ]);*/
 
-        return view('admin.nowa.views.transmission.form', [
-            'model' => $transmission,
+        return view('admin.nowa.views.fuel.form', [
+            'model' => $fuel,
             'url' => $url,
             'method' => $method,
         ]);
@@ -173,7 +174,7 @@ class FuelController extends Controller
      * @return Application|RedirectResponse|Redirector
      * @throws ReflectionException
      */
-    public function update(Request $request, string $locale, Transmission $transmission)
+    public function update(Request $request, string $locale, Fuel $fuel)
     {
         $request->validate([
             config('translatable.fallback_locale') . '.title' => 'required',
@@ -186,9 +187,9 @@ class FuelController extends Controller
 
         //dd($attributes);
 
-        $this->fuelRepository->update($transmission->id, $saveData);
+        $this->fuelRepository->update($fuel->id, $saveData);
 
-        $this->fuelRepository->saveFiles($transmission->id, $request);
+        $this->fuelRepository->saveFiles($fuel->id, $request);
 
 
 
@@ -198,7 +199,7 @@ class FuelController extends Controller
 
 
 
-        return redirect(locale_route('transmission.index', $transmission->id))->with('success', __('admin.update_successfully'));
+        return redirect(locale_route('fuel.index', $fuel->id))->with('success', __('admin.update_successfully'));
     }
 
 
@@ -234,11 +235,11 @@ class FuelController extends Controller
      * @param Product $product
      * @return Application|RedirectResponse|Redirector
      */
-    public function destroy(string $locale, Transmission $transmission)
+    public function destroy(string $locale, Fuel $fuel)
     {
-        if (!$this->fuelRepository->delete($transmission->id)) {
-            return redirect(locale_route('transmission.index', $transmission->id))->with('danger', __('admin.not_delete_message'));
+        if (!$this->fuelRepository->delete($fuel->id)) {
+            return redirect(locale_route('fuel.index', $fuel->id))->with('danger', __('admin.not_delete_message'));
         }
-        return redirect(locale_route('transmission.index'))->with('success', __('admin.delete_message'));
+        return redirect(locale_route('fuel.index'))->with('success', __('admin.delete_message'));
     }
 }

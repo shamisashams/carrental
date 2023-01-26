@@ -13,11 +13,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Attribute;
 use App\Models\AttributeOption;
+use App\Models\Bag;
 use App\Models\Brand;
 use App\Models\Car;
 use App\Models\CarType;
 use App\Models\Category;
 use App\Models\CategoryColor;
+use App\Models\Fuel;
 use App\Models\Product;
 use App\Models\ProductAttributeValue;
 use App\Models\ProductColor;
@@ -106,7 +108,9 @@ class CarController extends Controller
             'method' => $method,
             'brands' => Brand::with('translation')->get(),
             'types' => CarType::with('translation')->get(),
-            'transmissions' => Transmission::with('translation')->get()
+            'transmissions' => Transmission::with('translation')->get(),
+            'fuels' => Fuel::with('translation')->get(),
+            'bags' => Bag::with('translation')->get()
         ]);
     }
 
@@ -203,7 +207,9 @@ class CarController extends Controller
             'method' => $method,
             'brands' => Brand::with('translation')->get(),
             'types' => CarType::with('translation')->get(),
-            'transmissions' => Transmission::with('translation')->get()
+            'transmissions' => Transmission::with('translation')->get(),
+            'fuels' => Fuel::with('translation')->get(),
+            'bags' => Bag::with('translation')->get()
         ]);
     }
 

@@ -127,8 +127,8 @@ Route::prefix('{locale?}')
                 Route::resource('transmission', \App\Http\Controllers\Admin\TransmissionController::class);
                 Route::get('transmission/{transmission}/destroy', [\App\Http\Controllers\Admin\TransmissionController::class, 'destroy'])->name('transmission.destroy');
 
-                Route::resource('fuel', \App\Http\Controllers\Admin\TransmissionController::class);
-                Route::get('fuel/{fuel}/destroy', [\App\Http\Controllers\Admin\TransmissionController::class, 'destroy'])->name('fuel.destroy');
+                Route::resource('fuel', \App\Http\Controllers\Admin\FuelController::class);
+                Route::get('fuel/{fuel}/destroy', [\App\Http\Controllers\Admin\FuelController::class, 'destroy'])->name('fuel.destroy');
 
 
 

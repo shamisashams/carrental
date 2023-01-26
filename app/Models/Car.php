@@ -175,4 +175,12 @@ class Car extends Model implements Searchable
     public function transmission(){
         return $this->belongsTo(Transmission::class);
     }
+
+    public function fuel(){
+        return $this->belongsTo(Fuel::class);
+    }
+
+    public function bag(){
+        return $this->belongsTo(Bag::class);
+    }
 }

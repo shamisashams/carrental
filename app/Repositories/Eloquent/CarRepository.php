@@ -61,6 +61,12 @@ class CarRepository extends BaseRepository
             $query->whereIn('transmissions.id',$transmissions);
         }
 
+        if (isset($params['fuel'])){
+            $fuels = explode(',',$params['fuel']);
+            $query->leftJoin('fuels','fuels.id','cars.fuel_id');
+            $query->whereIn('fuels.id',$fuels);
+        }
+
         if (isset($params['air_conditioning'])){
 
             $query->where('cars.air_conditioning',1);
@@ -71,7 +77,7 @@ class CarRepository extends BaseRepository
         $query->where('cars.status',1);
 
 
-        return $query->with(['translation','latestImage', 'brand.translation','transmission.translation'])->paginate('6')->withQueryString();
+        return $query->with(['translation','latestImage', 'brand.translation','transmission.translation','fuel.translation','bag.translation'])->paginate('6')->withQueryString();
     }
 
 

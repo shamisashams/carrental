@@ -174,6 +174,9 @@ const Cars = ({seo}) => {
     } else aic_checked = false;
 
     //const [aicChecked, setAicChecked] = useState(aic_checked);
+
+    console.log(cars);
+
     return (
       <Layout seo={seo}>
           <div className="carsPage">
@@ -272,6 +275,35 @@ const Cars = ({seo}) => {
                                       </label>
                                   </div>
                                   )
+                          })}
+
+                          {fuelTypes.map((item,index)=>{
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('fuel')) {
+                                  if (
+                                      appliedFilters['fuel'].includes(
+                                          item.id.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return (
+                                  <div key={index} className="flex">
+                                      <label htmlFor={`carFeature3_${item.id}`}>Fuel - {item.title}</label>
+                                      <input defaultChecked={checked} type="checkbox" name="" id={`carFeature3_${item.id}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'fuel',
+                                              item.id
+                                          );
+                                      }} />
+                                      <label htmlFor={`carFeature3_${item.id}`}>
+                                          <div></div>
+                                      </label>
+                                  </div>
+                              )
                           })}
                           {/*<div className="flex">
                               <label htmlFor="carFeature_2">Transmission - Automatic</label>

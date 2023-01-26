@@ -254,6 +254,40 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.fuel')</label>
+                        <select class="form-control" name="fuel_id">
+                            <option value=""></option>
+                            @foreach($fuels as $fuel)
+                                <option value="{{$fuel->id}}" {{$model->fuel_id == $fuel->id?'selected':''}}>{{$fuel->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('fuel_id')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.bag')</label>
+                        <select class="form-control" name="bag_id">
+                            <option value=""></option>
+                            @foreach($bags as $bag)
+                                <option value="{{$bag->id}}" {{$model->bag_id == $bag->id?'selected':''}}>{{$bag->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('bag_id')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
 
                     <div class="form-group">
                         {!! Form::label('slug',__('admin.slug'),['class' => 'form-label']) !!}

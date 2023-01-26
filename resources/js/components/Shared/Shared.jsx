@@ -284,7 +284,7 @@ export const CarBox = (props) => {
         },
         {
             icon: <MdLocalGasStation />,
-            text: "Gass",
+            text: props.car.fuel?props.car.fuel.title:'unknown',
         },
         {
             icon: <MdLuggage />,
