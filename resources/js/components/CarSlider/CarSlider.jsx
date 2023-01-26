@@ -9,10 +9,15 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper";
 import React, { useRef } from "react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
+import { Inertia } from "@inertiajs/inertia";
 
 export default ({cars}) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+
+  function visit(slug){
+      Inertia.visit(route('client.car.show',slug));
+  }
 
   return (
     <Swiper
@@ -71,7 +76,9 @@ export default ({cars}) => {
               <div className="img">
                 <img src={item.latest_image?item.latest_image.file_full_url:null} alt="" />
               </div>
-              <button className="main-btn">Book now</button>
+              <button onClick={() => {
+                  visit(item.slug)
+              }} className="main-btn">Book now</button>
             </div>
           </SwiperSlide>
         );
