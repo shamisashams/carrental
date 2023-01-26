@@ -41,8 +41,8 @@
                                     <th>@lang('admin.id')</th>
 
 
-                                    <th>@lang('admin.address')</th>
-                                    <th>@lang('admin.price')</th>
+                                    <th>@lang('admin.title')</th>
+                                    <th></th>
                                     <th>@lang('admin.actions')</th>
                                 </tr>
                                 </thead>

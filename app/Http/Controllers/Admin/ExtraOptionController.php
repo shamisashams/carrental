@@ -15,6 +15,7 @@ use App\Models\Address;
 use App\Models\Attribute;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\ExtraOption;
 use App\Models\Faq;
 use App\Models\Product;
 use App\Models\ProductAttributeValue;
@@ -115,7 +116,7 @@ class ExtraOptionController extends Controller
         //dd($request->all());
         $saveData = Arr::except($request->except('_token'), []);
 
-
+        $saveData['status'] = isset($saveData['status']);
 
 
         $product = $this->extraOptionRepository->create($saveData);
@@ -157,9 +158,9 @@ class ExtraOptionController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function edit(string $locale, Address $address)
+    public function edit(string $locale, ExtraOption $extraOption)
     {
-        $url = locale_route('extra_option.update', $address->id, false);
+        $url = locale_route('extra_option.update', $extraOption->id, false);
         $method = 'PUT';
 
         /*return view('admin.pages.product.form', [
@@ -170,7 +171,7 @@ class ExtraOptionController extends Controller
         ]);*/
 
         return view('admin.nowa.views.extra_option.form', [
-            'model' => $address,
+            'model' => $extraOption,
             'url' => $url,
             'method' => $method,
         ]);
@@ -185,24 +186,24 @@ class ExtraOptionController extends Controller
      * @return Application|RedirectResponse|Redirector
      * @throws ReflectionException
      */
-    public function update(Request $request, string $locale, Address $address)
+    public function update(Request $request, string $locale, ExtraOption $extraOption)
     {
         //dd($request->all());
         $saveData = Arr::except($request->except('_token'), []);
 
-
+        $saveData['status'] = isset($saveData['status']);
         //dd($saveData);
 
         //dd($attributes);
 
-        $this->extraOptionRepository->update($address->id, $saveData);
+        $this->extraOptionRepository->update($extraOption->id, $saveData);
 
 
 
 
 
 
-        return redirect(locale_route('extra_option.index', $address->id))->with('success', __('admin.update_successfully'));
+        return redirect(locale_route('extra_option.index', $extraOption->id))->with('success', __('admin.update_successfully'));
     }
 
     /**
@@ -212,10 +213,10 @@ class ExtraOptionController extends Controller
      * @param Product $product
      * @return Application|RedirectResponse|Redirector
      */
-    public function destroy(string $locale, Address $address)
+    public function destroy(string $locale, ExtraOption $extraOption)
     {
-        if (!$this->extraOptionRepository->delete($address->id)) {
-            return redirect(locale_route('extra_option.index', $address->id))->with('danger', __('admin.not_delete_message'));
+        if (!$this->extraOptionRepository->delete($extraOption->id)) {
+            return redirect(locale_route('extra_option.index', $extraOption->id))->with('danger', __('admin.not_delete_message'));
         }
         return redirect(locale_route('extra_option.index'))->with('success', __('admin.delete_message'));
     }

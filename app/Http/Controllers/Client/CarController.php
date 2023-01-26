@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Client;
 use App\Cart\Facade\Cart;
 use App\Http\Controllers\Controller;
 use App\Mail\PromocodeProduct;
+use App\Models\Bag;
 use App\Models\Car;
+use App\Models\CarType;
 use App\Models\Category;
+use App\Models\ExtraOption;
+use App\Models\Feature;
+use App\Models\Fuel;
 use App\Models\MailTemplate;
 use App\Models\Page;
 use App\Models\Product;
+use App\Models\Transmission;
 use App\Promocode\Promocode;
+use App\Repositories\Eloquent\CarRepository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -24,10 +31,10 @@ use Illuminate\Support\Facades\Mail;
 class CarController extends Controller
 {
 
-    protected $productRepository;
+    protected $carRepository;
 
-    public function __construct(ProductRepository $productRepository){
-        $this->productRepository = $productRepository;
+    public function __construct(CarRepository $carRepository){
+        $this->carRepository = $carRepository;
     }
 
     /**
@@ -38,9 +45,7 @@ class CarController extends Controller
     public function index(string $locale, Request $request)
     {
         $page = Page::where('key', 'cars')->firstOrFail();
-        /*$products = Product::with(['files'])->whereHas('categories',function (Builder $query){
-            $query->where('status', 1);
-        })->paginate(16);*/
+        $cars = $this->carRepository->getAll();
 
         $images = [];
         foreach ($page->sections as $sections){
@@ -53,12 +58,23 @@ class CarController extends Controller
         }
 
 
+        $carTypes = CarType::with('translation')->has('cars')->get();
 
+        $fuelTypes = Fuel::with('translation')->has('cars')->get();
+
+        $transmissions = Transmission::with('translation')->get();
+
+        $bagTypes = Bag::with('translation')->has('cars')->get();
 
 
             //dd($wishlist);
         //dd($products);
         return Inertia::render('Cars/Cars',[
+            'carTypes' => $carTypes,
+            'fuelTypes' => $fuelTypes,
+            'transmissions' => $transmissions,
+            'bagTypes' => $bagTypes,
+            'cars' => $cars,
             'images' => $images,
             'page' => $page,
             "seo" => [
@@ -91,11 +107,17 @@ class CarController extends Controller
         //\Illuminate\Support\Facades\DB::enableQueryLog();
 
         //dd($slug);
-        $product = Car::where(['status' => true, 'slug' => $slug])->with(['latestImage'])->firstOrFail();
+        $product = Car::where(['status' => true, 'slug' => $slug])->with(['translation','latestImage','brand.translation'])->firstOrFail();
+
+        $features = Feature::with('translation')->where('status',1)->get();
+
+        $extra_options = ExtraOption::with('translation')->get();
 
 
         return Inertia::render('SingleCar/SingleCar',[
-            'product' => $product,
+            'features' => $features,
+            'extra_options' => $extra_options,
+            'car' => $product,
             "seo" => [
                 "title"=>$product->meta_title,
                 "description"=>$product->meta_description,

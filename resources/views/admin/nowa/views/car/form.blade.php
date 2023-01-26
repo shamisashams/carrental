@@ -237,6 +237,23 @@
                         @enderror
                     </div>
 
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.transmission')</label>
+                        <select class="form-control" name="transmission_id">
+                            <option value=""></option>
+                            @foreach($transmissions as $transmission)
+                                <option value="{{$transmission->id}}" {{$model->transmission_id == $transmission->id?'selected':''}}>{{$transmission->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('transmission_id')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
 
                     <div class="form-group">
                         {!! Form::label('slug',__('admin.slug'),['class' => 'form-label']) !!}
@@ -260,6 +277,50 @@
                             </div>
                         </small>
                         @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.seats')</label>
+                        <input type="number" step="1" class="form-control" name="seat" value="{{$model->seat??old('seat')}}">
+                        @error('seat')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.doors')</label>
+                        <input type="number" step="1" class="form-control" name="door" value="{{$model->door??old('door')}}">
+                        @error('door')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">@lang('admin.price')</label>
+                        <input type="number" step="0.01" class="form-control" name="price" value="{{$model->price??old('price')}}">
+                        @error('price')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label class="ckbox">
+                            <input type="checkbox" name="air_conditioning"
+                                   value="true" {{$model->air_conditioning ? 'checked' : (old('air_conditioning') ? 'checked' : '')}}>
+                            <span>{{__('admin.air_conditioning')}}</span>
+                        </label>
                     </div>
 
                     <div class="form-group">

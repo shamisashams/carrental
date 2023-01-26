@@ -64,4 +64,8 @@ class CarType extends Model
     {
         return $this->morphOne(File::class, 'fileable');
     }
+
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
 }

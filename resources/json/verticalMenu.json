@@ -36,6 +36,20 @@
                     "slug": "car_type"
                 },
                 {
+                    "url": "transmission.index",
+                    "name": "transmission",
+                    "i18n": "transmission",
+                    "icon": "transmission",
+                    "slug": "transmission"
+                },
+                {
+                    "url": "fuel.index",
+                    "name": "fuel",
+                    "i18n": "fuel",
+                    "icon": "fuel",
+                    "slug": "fuel"
+                },
+                {
                     "url": "car.index",
                     "name": "car",
                     "i18n": "car",

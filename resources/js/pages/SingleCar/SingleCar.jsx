@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./SingleCar.css";
 import CarSlider from "../../components/CarSlider/CarSlider";
 //import Car5 from "../../assets/images/cars/5.png";
@@ -17,6 +17,29 @@ import { Link, usePage } from "@inertiajs/inertia-react";
 import Layout from "@/Layouts/Layout";
 
 const SingleCar = ({seo}) => {
+
+    const {car, features, extra_options, localizations} = usePage().props;
+
+    const [price, setPrice] = useState(car.price);
+
+    //console.log(car)
+
+    function finalPrice(e){
+        let carPrice = parseFloat(car.price);
+        if (e.target.checked){
+            //alert('checked');
+        } else {
+            //alert('not checked');
+        }
+        let checked = document.querySelectorAll('input[name="extra"]:checked');
+
+        let c_price = 0;
+        checked.forEach((item, index) => {
+            c_price += parseFloat(item.value);
+        });
+        setPrice(carPrice + c_price);
+    }
+
   const includes = [
     "Theft protection",
     "Local fees and VAT",
@@ -37,10 +60,10 @@ const SingleCar = ({seo}) => {
           <div className="wrapper singleCar">
               <div className="flex car_info">
                   <div className="gray_box">
-                      <h3>Volkswagen Golf 2019</h3>
+                      <h3>{car.brand.title} {car.model} {/*2019*/}</h3>
                       <div className="flex">
                           <div className="img">
-                              <img src="/client/assets/images/cars/5.png" alt="" />
+                              <img src={car.latest_image?car.latest_image.file_full_url:null} alt="" />
                           </div>
                           <div>
                               <strong>
@@ -63,11 +86,11 @@ const SingleCar = ({seo}) => {
                           <div className="includes">
                               <strong>Price includes:</strong>
                               <div className="grid list">
-                                  {includes.map((item, index) => {
+                                  {features.map((item, index) => {
                                       return (
                                           <div key={index}>
                                               <FaCheckCircle />
-                                              {item}
+                                              {item.text}
                                           </div>
                                       );
                                   })}
@@ -96,19 +119,21 @@ const SingleCar = ({seo}) => {
                           <DropoffDate />
                       </div>
                       <strong>Aditional options</strong>
-                      {aditionOptions.map((item, index) => {
+                      {extra_options.map((item, index) => {
                           return (
                               <div className="flex check">
-                                  <input type="checkbox" name="" id={`option_${index}`} />
+                                  <input onClick={(event)=>{
+                                      finalPrice(event)
+                                  }} type="checkbox" name="extra" id={`option_${index}`} value={item.price} />
                                   <label htmlFor={`option_${index}`}>
                                       <div></div>
                                   </label>
-                                  <div>{item}</div>
+                                  <div>{item.text} - Price per day: {item.price}GEL</div>
                               </div>
                           );
                       })}
                       <div>
-                          <h2>90$ day</h2>
+                          <h2>{price}GEL day</h2>
                           <Link href="/payment" className="main-btn">
                               Book now
                           </Link>

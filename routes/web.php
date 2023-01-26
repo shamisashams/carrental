@@ -124,6 +124,12 @@ Route::prefix('{locale?}')
                 Route::resource('car_type', \App\Http\Controllers\Admin\CarTypeController::class);
                 Route::get('car_type/{car_type}/destroy', [\App\Http\Controllers\Admin\CarTypeController::class, 'destroy'])->name('car_type.destroy');
 
+                Route::resource('transmission', \App\Http\Controllers\Admin\TransmissionController::class);
+                Route::get('transmission/{transmission}/destroy', [\App\Http\Controllers\Admin\TransmissionController::class, 'destroy'])->name('transmission.destroy');
+
+                Route::resource('fuel', \App\Http\Controllers\Admin\TransmissionController::class);
+                Route::get('fuel/{fuel}/destroy', [\App\Http\Controllers\Admin\TransmissionController::class, 'destroy'])->name('fuel.destroy');
+
 
 
                 Route::resource('user', \App\Http\Controllers\Admin\UserController::class);

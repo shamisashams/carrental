@@ -48,7 +48,10 @@ class Car extends Model implements Searchable
         'fuel',
         'bag',
         'model',
-        'car_type_id'
+        'car_type_id',
+        'transmission_id',
+        'fuel_id',
+        'bag_id'
     ];
 
     /** @var string */
@@ -161,5 +164,15 @@ class Car extends Model implements Searchable
         return $this->morphMany(Video::class, 'videoable');
     }
 
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
 
+    public function type(){
+        return $this->belongsTo(CarType::class);
+    }
+
+    public function transmission(){
+        return $this->belongsTo(Transmission::class);
+    }
 }

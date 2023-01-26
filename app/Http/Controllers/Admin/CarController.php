@@ -24,6 +24,7 @@ use App\Models\ProductColor;
 use App\Models\ProductSet;
 use App\Models\PromoCode;
 use App\Models\Stock;
+use App\Models\Transmission;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\Eloquent\CarRepository;
 use App\Repositories\Eloquent\ProductAttributeValueRepository;
@@ -126,7 +127,8 @@ class CarController extends Controller
         ]);
         //dd($request->all());
         $saveData = $request->except('_token');
-        $saveData['status'] = isset($saveData['status']) && (bool)$saveData['status'];
+        $saveData['status'] = isset($saveData['status']);
+        $saveData['air_conditioning'] = isset($saveData['air_conditioning']);
 
 
 
@@ -199,7 +201,8 @@ class CarController extends Controller
             'url' => $url,
             'method' => $method,
             'brands' => Brand::with('translation')->get(),
-            'types' => CarType::with('translation')->get()
+            'types' => CarType::with('translation')->get(),
+            'transmissions' => Transmission::with('translation')->get()
         ]);
     }
 
@@ -223,7 +226,8 @@ class CarController extends Controller
 
         //dd($request->all());
         $saveData = Arr::except($request->except('_token'), []);
-        $saveData['status'] = isset($saveData['status']) && (bool)$saveData['status'];
+        $saveData['status'] = isset($saveData['status']);
+        $saveData['air_conditioning'] = isset($saveData['air_conditioning']);
 
 
 

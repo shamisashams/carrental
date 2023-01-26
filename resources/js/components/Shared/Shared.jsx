@@ -5,10 +5,12 @@ import "./Shared.css";
 import { HiChevronDown } from "react-icons/hi";
 import { ImLocation2 } from "react-icons/im";
 import { RiCalendar2Fill } from "react-icons/ri";
-import { MdAirlineSeatReclineNormal } from "react-icons/md";
+import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-icons/md";
 import { Calendar } from "../Calendar/Calendar";
 import { carFeatures } from "../Data";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
+import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
+import {BsSnow2} from "react-icons/bs";
 
 export const Hashtag = ({ text }) => {
   const [active, setActive] = useState();
@@ -271,6 +273,32 @@ export const NumberOfSeats = () => {
 };
 
 export const CarBox = (props) => {
+    const carFeatures = [
+        {
+            icon: <MdAirlineSeatReclineNormal />,
+            text: `${props.car.seat} Seats`,
+        },
+        {
+            icon: <GiCarDoor />,
+            text: `${props.car.door} doors`,
+        },
+        {
+            icon: <MdLocalGasStation />,
+            text: "Gass",
+        },
+        {
+            icon: <MdLuggage />,
+            text: "5 small bags",
+        },
+        {
+            icon: <GiGearStickPattern />,
+            text: props.car.transmission?props.car.transmission.title:'unknown',
+        },
+        {
+            icon: <BsSnow2 />,
+            text: props.car.air_conditioning?'Air conditioning':'none',
+        },
+    ];
   return (
     <div className="carBox">
       <h5>{props.model}</h5>
@@ -289,8 +317,8 @@ export const CarBox = (props) => {
           })}
         </div>
         <div>
-          <h3>{props.price} day</h3>
-          <Link href={route('client.car.show','test')} className="main-btn-sml">
+          <h3>{props.price}GEL day</h3>
+          <Link href={route('client.car.show',props.slug)} className="main-btn-sml">
             Book now
           </Link>
         </div>

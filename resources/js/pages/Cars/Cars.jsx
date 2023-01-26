@@ -14,8 +14,14 @@ import { IoCloseOutline } from "react-icons/io5";
 import { carSlideData, carTypes } from "../../components/Data";
 
 import Layout from "@/Layouts/Layout";
+import {Link, usePage} from "@inertiajs/inertia-react";
+import {CgChevronLeft, CgChevronRight} from "react-icons/cg";
+import { Inertia } from "@inertiajs/inertia";
 
 const Cars = ({seo}) => {
+
+    const {cars, carTypes, transmissions, fuelTypes, bagTypes, localizations} = usePage().props;
+
   const [showFilter, setShowFilter] = useState(false);
   const wrapperRef = useRef();
 
@@ -34,7 +40,141 @@ const Cars = ({seo}) => {
     }, [ref]);
   }
 
-  return (
+    let links = function (links) {
+        let rows = [];
+        //links.shift();
+        //links.splice(-1);
+        {
+            links.map(function (item, index) {
+                if (index > 0 && index < links.length - 1) {
+                    rows.push(
+                        <Link
+                            href={item.url}
+                            className={
+                                item.active
+                                    ? "active"
+                                    : ""
+                            }
+                        >
+                            {item.label}
+                        </Link>
+                    );
+                }
+            });
+        }
+        return rows.length > 1 ? rows : null
+    };
+
+    let linksPrev = function (links) {
+        let rowCount = 0;
+        links.map(function (item, index) {
+            if (index > 0 && index < links.length - 1) {
+                rowCount++;
+            }
+        });
+        return rowCount > 1 ? (
+            <Link href={links[0].url}>
+
+                <CgChevronLeft />
+
+            </Link>
+        ) : null;
+    };
+    let linksNext = function (links) {
+        let rowCount = 0;
+        links.map(function (item, index) {
+            if (index > 0 && index < links.length - 1) {
+                rowCount++;
+            }
+        });
+        return rowCount > 1 ? (
+            <Link href={links[links.length - 1].url}>
+                <CgChevronRight />
+            </Link>
+        ) : null;
+    };
+
+
+
+    let appliedFilters = [];
+    let urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.forEach((value, index) => {
+        appliedFilters[index] = value.split(",");
+    });
+
+    function removeA(arr) {
+        var what,
+            a = arguments,
+            L = a.length,
+            ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax = arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
+
+
+    const handleFilterClick = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+
+        if (event.target.checked === true) {
+            if (appliedFilters.hasOwnProperty(code)) {
+                appliedFilters[code].push(value.toString());
+            } else appliedFilters[code] = [value.toString()];
+        } else {
+            if (appliedFilters[code].length > 1)
+                removeA(appliedFilters[code], value.toString());
+            else delete appliedFilters[code];
+        }
+
+        //console.log(appliedFilters);
+
+    };
+
+    const handleFilterClickBoolean = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+
+        if (event.target.checked === true) {
+            appliedFilters[code] = [value];
+
+        } else {
+
+            delete appliedFilters[code];
+        }
+
+        //console.log(appliedFilters);
+
+    };
+
+    function search(){
+        let params = [];
+
+        for (let key in appliedFilters) {
+            params.push(key + "=" + appliedFilters[key].join(","));
+        }
+
+        Inertia.visit("?" + params.join("&"));
+    }
+
+    let aic_checked;
+
+    if (appliedFilters.hasOwnProperty('air_conditioning')) {
+        if (
+            appliedFilters['air_conditioning'].includes(
+                (1).toString()
+            )
+        ) {
+            aic_checked = true;
+        } else aic_checked = false;
+    } else aic_checked = false;
+
+    //const [aicChecked, setAicChecked] = useState(aic_checked);
+    return (
       <Layout seo={seo}>
           <div className="carsPage">
               <button onClick={() => setShowFilter(!showFilter)} className="FilterBtn">
@@ -59,10 +199,27 @@ const Cars = ({seo}) => {
                               Select the car type
                           </div>
                           {carTypes.map((item, index) => {
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('type')) {
+                                  if (
+                                      appliedFilters['type'].includes(
+                                          item.id.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
                               return (
                                   <div key={index} className="flex">
-                                      <label htmlFor={`carType_${index}`}>{item}</label>
-                                      <input type="checkbox" name="" id={`carType_${index}`} />
+                                      <label htmlFor={`carType_${index}`}>{item.title}</label>
+                                      <input type="checkbox" name="" defaultChecked={checked} id={`carType_${index}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'type',
+                                              item.id
+                                          );
+                                      }} />
                                       <label htmlFor={`carType_${index}`}>
                                           <div></div>
                                       </label>
@@ -77,12 +234,46 @@ const Cars = ({seo}) => {
                           </div>
                           <div className="flex">
                               <label htmlFor="carFeature_1">Air conditioning</label>
-                              <input type="checkbox" name="" id="carFeature_1" />
+                              <input type="checkbox" defaultChecked={aic_checked} name="" id="carFeature_1" onClick={(event) => {
+                                  handleFilterClickBoolean(
+                                      event,
+                                      'air_conditioning',
+                                      1
+                                  );
+                              }} />
                               <label htmlFor="carFeature_1">
                                   <div></div>
                               </label>
                           </div>
-                          <div className="flex">
+                          {transmissions.map((item,index)=>{
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('transmission')) {
+                                  if (
+                                      appliedFilters['transmission'].includes(
+                                          item.id.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return (
+                                  <div key={index} className="flex">
+                                      <label htmlFor={`carFeature2_${item.id}`}>Transmission - {item.title}</label>
+                                      <input defaultChecked={checked} type="checkbox" name="" id={`carFeature2_${item.id}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'transmission',
+                                              item.id
+                                          );
+                                      }} />
+                                      <label htmlFor={`carFeature2_${item.id}`}>
+                                          <div></div>
+                                      </label>
+                                  </div>
+                                  )
+                          })}
+                          {/*<div className="flex">
                               <label htmlFor="carFeature_2">Transmission - Automatic</label>
                               <input type="checkbox" name="" id="carFeature_2" />
                               <label htmlFor="carFeature_2">
@@ -95,26 +286,40 @@ const Cars = ({seo}) => {
                               <label htmlFor="carFeature_3">
                                   <div></div>
                               </label>
-                          </div>
+                          </div>*/}
                       </div>
                       <NumberOfSeats />
-                      <button className="main-btn">Search</button>
+                      <button onClick={search} className="main-btn">Search</button>
                   </section>
                   <section className="section carsTabs ">
                       <div style={{ marginBottom: "30px" }}>
-                          {carSlideData.map((item, index) => {
+                          {cars.data.map((item, index) => {
                               return (
                                   <CarBox
                                       key={index}
-                                      model={item.model}
-                                      img={item.img}
+                                      model={`${item.brand.title} ${item.model}`}
+                                      img={item.latest_image?item.latest_image.file_full_url:null}
                                       price={item.price}
+                                      slug={item.slug}
+                                      car={item}
                                   />
                               );
                           })}
                       </div>
 
-                      <Pagination />
+                      {/*<Pagination />*/}
+                      <div className="pagination flex center">
+                          {/*<button>
+                          <CgChevronLeft />
+                      </button>
+                      <button className="active">1</button>
+                      <button>2</button>
+                      <button>3</button>
+                      <button>
+                          <CgChevronRight />
+                      </button>*/}
+                          {linksPrev(cars.links)}{links(cars.links)}{linksNext(cars.links)}
+                      </div>
                   </section>
               </div>
           </div>
