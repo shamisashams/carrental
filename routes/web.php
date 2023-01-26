@@ -77,6 +77,12 @@ Route::prefix('{locale?}')
                 Route::resource('address', \App\Http\Controllers\Admin\AddressController::class);
                 Route::get('address/{address}/destroy', [\App\Http\Controllers\Admin\AddressController::class, 'destroy'])->name('address.destroy');
 
+                Route::resource('extra_option', \App\Http\Controllers\Admin\ExtraOptionController::class);
+                Route::get('extra_option/{extra_option}/destroy', [\App\Http\Controllers\Admin\ExtraOptionController::class, 'destroy'])->name('extra_option.destroy');
+
+                Route::resource('feature', \App\Http\Controllers\Admin\FeatureController::class);
+                Route::get('feature/{feature}/destroy', [\App\Http\Controllers\Admin\FeatureController::class, 'destroy'])->name('feature.destroy');
+
                 Route::resource('destination', \App\Http\Controllers\Admin\DestinationController::class);
                 Route::get('destination/{destination}/destroy', [\App\Http\Controllers\Admin\DestinationController::class, 'destroy'])->name('destination.destroy');
 

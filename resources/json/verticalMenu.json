@@ -48,6 +48,20 @@
                     "i18n": "address",
                     "icon": "address",
                     "slug": "address"
+                },
+                {
+                    "url": "extra_option.index",
+                    "name": "additional options",
+                    "i18n": "extra_option",
+                    "icon": "extra_option",
+                    "slug": "extra_option"
+                },
+                {
+                    "url": "feature.index",
+                    "name": "included features",
+                    "i18n": "features",
+                    "icon": "features",
+                    "slug": "feature"
                 }
             ]
         },
