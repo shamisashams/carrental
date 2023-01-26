@@ -105,7 +105,8 @@ class CarController extends Controller
             'url' => $url,
             'method' => $method,
             'brands' => Brand::with('translation')->get(),
-            'types' => CarType::with('translation')->get()
+            'types' => CarType::with('translation')->get(),
+            'transmissions' => Transmission::with('translation')->get()
         ]);
     }
 
