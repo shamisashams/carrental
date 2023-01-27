@@ -20,7 +20,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 const Cars = ({seo}) => {
 
-    const {cars, carTypes, transmissions, fuelTypes, bagTypes, localizations} = usePage().props;
+    const {cars, carTypes, transmissions, fuelTypes, bagTypes, seats, doors, localizations} = usePage().props;
 
   const [showFilter, setShowFilter] = useState(false);
   const wrapperRef = useRef();
@@ -176,6 +176,9 @@ const Cars = ({seo}) => {
     //const [aicChecked, setAicChecked] = useState(aic_checked);
 
     //console.log(cars);
+
+
+
 
     return (
       <Layout seo={seo}>
@@ -334,6 +337,64 @@ const Cars = ({seo}) => {
                                   </div>
                               )
                           })}
+
+                          {seats.map((item,index)=>{
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('seat')) {
+                                  if (
+                                      appliedFilters['seat'].includes(
+                                          item.seat.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return (
+                                  <div key={index} className="flex">
+                                      <label htmlFor={`carFeature5_${item.seat}`}>Seats - {item.seat}</label>
+                                      <input defaultChecked={checked} type="checkbox" name="" id={`carFeature5_${item.seat}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'seat',
+                                              item.seat
+                                          );
+                                      }} />
+                                      <label htmlFor={`carFeature5_${item.seat}`}>
+                                          <div></div>
+                                      </label>
+                                  </div>
+                              )
+                          })}
+
+                          {doors.map((item,index)=>{
+                              let checked;
+
+                              if (appliedFilters.hasOwnProperty('door')) {
+                                  if (
+                                      appliedFilters['door'].includes(
+                                          item.door.toString()
+                                      )
+                                  ) {
+                                      checked = true;
+                                  } else checked = false;
+                              } else checked = false;
+                              return (
+                                  <div key={index} className="flex">
+                                      <label htmlFor={`carFeature6_${item.door}`}>Doors - {item.door}</label>
+                                      <input defaultChecked={checked} type="checkbox" name="" id={`carFeature6_${item.door}`} onClick={(event) => {
+                                          handleFilterClick(
+                                              event,
+                                              'door',
+                                              item.door
+                                          );
+                                      }} />
+                                      <label htmlFor={`carFeature6_${item.door}`}>
+                                          <div></div>
+                                      </label>
+                                  </div>
+                              )
+                          })}
                           {/*<div className="flex">
                               <label htmlFor="carFeature_2">Transmission - Automatic</label>
                               <input type="checkbox" name="" id="carFeature_2" />
@@ -349,7 +410,7 @@ const Cars = ({seo}) => {
                               </label>
                           </div>*/}
                       </div>
-                      <NumberOfSeats />
+                      {/*<NumberOfSeats />*/}
                       <button onClick={search} className="main-btn">Search</button>
                   </section>
                   <section className="section carsTabs ">

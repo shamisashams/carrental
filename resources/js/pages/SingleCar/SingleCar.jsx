@@ -18,6 +18,7 @@ import Layout from "@/Layouts/Layout";
 import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-icons/md";
 import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
 import {BsSnow2} from "react-icons/bs";
+import {Inertia} from "@inertiajs/inertia";
 
 const SingleCar = ({seo}) => {
 
@@ -85,6 +86,29 @@ const SingleCar = ({seo}) => {
             text: car.air_conditioning?'Air conditioning':'none',
         },
     ];
+
+
+    const [values, setValues] = useState({
+        name: "",
+        surname: "",
+        email: "",
+        phone: "",
+        message: "",
+    });
+
+    function handleChange(e) {
+        const key = e.target.name;
+        const value = e.target.value;
+        setValues((values) => ({
+            ...values,
+            [key]: value,
+        }));
+    }
+
+    function book(e) {
+        e.preventDefault();
+        Inertia.post(route("client.contact.mail"), values);
+    }
 
   return (
       <Layout seo={seo}>

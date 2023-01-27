@@ -67,6 +67,10 @@ class CarController extends Controller
 
         $bagTypes = Bag::with('translation')->has('cars')->get();
 
+        $seats = Car::query()->distinct()->select('seat')->where('seat','!=',null)->get()->toArray();
+        $doors = Car::query()->distinct()->select('door')->where('seat','!=',null)->get()->toArray();
+
+
 
             //dd($wishlist);
         //dd($products);
@@ -75,6 +79,8 @@ class CarController extends Controller
             'fuelTypes' => $fuelTypes,
             'transmissions' => $transmissions,
             'bagTypes' => $bagTypes,
+            'seats' => $seats,
+            'doors' => $doors,
             'cars' => $cars,
             'images' => $images,
             'page' => $page,

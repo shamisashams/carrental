@@ -76,6 +76,16 @@ class CarRepository extends BaseRepository
             $query->whereIn('bags.id',$bags);
         }
 
+        if (isset($params['seat'])){
+            $seats = explode(',',$params['seat']);
+            $query->whereIn('cars.seat',$seats);
+        }
+
+        if (isset($params['door'])){
+            $doors = explode(',',$params['door']);
+            $query->whereIn('cars.door',$doors);
+        }
+
         if (isset($params['air_conditioning'])){
 
             $query->where('cars.air_conditioning',1);
@@ -84,6 +94,7 @@ class CarRepository extends BaseRepository
 
 
         $query->where('cars.status',1);
+        $query->orderBy('id','desc');
 
 
         return $query->with(['translation','latestImage', 'brand.translation','transmission.translation','fuel.translation','bag.translation','carType.translation'])->paginate('6')->withQueryString();
