@@ -21,9 +21,6 @@ class PageSeeder extends Seeder
                 'key' => 'home'
             ],
             [
-                'key' => 'rent'
-            ],
-            [
                 'key' => 'cars'
             ],
             [
@@ -39,7 +36,13 @@ class PageSeeder extends Seeder
                 'key' => 'contact'
             ],
             [
-                'key' => 'search'
+                'key' => 'payment'
+            ],
+            [
+                'key' => 'login'
+            ],
+            [
+                'key' => 'signup'
             ]
         ];
 

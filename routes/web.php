@@ -232,6 +232,7 @@ Route::prefix('{locale?}')
 
         Route::get('sipping',[\App\Http\Controllers\Client\ShippingController::class,'index'])->name('client.shipping.index');
 
+        Route::post('book',[\App\Http\Controllers\Client\PaymentController::class,'createBooking'])->name('client.book');
         Route::get('payment',[\App\Http\Controllers\Client\PaymentController::class,'index'])->name('client.payment.index');
 
         Route::any('bog/installment',[\App\Http\Controllers\Client\OrderController::class,'order'])->name('bogInstallment')->middleware('auth_client');

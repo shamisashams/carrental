@@ -26,7 +26,18 @@ const SingleCar = ({seo}) => {
 
     const [price, setPrice] = useState(car.price);
 
+
+
     //console.log(car)
+
+    const [values, setValues] = useState({
+        options: [],
+        car_id: car.id,
+        pickup_loc: "",
+        dropoff_loc: "",
+        pickup_date: "",
+        dropoff_date: "",
+    });
 
     function finalPrice(e){
         let carPrice = parseFloat(car.price);
@@ -38,10 +49,16 @@ const SingleCar = ({seo}) => {
         let checked = document.querySelectorAll('input[name="extra"]:checked');
 
         let c_price = 0;
+        let _options = [];
         checked.forEach((item, index) => {
             c_price += parseFloat(item.value);
+            _options.push(item.dataset.id);
         });
         setPrice(carPrice + c_price);
+        setValues((values) => ({
+            ...values,
+            options: _options,
+        }));
     }
 
   const includes = [
@@ -88,13 +105,7 @@ const SingleCar = ({seo}) => {
     ];
 
 
-    const [values, setValues] = useState({
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
-        message: "",
-    });
+
 
     function handleChange(e) {
         const key = e.target.name;
@@ -107,7 +118,7 @@ const SingleCar = ({seo}) => {
 
     function book(e) {
         e.preventDefault();
-        Inertia.post(route("client.contact.mail"), values);
+        Inertia.post(route("client.book"), values);
     }
 
   return (
@@ -179,7 +190,7 @@ const SingleCar = ({seo}) => {
                               <div className="flex check">
                                   <input onClick={(event)=>{
                                       finalPrice(event)
-                                  }} type="checkbox" name="extra" id={`option_${index}`} value={item.price} />
+                                  }} type="checkbox" name="extra" data-id={item.id} id={`option_${index}`} value={item.price} />
                                   <label htmlFor={`option_${index}`}>
                                       <div></div>
                                   </label>
@@ -189,9 +200,9 @@ const SingleCar = ({seo}) => {
                       })}
                       <div>
                           <h2>{price}GEL day</h2>
-                          <Link href="/payment" className="main-btn">
+                          <button onClick={book} className="main-btn">
                               Book now
-                          </Link>
+                          </button>
                       </div>
                   </div>
               </div>
