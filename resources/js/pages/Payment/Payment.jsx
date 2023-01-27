@@ -76,8 +76,8 @@ const Payment = ({seo}) => {
                   <div className="gray_box">
                       <h5>Pay now</h5>
                       <div className="flex">
-                          <div>Prepayment x 9 days</div>
-                          <div>810$</div>
+                          <div>Prepayment x {booking.period} days</div>
+                          <div>{booking.car_price_total}GEL</div>
                       </div>
                       <div className="flex">
                           <div>Insurance</div>

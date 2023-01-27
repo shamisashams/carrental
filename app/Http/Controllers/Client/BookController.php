@@ -8,6 +8,7 @@ use App\BogPay\BogPaymentController;
 use App\Cart\Facade\Cart;
 use App\Http\Controllers\Controller;
 use App\Mail\PromocodeProduct;
+use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\City;
@@ -31,6 +32,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use App\Repositories\Eloquent\ProductRepository;
@@ -382,8 +384,9 @@ class BookController extends Controller
         }
 
 
-        $data = $request->all();
+        $_data = $request->all();
 
+        $data = [];
         $data['locale'] = app()->getLocale();
 
         $user = auth()->user();
@@ -401,11 +404,25 @@ class BookController extends Controller
 
         $data['car'] = ($car->brand?$car->brand->title:'') . ' ' . $car->model;
 
-        $data['options'] = json_encode($options);
+        $opt_data = [];
+        $opt_total_price = 0;
+        foreach ($options as $item){
+            $opt_data['options'][] = [
+                'id' => $item->id,
+                'title' => $item->text,
+                'price' => $item->price
+            ];
+            $opt_total_price += $item->price;
+        }
+        $data['options'] = json_encode($opt_data);
 
-        $data['payment_type'] = $request->post('payment_type');
+        $diff = Carbon::parse(session('booking.pickup_date'))->diffInDays(session('booking.dropoff_date'));
 
-        dd($data);
+        $data['grand_total'] = ($diff * $car->price) + $opt_total_price;
+        //$data['payment_type'] = $request->post('payment_type');
+
+        Booking::query()->create($data);
+
     }
 
     public function bogResponse(Request $request){

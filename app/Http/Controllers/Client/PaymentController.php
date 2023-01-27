@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Repositories\Eloquent\ProductRepository;
 use Spatie\TranslationLoader\TranslationLoaders\Db;
+use Illuminate\Support\Carbon;
 
 class PaymentController extends Controller
 {
@@ -65,7 +66,14 @@ class PaymentController extends Controller
             $booking['options'] = ExtraOption::with('translation')->whereIn('id',session('booking.options'))->get();
         }
 
-        //dd($products);
+        $diff = Carbon::parse(session('booking.pickup_date'))->diffInDays(session('booking.dropoff_date'));
+
+        $booking['car_price_total'] = $diff * $car->price;
+        $booking['period'] = $diff;
+
+        //dd(session('booking'),$diff);
+
+
         return Inertia::render('Payment/Payment',[
             'images' => $images,
             'page' => $page,
@@ -94,7 +102,7 @@ class PaymentController extends Controller
 
     public function createBooking(Request $request){
         //dd($request->all());
-        $request->validate([
+        $data = $request->validate([
             'car_id' => 'required',
             //'pickup_loc' => 'required',
             //dropoff_loc' => 'required',
@@ -102,7 +110,11 @@ class PaymentController extends Controller
             //'dropoff_date' => 'required'
         ]);
 
-        session()->put(['booking' => $request->all()]);
+        $data['pickup_date'] = '2023-01-27 10:11:44';
+        $data['dropoff_date'] = '2023-01-29 11:23:22';
+        $data['options'] = $request->post('options');
+
+        session()->put(['booking' => $data]);
         if(session('booking')) return redirect()->route('client.payment.index');
     }
 
