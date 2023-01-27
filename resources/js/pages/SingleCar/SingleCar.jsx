@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./SingleCar.css";
 import CarSlider from "../../components/CarSlider/CarSlider";
 //import Car5 from "../../assets/images/cars/5.png";
@@ -25,6 +25,7 @@ const SingleCar = ({seo}) => {
     const {car, cars, features, extra_options, localizations} = usePage().props;
 
     const [price, setPrice] = useState(car.price);
+
 
 
 
@@ -183,6 +184,7 @@ const SingleCar = ({seo}) => {
                           <PickupLocation dropOff={true} />
                           <PickupDate />
                           <DropoffDate />
+                          <button onClick={()=>alert(pickupDate)}>clickme</button>
                       </div>
                       <strong>Aditional options</strong>
                       {extra_options.map((item, index) => {

@@ -71,8 +71,8 @@ export default ({cars}) => {
                   <GiGearStickPattern /> {item.transmission?item.transmission.title:''}
                 </p>
               </div>
-              <h4>{item.price}</h4>
-              <h3 className="orange">{item.newPrice}</h3>
+                {item.special_price?<h4>{item.price}GEL</h4>:null}
+              <h3 className="orange">{item.real_price}GEL</h3>
               <div className="img">
                 <img src={item.latest_image?item.latest_image.file_full_url:null} alt="" />
               </div>

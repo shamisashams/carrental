@@ -11,6 +11,7 @@ import { carFeatures } from "../Data";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
 import {BsSnow2} from "react-icons/bs";
+import axios from "axios";
 
 export const Hashtag = ({ text }) => {
   const [active, setActive] = useState();
@@ -56,6 +57,8 @@ export const DestinationBox = (props) => {
 export const PickupLocation = ({ diffLoc, dropOff }) => {
   const [drop1, setDrop1] = useState(false);
   const [drop2, setDrop2] = useState(false);
+    const [result, setResult] = useState([]);
+    const [pickup, setPickup] = useState('Select pick-up location');
   const wrapperRef = useRef(null);
 
   useOutsideAlerter(wrapperRef);
@@ -74,6 +77,24 @@ export const PickupLocation = ({ diffLoc, dropOff }) => {
     }, [ref]);
   }
 
+    let interval;
+    function handleSearch(e) {
+        clearInterval(interval);
+        interval = setTimeout(function () {
+            if (e.target.value.length > 0) {
+                axios
+                    .post(route("search.address"), { term: e.target.value })
+                    .then(function (response) {
+                        console.log(response);
+                        setResult(response.data);
+                    });
+            } else setResult([]);
+        }, 300);
+    }
+
+
+
+
   return (
     <div
       ref={wrapperRef}
@@ -85,7 +106,7 @@ export const PickupLocation = ({ diffLoc, dropOff }) => {
           className={`inner_box ${dropOff === true && "inner_box2"}`}
         >
           <ImLocation2 className="icon" />
-          Select pick-up location{" "}
+            {pickup}{" "}
           <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
         </div>
         <div
@@ -100,12 +121,24 @@ export const PickupLocation = ({ diffLoc, dropOff }) => {
 
       <div className={`dropdown ${drop1 && "show"}`}>
         <div className="flex" style={{ flexDirection: "row" }}>
-          <input type="text" placeholder="Enter address" />
-          <div>
+          <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
+          {/*<div>
             <button className="main-btn"> Ok</button>
-          </div>
+          </div>*/}
         </div>
-        <button>
+
+          {result.map((item, index) => {
+              return (
+                  <button onClick={() => {
+                      setPickup(item.text);
+                      pickupLoc = item.id;
+                  }}>
+                      {" "}
+                      <ImLocation2 className="icon" /> {item.text}
+                  </button>
+              );
+          })}
+        {/*<button>
           {" "}
           <ImLocation2 className="icon" /> 522 Junkins Avenue. Tbilisi, Georgia
         </button>
@@ -117,7 +150,7 @@ export const PickupLocation = ({ diffLoc, dropOff }) => {
         <button>
           {" "}
           <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei, Georgia.
-        </button>
+        </button>*/}
       </div>
       <div className={`dropdown ${drop2 && "show"}`}>
         <div className="flex" style={{ flexDirection: "row" }}>

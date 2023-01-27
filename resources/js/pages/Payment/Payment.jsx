@@ -8,6 +8,7 @@ import { ImLocation2, ImLocation } from "react-icons/im";
 import React, {useState} from "react";
 import Layout from "@/Layouts/Layout";
 import { Link, usePage } from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
 
 const Payment = ({seo}) => {
 
@@ -15,23 +16,36 @@ const Payment = ({seo}) => {
 
     console.log(booking);
 
-  return (
+    function makeBook(bank) {
+
+
+        Inertia.post(route("client.checkout.order"), { payment_type: bank });
+    }
+
+
+    return (
       <Layout seo={seo}>
           <div className="paymentPage wrapper flex">
               <div className="gray_box large">
                   <h3>Choose a payment method</h3>
-                  <button>
+                  <button onClick={() => {
+                      makeBook('tbc')
+                  }}>
                       <img src="/client/assets/images/banks/1.png" alt="" />
                   </button>
-                  <button>
+                  <button onClick={() => {
+                      makeBook('bog')
+                  }}>
                       <img src="/client/assets/images/banks/2.png" alt="" />
                   </button>
-                  <button>
+                  <button onClick={() => {
+                      makeBook('paypal')
+                  }}>
                       <img src="/client/assets/images/banks/3.png" alt="" />
                   </button>
-                  <button>
+                  {/*<button>
                       <h5>Download pdf</h5> <MdDownload />
-                  </button>
+                  </button>*/}
               </div>
               <div className="smalls">
                   <div className="gray_box">

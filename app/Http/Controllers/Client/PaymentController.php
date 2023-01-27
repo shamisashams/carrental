@@ -93,6 +93,7 @@ class PaymentController extends Controller
 
 
     public function createBooking(Request $request){
+        //dd($request->all());
         $request->validate([
             'car_id' => 'required',
             //'pickup_loc' => 'required',

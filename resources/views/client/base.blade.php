@@ -42,6 +42,8 @@
     <script src="{{asset('admin/assets/plugins/jquery/jquery.min.js')}}"></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
     <script>
+        let pickupDate = null;
+        let pickupLoc = null;
         function __(key, sharedData, replace = {}) {
             let data = key.split('.');
             //console.log(sharedData);

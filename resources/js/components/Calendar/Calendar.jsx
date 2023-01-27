@@ -158,7 +158,10 @@ class Day extends React.Component {
           (isCurrentMonth ? "" : " different-month") +
           (date.isSame(selected) ? " selected" : "")
         }
-        onClick={() => select(day)}
+        onClick={() => {
+            select(day);;
+            pickupDate = date.format('YYYY-MM-DD');
+        }}
       >
         {number}
       </span>
