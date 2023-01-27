@@ -125,6 +125,10 @@
                 <div class="card-body">
 
 
+                    <div class="form-group">
+                        <label class="rdiobox"><input {{$model->price_per_day?'checked':''}} name="price_per_day" type="radio" value="1"> <span>@lang('admin.price_per_day')</span></label>
+                        <label class="rdiobox"><input {{!$model->price_per_day?'checked':''}} name="price_per_day" type="radio" value="0"> <span>@lang('admin.price_once')</span></label>
+                    </div>
 
                     <div class="form-group">
                         <label class="form-label">@lang('admin.price')</label>
@@ -137,6 +141,8 @@
                         </small>
                         @enderror
                     </div>
+
+
 
                     <div class="form-group">
                         <label class="ckbox">

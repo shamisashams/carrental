@@ -22,7 +22,8 @@ class ExtraOption extends Model
 
     protected $fillable = [
         'status',
-        'price'
+        'price',
+        'price_per_day'
     ];
 
 
