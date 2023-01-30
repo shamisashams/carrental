@@ -47,7 +47,7 @@
                     </div>--}}
                     <div class="row row-sm">
                         <div class="col-lg-6">
-                            <p class="h3">Order id #{{$order->id}}</p>
+                            <p class="h3">Book id #{{$order->id}}</p>
                             <address>
                                 {{$order->first_name}}, {{$order->last_name}}<br>
                                 Tel.: {{$order->phone}}<br>

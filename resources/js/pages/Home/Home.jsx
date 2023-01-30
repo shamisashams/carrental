@@ -5,7 +5,7 @@ import { Link, usePage } from "@inertiajs/inertia-react";
 //import AnimatedCar from "../../assets/images/other/1.png";
 //import AnimatedCar1 from "../../assets/images/other/2.png";
 import CarSlider from "../../components/CarSlider/CarSlider";
-import { destinations, easyFastSafe, tags } from "../../components/Data";
+//import { destinations, easyFastSafe, tags } from "../../components/Data";
 import "./Home.css";
 import { MdRemoveRedEye } from "react-icons/md";
 import {
@@ -19,10 +19,32 @@ import {
 
 import Layout from "@/Layouts/Layout";
 import {Inertia} from "@inertiajs/inertia";
+import {ImLocation2} from "react-icons/im";
+import {RiCalendar2Fill} from "react-icons/ri";
+import {FaKey} from "react-icons/fa";
 
 const Home = ({seo}) => {
 
     const { localizations, destinations, categories, cars } = usePage().props;
+
+
+    const easyFastSafe = [
+        {
+            icon: <ImLocation2 />,
+            title: __('client.efs_choose_loc',localizations),
+            para: __('client.efs_choose_loc_t',localizations),
+        },
+        {
+            icon: <RiCalendar2Fill />,
+            title: __('client.efs_pickup_date',localizations),
+            para: __('client.efs_pickup_date_t',localizations),
+        },
+        {
+            icon: <FaKey />,
+            title: __('client.efs_take_car',localizations),
+            para: __('client.efs_take_car_t',localizations),
+        },
+    ];
 
     let appliedFilters = [];
     let urlParams = new URLSearchParams(window.location.search);
@@ -90,11 +112,9 @@ const Home = ({seo}) => {
                   style={{ backgroundImage: `url('/client/assets/images/bg/1.png')` }}
               >
                   <div className="wrapper main-bg">
-                      <h1>Special Deal!</h1>
+                      <h1>{__('client.home_sec1_h',localizations)}</h1>
                       <p>
-                          Satisfied conveying an dependent contented he gentleman agreeable do
-                          be. Warrant private blushes removed an in equally totally if.
-                          Delivered dejection necessary objection do
+                          S{__('client.home_sec1_t',localizations)}
                       </p>
                   </div>
               </section>
@@ -133,21 +153,21 @@ const Home = ({seo}) => {
                       </div>
                   </div>
                   <div className="right">
-                      <button className="main-btn">Search</button>
+                      <button className="main-btn">{__('client.search',localizations)}</button>
                   </div>
                   <img className="animated" src="/client/assets/images/other/2.png" alt="" />
               </section>
               <section className="wrapper carSlider_section">
                   <div className="flex">
-                      <h3>Best deals</h3>
+                      <h3>{__('client.best_deals',localizations)}</h3>
                       <Link href={route('client.car.special')}>
-                          <h5>See all</h5>
+                          <h5>{__('client.see_all',localizations)}</h5>
                       </Link>
                   </div>
                   <CarSlider cars={cars} />
               </section>
               <section className="easyFastSafe wrapper">
-                  <h1>easy, fast & safe</h1>
+                  <h1>{__('client.home_sec2_t',localizations)}</h1>
                   <div className="steps flex center">
                       {easyFastSafe.map((item, index) => {
                           return (
@@ -165,14 +185,11 @@ const Home = ({seo}) => {
               <section className="wrapper flex locationSection">
                   <div className="left">
                       <h4>
-                          <h3>Explore</h3> the <br /> best{" "}
-                          <h3 className="orange">destinations</h3>
+                          <h3>{__('client.loc_explore',localizations)}</h3> {__('client.loc_the',localizations)} <br /> {__('client.loc_best',localizations)}{" "}
+                          <h3 className="orange">{__('client.loc_destinations',localizations)}</h3>
                       </h4>
                       <p>
-                          Satisfied conveying and ependent contented he gentleman agreeable do
-                          be. Warrant private blushes removed an in equally totally if.
-                          Delivered dejection necessary objection do mr prevailed. feeling do
-                          chiefly cordial in do.{" "}
+                          {__('client.loc_text',localizations)}{" "}
                       </p>
                       <Link href={route('client.destination.index')}>
                           <MdRemoveRedEye
@@ -182,7 +199,7 @@ const Home = ({seo}) => {
                                   marginRight: "5px",
                               }}
                           />
-                          See all blogs
+                          {__('client.all_blogs',localizations)}
                       </Link>
                       <img className="animated" src="/client/assets/images/other/1.png" alt="" />
                   </div>
