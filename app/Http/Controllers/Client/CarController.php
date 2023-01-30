@@ -122,6 +122,7 @@ class CarController extends Controller
 
         $cars = Car::with(['translation','latestImage','brand.translation','carType.translation','bag.translation','transmission.translation','fuel.translation'])->where('id','!=',$product->id)->limit(6)->inRandomOrder()->get();
 
+
         //dd($product->type);
         return Inertia::render('SingleCar/SingleCar',[
             'features' => $features,
@@ -182,6 +183,8 @@ class CarController extends Controller
             $q->where('special',1);
         })->get();
 
+        $seats = Car::query()->distinct()->select('seat')->where('seat','!=',null)->where('special',1)->get()->toArray();
+        $doors = Car::query()->distinct()->select('door')->where('seat','!=',null)->where('special',1)->get()->toArray();
 
         //dd($wishlist);
         //dd($products);
@@ -190,6 +193,8 @@ class CarController extends Controller
             'fuelTypes' => $fuelTypes,
             'transmissions' => $transmissions,
             'bagTypes' => $bagTypes,
+            'seats' => $seats,
+            'doors' => $doors,
             'cars' => $cars,
             'images' => $images,
             'page' => $page,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Cart\Facade\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
+use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\City;
@@ -145,6 +146,9 @@ class PaymentController extends Controller
             //'pickup_date' => 'required',
             //'dropoff_date' => 'required'
         ]);
+
+        $booking_count = Booking::query()->where('car_id',$data['car_id'])->whereIn('status',['pending'])->count();
+        if ($booking_count > 0) return redirect()->back()->with('error','not available now');
 
         $data['pickup_date'] = '2023-01-27 10:11:44';
         $data['dropoff_date'] = '2023-01-29 11:23:22';
