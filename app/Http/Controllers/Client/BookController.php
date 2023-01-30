@@ -8,6 +8,7 @@ use App\BogPay\BogPaymentController;
 use App\Cart\Facade\Cart;
 use App\Http\Controllers\Controller;
 use App\Mail\PromocodeProduct;
+use App\Models\Address;
 use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Category;
@@ -398,11 +399,16 @@ class BookController extends Controller
         $data['phone'] = $user->phone;
         $data['car_id'] = session('booking.car_id');
 
+        $pickup_address = Address::with('translation')->where('id',session('booking.pickup_id'))->first();
+        $dropoff_address = Address::with('translation')->where('id',session('booking.dropoff_id'))->first();
+
         $car = Car::with(['translation','latestImage','brand.translation'])->where('id',session('booking.car_id'))->first();
 
         $options = ExtraOption::with('translation')->whereIn('id',session('booking.options'))->get();
 
         $data['car'] = ($car->brand?$car->brand->title:'') . ' ' . $car->model;
+
+        $diff = Carbon::parse(session('booking.pickup_date'))->diffInDays(session('booking.dropoff_date'));
 
         $opt_data = [];
         $opt_total_price = 0;
@@ -410,18 +416,38 @@ class BookController extends Controller
             $opt_data['options'][] = [
                 'id' => $item->id,
                 'title' => $item->text,
-                'price' => $item->price
+                'price' => $item->price,
+                'per_day' => $item->price_per_day,
             ];
-            $opt_total_price += $item->price;
+            $opt_total_price += $item->price_per_day?$item->price * $diff:$item->price;
         }
+
+
+        $drop_pay = 0;
+        $data['same_address'] = 1;
+        if (session('booking.pickup_id') != session('booking.dropoff_id')){
+            $drop_pay = $dropoff_address->price;
+            $data['same_address'] = 0;
+            $opt_data['drop_address_pay'] = $dropoff_address->price;
+        }
+
         $data['options'] = json_encode($opt_data);
 
-        $diff = Carbon::parse(session('booking.pickup_date'))->diffInDays(session('booking.dropoff_date'));
+        $data['pickup_loc'] = $pickup_address->text;
+        $data['dropoff_loc'] = $dropoff_address->text;
+        $data['pickup_date'] = session('booking.pickup_date');
+        $data['dropoff_date'] = session('booking.dropoff_date');
+        $data['period'] = $diff;
 
-        $data['grand_total'] = ($diff * $car->price) + $opt_total_price;
-        //$data['payment_type'] = $request->post('payment_type');
+        $data['grand_total'] = ($diff * $car->price) + $opt_total_price + $drop_pay;
+        $data['payment_type'] = $request->post('payment_type');
 
+
+        //dd($data);
         Booking::query()->create($data);
+
+        session()->forget('booking');
+        return redirect()->back()->with('success','booking created');
 
     }
 

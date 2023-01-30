@@ -56,21 +56,21 @@ const Payment = ({seo}) => {
                       <h5>Booking information</h5>
                       <div className="flex">
                           <div>Pick up</div>
-                          <div>December 14, 2022</div>
-                          <div>10:25</div>
+                          <div>{booking.pickup_date}</div>
+                          <div>{booking.pickup_time}</div>
                       </div>
                       <p>
                           {" "}
-                          <ImLocation2 /> 522 Junkins Avenue. Tbilisi, Georgia{" "}
+                          <ImLocation2 /> {booking.pickup_address.text}{" "}
                       </p>
                       <div className="flex">
                           <div>Drop off</div>
-                          <div>December 23, 2022</div>
-                          <div>10:25</div>
+                          <div>{booking.dropoff_date}</div>
+                          <div>{booking.dropoff_time}</div>
                       </div>
                       <p>
                           {" "}
-                          <ImLocation2 /> 522 Junkins Avenue. Tbilisi, Georgia{" "}
+                          <ImLocation2 /> {booking.dropoff_address.text}{" "}
                       </p>
                   </div>
                   <div className="gray_box">
@@ -79,17 +79,32 @@ const Payment = ({seo}) => {
                           <div>Prepayment x {booking.period} days</div>
                           <div>{booking.car_price_total}GEL</div>
                       </div>
+
+                      {/*<div className="flex">
+                          <div>Pay at the counter</div>
+                          <div>25$</div>
+                      </div>*/}
+                      {booking.options.map((item, index) => {
+                          return (
+                              <div className="flex">
+                                  <div>{item.title} {item.per_day?` x ${booking.period} days`:''}</div>
+                                  <div>{item.price}GEL</div>
+                              </div>
+                          )
+                      })}
+
+                      {booking.drop_pay?<div className="flex">
+                          <div>{booking.drop_pay.text} - drop pay</div>
+                          <div>{booking.drop_pay.price}</div>
+                      </div>:null}
+
                       <div className="flex">
                           <div>Insurance</div>
                           <div>12$</div>
                       </div>
-                      <div className="flex">
-                          <div>Pay at the counter</div>
-                          <div>25$</div>
-                      </div>
                       <div className="flex last">
                           <h5>Total:</h5>
-                          <h5 style={{ color: "#FF715A" }}>847$</h5>
+                          <h5 style={{ color: "#FF715A" }}>{booking.grand_total}GEL</h5>
                       </div>
                   </div>
               </div>

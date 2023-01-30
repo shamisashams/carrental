@@ -19,7 +19,7 @@ class Booking extends Model
         'surname',
         'phone',
         'email',
-        //'locale',
+        'locale',
         'grand_total',
         'payment_type',
         'user_id',
@@ -30,7 +30,10 @@ class Booking extends Model
         'pickup_loc',
         'dropoff_loc',
         'pickup_date',
-        'dropoff_date'
+        'dropoff_date',
+        'payment_method',
+        'period',
+        'same_address'
     ];
 
     protected $appends = [

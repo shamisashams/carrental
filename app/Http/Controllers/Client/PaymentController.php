@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Cart\Facade\Cart;
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\City;
@@ -59,19 +60,54 @@ class PaymentController extends Controller
 
         $car = Car::with(['translation','latestImage','brand.translation'])->where('id',session('booking.car_id'))->first();
 
+        $options = ExtraOption::with('translation')->whereIn('id',session('booking.options'))->get();
+
         if($car){
             $booking['car'] = $car;
         } else session()->forget('booking');
         if(!empty(session('booking.options'))){
             $booking['options'] = ExtraOption::with('translation')->whereIn('id',session('booking.options'))->get();
         }
-
         $diff = Carbon::parse(session('booking.pickup_date'))->diffInDays(session('booking.dropoff_date'));
 
-        $booking['car_price_total'] = $diff * $car->price;
+        $opt_total_price = 0;
+        $opt_data = [];
+        foreach ($options as $item){
+            $opt_data[] = [
+                'id' => $item->id,
+                'title' => $item->text,
+                'price' => $item->price_per_day?$item->price * $diff:$item->price,
+                'per_day' => $item->price_per_day,
+            ];
+            $opt_total_price += $item->price_per_day?$item->price * $diff:$item->price;
+        }
+
+        $pickup_address = Address::with('translation')->where('id',session('booking.pickup_id'))->first();
+        $dropoff_address = Address::with('translation')->where('id',session('booking.dropoff_id'))->first();
+
+        $booking['drop_pay'] = null;
+
+        if (session('booking.pickup_id') != session('booking.dropoff_id')){
+            $booking['drop_pay'] = $dropoff_address;
+        }
+
+        $drop_pay = 0;
+        if($booking['drop_pay'])$drop_pay = $booking['drop_pay']->price;
+
+        $booking['car_price_total'] = ($diff * $car->price);
+        $booking['options'] = $opt_data;
+        $booking['grand_total'] = $booking['car_price_total'] + $opt_total_price + $drop_pay;
         $booking['period'] = $diff;
 
-        //dd(session('booking'),$diff);
+        $booking['pickup_address'] = $pickup_address;
+        $booking['dropoff_address'] = $dropoff_address;
+
+        $booking['pickup_date'] = date('M d, Y',strtotime(session('booking.pickup_date')));
+        $booking['pickup_time'] = date('H:i',strtotime(session('booking.pickup_date')));
+        $booking['dropoff_date'] = date('M d, Y',strtotime(session('booking.dropoff_date')));
+        $booking['dropoff_time'] = date('H:i',strtotime(session('booking.dropoff_date')));
+
+        //dd(session('booking'),$diff,$booking);
 
 
         return Inertia::render('Payment/Payment',[
@@ -112,6 +148,8 @@ class PaymentController extends Controller
 
         $data['pickup_date'] = '2023-01-27 10:11:44';
         $data['dropoff_date'] = '2023-01-29 11:23:22';
+        $data['pickup_id'] = 1;
+        $data['dropoff_id'] = 2;
         $data['options'] = $request->post('options');
 
         session()->put(['booking' => $data]);
