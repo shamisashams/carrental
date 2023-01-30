@@ -99,8 +99,14 @@
                     "i18n": "user",
                     "icon": "user",
                     "slug": "user"
+                },
+                {
+                    "url": "booking.index",
+                    "name": "booking",
+                    "i18n": "booking",
+                    "icon": "booking",
+                    "slug": "booking"
                 }
-
             ]
         },
         {

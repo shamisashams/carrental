@@ -33,7 +33,8 @@ class Booking extends Model
         'dropoff_date',
         'payment_method',
         'period',
-        'same_address'
+        'same_address',
+        'car_price'
     ];
 
     protected $appends = [

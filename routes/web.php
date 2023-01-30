@@ -146,6 +146,8 @@ Route::prefix('{locale?}')
                 Route::put('mail-templates/update',[\App\Http\Controllers\Admin\MailTemplateController::class,'update'])->name('mail-template.update');
 
 
+                Route::resource('booking', \App\Http\Controllers\Admin\BookingController::class);
+
 
             });
         });

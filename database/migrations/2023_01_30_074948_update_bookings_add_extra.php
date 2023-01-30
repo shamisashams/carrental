@@ -22,6 +22,7 @@ class UpdateBookingsAddExtra extends Migration
                 $table->string('locale')->nullable();
                 $table->string('payment_method')->default('bank')->nullable();
                 $table->string('payment_type')->nullable();
+                $table->decimal('car_price')->nullable();
             });
 
 
@@ -44,7 +45,7 @@ class UpdateBookingsAddExtra extends Migration
             $table->dropColumn('locale');
             $table->dropColumn('payment_method');
             $table->dropColumn('payment_type');
-
+            $table->dropColumn('car_price');
 
 
         });

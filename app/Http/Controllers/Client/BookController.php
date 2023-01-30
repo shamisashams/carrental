@@ -438,7 +438,7 @@ class BookController extends Controller
         $data['pickup_date'] = session('booking.pickup_date');
         $data['dropoff_date'] = session('booking.dropoff_date');
         $data['period'] = $diff;
-
+        $data['car_price'] = $car->price;
         $data['grand_total'] = ($diff * $car->price) + $opt_total_price + $drop_pay;
         $data['payment_type'] = $request->post('payment_type');
 
