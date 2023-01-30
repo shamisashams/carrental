@@ -460,7 +460,7 @@ class BookController extends Controller
         else if($order->status == 'error') return redirect(route('order.failure'));
         else {
             sleep(3);
-            return redirect('https://sshop.ge/' . app()->getLocale() . '/payments/bog/status?order_id='.$order->id);
+            return redirect('https://cc.ge/' . app()->getLocale() . '/payments/bog/status?order_id='.$order->id);
         }
     }
 
@@ -473,7 +473,7 @@ class BookController extends Controller
         else if($order->status == 'error') return redirect(route('order.failure'));
         else {
             sleep(3);
-            return redirect('https://sshop.ge/' . app()->getLocale() . '/payments/tbc/status?order_id='.$order->id);
+            return redirect('https://cc.ge/' . app()->getLocale() . '/payments/tbc/status?order_id='.$order->id);
         }
     }
 
