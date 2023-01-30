@@ -10,8 +10,10 @@ import { Navigation, Pagination } from "swiper";
 import React, { useRef } from "react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
+import {usePage} from "@inertiajs/inertia-react";
 
 export default ({cars}) => {
+    const {localizations} = usePage().props;
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -78,7 +80,7 @@ export default ({cars}) => {
               </div>
               <button onClick={() => {
                   visit(item.slug)
-              }} className="main-btn">Book now</button>
+              }} className="main-btn">{__('client.book_now',localizations)}</button>
             </div>
           </SwiperSlide>
         );

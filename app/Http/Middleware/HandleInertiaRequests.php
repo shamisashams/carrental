@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Cart\Facade\Cart;
+use App\Models\CarType;
 use App\Models\Setting;
 use App\Models\Wishlist;
 use App\Repositories\Eloquent\CategoryRepository;
@@ -79,7 +80,7 @@ class HandleInertiaRequests extends Middleware
             "pathname" => $currentRoute,
             "locale_urls" => $locale_urls,
             'urlPrev'	=> $urlPrev,
-            //'categories' => $result,
+            'carTypes' => $this->getCarTypes(),
             'info' => $_result,
             'user' => auth()->user(),
             'flash' => $this->getFlash()
@@ -159,5 +160,8 @@ class HandleInertiaRequests extends Middleware
     }
 
 
+    protected function getCarTypes(){
+        return CarType::with('translation')->limit(6)->get();
+    }
 
 }

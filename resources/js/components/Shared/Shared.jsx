@@ -306,6 +306,7 @@ export const NumberOfSeats = () => {
 };
 
 export const CarBox = (props) => {
+    const {localizations} = usePage().props;
     const carFeatures = [
         {
             icon: <MdAirlineSeatReclineNormal />,
@@ -352,7 +353,7 @@ export const CarBox = (props) => {
         <div>
           <h3>{props.price}GEL day</h3>
           <Link href={route('client.car.show',props.slug)} className="main-btn-sml">
-            Book now
+              {__('client.book_now',localizations)}
           </Link>
         </div>
       </div>

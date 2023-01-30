@@ -135,7 +135,7 @@ const SingleCar = ({seo}) => {
                           <div>
                               <strong>
                                   <BiDetail />
-                                  Car specifications
+                                  {__('client.car_specifications',localizations)}
                               </strong>
                               <div className="grid list">
                                   {carFeatures.map((item, index) => {
@@ -151,7 +151,7 @@ const SingleCar = ({seo}) => {
                       </div>
                       <div className="flex bottom">
                           <div className="includes">
-                              <strong>Price includes:</strong>
+                              <strong>{__('client.car_price_includes',localizations)}</strong>
                               <div className="grid list">
                                   {features.map((item, index) => {
                                       return (
@@ -164,15 +164,15 @@ const SingleCar = ({seo}) => {
                               </div>
                           </div>
                           <div>
-                              <strong>Age restrictions:</strong>
+                              <strong>{__('client.car_age_restrictions',localizations)}</strong>
                               <div className="list age">
                                   <div>
                                       <RiErrorWarningFill />
-                                      Minimum age of driver: 21 years
+                                      {__('client.car_age_restriction1',localizations)}
                                   </div>
                                   <div>
                                       <RiErrorWarningFill />
-                                      Minimum time driving licence held: 3 years
+                                      M{__('client.car_age_restriction2',localizations)}
                                   </div>
                               </div>
                           </div>
@@ -186,7 +186,7 @@ const SingleCar = ({seo}) => {
                           <DropoffDate />
                           <button onClick={()=>alert(pickupDate)}>clickme</button>
                       </div>
-                      <strong>Aditional options</strong>
+                      <strong>{__('client.car_extra_options',localizations)}</strong>
                       {extra_options.map((item, index) => {
                           return (
                               <div className="flex check">
@@ -203,12 +203,12 @@ const SingleCar = ({seo}) => {
                       <div>
                           <h2>{price}GEL day</h2>
                           <button onClick={book} className="main-btn">
-                              Book now
+                              {__('client.book_now',localizations)}
                           </button>
                       </div>
                   </div>
               </div>
-              <h6 style={{ fontSize: "16px" }}>You may like</h6>
+              <h6 style={{ fontSize: "16px" }}>{__('client.car_u_may_like',localizations)}</h6>
               <CarSlider cars={cars} />
           </div>
       </Layout>

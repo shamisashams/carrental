@@ -194,7 +194,7 @@ const Cars = ({seo}) => {
                       <button onClick={() => setShowFilter(false)} className="closeFilter">
                           <IoCloseOutline style={{ fontSize: "inherit" }} />
                       </button>
-                      <h5>Filter</h5>
+                      <h5>{__('client.filter',localizations)}</h5>
                       <PickupLocation dropOff={false} />
                       <PickupLocation dropOff={true} />
                       <PickupDate />
@@ -202,7 +202,7 @@ const Cars = ({seo}) => {
                       <div className="gray_box">
                           <div className="title">
                               <FaCar />
-                              Select the car type
+                              {__('client.filter_car_type',localizations)}
                           </div>
                           {carTypes.map((item, index) => {
                               let checked;
@@ -236,7 +236,7 @@ const Cars = ({seo}) => {
                       <div className="gray_box">
                           <div className="title">
                               <BiDetail />
-                              Car specifications
+                              {__('client.filter_car_spec',localizations)}
                           </div>
                           <div className="flex">
                               <label htmlFor="carFeature_1">Air conditioning</label>
@@ -411,7 +411,7 @@ const Cars = ({seo}) => {
                           </div>*/}
                       </div>
                       {/*<NumberOfSeats />*/}
-                      <button onClick={search} className="main-btn">Search</button>
+                      <button onClick={search} className="main-btn">{__('client.filter_search',localizations)}</button>
                   </section>
                   <section className="section carsTabs ">
                       <div style={{ marginBottom: "30px" }}>

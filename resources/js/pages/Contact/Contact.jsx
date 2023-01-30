@@ -63,42 +63,42 @@ const Contact = ({seo}) => {
               <div className="wrapper">
                   <div className="container">
                       <div className="title">
-                          <p>Love to hear from you,</p>
+                          <p>{__('client.contact_h1',localizations)}</p>
                           <h1>
-                              Get in touch <img src="/client/assets/images/other/5.png" alt="" />
+                              {__('client.contact_h2',localizations)} <img src="/client/assets/images/other/5.png" alt="" />
                           </h1>
                       </div>
                       <form onSubmit={handleSubmit}>
                           <div className="grid">
                               <div>
-                                  <label>Your name</label>
-                                  <input type="text" name="name" placeholder="Name" onChange={handleChange} />
+                                  <label>{__('client.form_name_l',localizations)}</label>
+                                  <input type="text" name="name" placeholder={__('client.form_name',localizations)} onChange={handleChange} />
                                   {errors.name && <div>{errors.name}</div>}
                               </div>
                               <div>
-                                  <label>Your surname</label>
-                                  <input type="text" name="surname" placeholder="Surname" onChange={handleChange} />
+                                  <label>{__('client.form_surname_l',localizations)}</label>
+                                  <input type="text" name="surname" placeholder={__('client.form_surname',localizations)} onChange={handleChange} />
                                   {errors.surname && <div>{errors.surname}</div>}
                               </div>
                               <div>
-                                  <label>Your phone number</label>
-                                  <input type="text" name="phone" placeholder="Phone number" onChange={handleChange} />
+                                  <label>{__('client.form_phone_l',localizations)}</label>
+                                  <input type="text" name="phone" placeholder={__('client.form_phone',localizations)} onChange={handleChange} />
                                   {errors.phone && <div>{errors.phone}</div>}
                               </div>
                               <div>
-                                  <label>Your email</label>
-                                  <input type="text" name="email" placeholder="Email" onChange={handleChange} />
+                                  <label>{__('client.form_email_l',localizations)}</label>
+                                  <input type="text" name="email" placeholder={__('client.form_email',localizations)} onChange={handleChange} />
                                   {errors.email && <div>{errors.email}</div>}
                               </div>
                           </div>
                           <div>
-                              <label>Enter message here</label>
-                              <textarea name="message" placeholder="Your message" onChange={handleChange}></textarea>
+                              <label>{__('client.form_message_l',localizations)}</label>
+                              <textarea name="message" placeholder={__('client.form_message',localizations)} onChange={handleChange}></textarea>
                               {errors.message && <div>{errors.message}</div>}
                           </div>
-                          <button className="main-btn">Send message</button>
+                          <button className="main-btn">{__('client.send_msg',localizations)}</button>
                       </form>
-                      <h3 className="op50">Contact</h3>
+                      <h3 className="op50">{__('client.contact_info',localizations)}</h3>
                       <div className="contact flex">
                           {contactInfo.map((item, index) => {
                               return (
