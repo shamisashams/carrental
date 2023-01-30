@@ -22,10 +22,64 @@ import {Inertia} from "@inertiajs/inertia";
 import {ImLocation2} from "react-icons/im";
 import {RiCalendar2Fill} from "react-icons/ri";
 import {FaKey} from "react-icons/fa";
+import {HiChevronDown} from "react-icons/hi";
+import axios from "axios";
 
 const Home = ({seo}) => {
 
     const { localizations, destinations, categories, cars } = usePage().props;
+
+
+    /*--------------------------------*/
+
+    const [values, setValues] = useState({
+        pickup_id: "",
+
+    });
+
+    const [drop1, setDrop1] = useState(false);
+    const [drop2, setDrop2] = useState(false);
+    const [result, setResult] = useState([]);
+    const [pickup, setPickup] = useState('Select pick-up location');
+    const wrapperRef = useRef(null);
+
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setDrop1(false);
+                    setDrop2(false);
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
+    let interval;
+    function handleSearch(e) {
+        clearInterval(interval);
+        interval = setTimeout(function () {
+            if (e.target.value.length > 0) {
+                axios
+                    .post(route("search.address"), { term: e.target.value })
+                    .then(function (response) {
+                        console.log(response);
+                        setResult(response.data);
+                    });
+            } else setResult([]);
+        }, 300);
+    }
+
+    let dropOff = false;
+
+    function search(){
+        Inertia.visit(route('client.car.index') + `?address=${values.pickup_id}`)
+    }
+   /* -----------------------------------*/
 
 
     const easyFastSafe = [
@@ -121,7 +175,75 @@ const Home = ({seo}) => {
               <section className="wrapper homeFilter flex">
                   <div className="left">
                       <div className="flex">
-                          <PickupLocation diffLoc={diffLoc} dropOff={false} />
+                          {/*<PickupLocation diffLoc={diffLoc} dropOff={false} />*/}
+
+
+                          {/*-----------------*/}
+
+                          <div
+                              ref={wrapperRef}
+                              className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
+                          >
+                              <div className="box flex" style={{ marginBottom: "0" }}>
+                                  <div
+                                      onClick={() => setDrop1(!drop1)}
+                                      className={`inner_box ${dropOff === true && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      {pickup}{" "}
+                                      <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
+                                  </div>
+                                  <div
+                                      onClick={() => setDrop2(!drop2)}
+                                      className={`inner_box ${dropOff === false && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      Select drop-off location{" "}
+                                      <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
+                                  </div>
+                              </div>
+
+                              <div className={`dropdown ${drop1 && "show"}`}>
+                                  <div className="flex" style={{ flexDirection: "row" }}>
+                                      <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
+                                      {/*<div>
+            <button className="main-btn"> Ok</button>
+          </div>*/}
+                                  </div>
+
+                                  {result.map((item, index) => {
+                                      return (
+                                          <button onClick={() => {
+                                              setPickup(item.text);
+                                              setValues((values) => ({
+                                                  ...values,
+                                                  pickup_id: item.id,
+                                              }));
+                                          }}>
+                                              {" "}
+                                              <ImLocation2 className="icon" /> {item.text}
+                                          </button>
+                                      );
+                                  })}
+
+                              </div>
+                              <div className={`dropdown ${drop2 && "show"}`}>
+                                  <div className="flex" style={{ flexDirection: "row" }}>
+                                      <input type="text" placeholder="Enter address" />
+                                      <div>
+                                          <button className="main-btn"> Ok</button>
+                                      </div>
+                                  </div>
+                                  <button>
+                                      {" "}
+                                      <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei, Georgia.
+                                  </button>
+                              </div>
+                          </div>
+
+                          {/*------------------------*/}
+
+
                           <div className="flex check">
                               <input
                                   ref={dropLocationCheck}
@@ -153,7 +275,7 @@ const Home = ({seo}) => {
                       </div>
                   </div>
                   <div className="right">
-                      <button className="main-btn">{__('client.search',localizations)}</button>
+                      <button onClick={search} className="main-btn">{__('client.search',localizations)}</button>
                   </div>
                   <img className="animated" src="/client/assets/images/other/2.png" alt="" />
               </section>

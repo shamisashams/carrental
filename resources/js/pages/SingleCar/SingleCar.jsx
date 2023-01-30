@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./SingleCar.css";
 import CarSlider from "../../components/CarSlider/CarSlider";
 //import Car5 from "../../assets/images/cars/5.png";
@@ -19,6 +19,12 @@ import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-ic
 import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
 import {BsSnow2} from "react-icons/bs";
 import {Inertia} from "@inertiajs/inertia";
+import {ImLocation2} from "react-icons/im";
+import {HiChevronDown} from "react-icons/hi";
+import axios from "axios";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import moment from "moment";
 
 const SingleCar = ({seo}) => {
 
@@ -26,7 +32,9 @@ const SingleCar = ({seo}) => {
 
     const [price, setPrice] = useState(car.price);
 
+    const [value, onChange] = useState(new Date());
 
+    const [value2, onChange2] = useState(new Date());
 
 
     //console.log(car)
@@ -34,8 +42,8 @@ const SingleCar = ({seo}) => {
     const [values, setValues] = useState({
         options: [],
         car_id: car.id,
-        pickup_loc: "",
-        dropoff_loc: "",
+        pickup_id: "",
+        dropoff_id: "",
         pickup_date: "",
         dropoff_date: "",
     });
@@ -122,6 +130,71 @@ const SingleCar = ({seo}) => {
         Inertia.post(route("client.book"), values);
     }
 
+   // ----------------------------------------------
+
+    const [drop1, setDrop1] = useState(false);
+    const [drop2, setDrop2] = useState(false);
+
+    const [ddrop1, setdDrop1] = useState(false);
+    const [ddrop2, setdDrop2] = useState(false);
+
+    const [result, setResult] = useState([]);
+    const [pickup, setPickup] = useState('Select pick-up location');
+    const [dropoff, setDropoff] = useState('Select dropoff location');
+    const wrapperRef = useRef(null);
+    const wrapperRef2 = useRef(null);
+
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setDrop1(false);
+                    setDrop2(false);
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+    useOutsideAlerter2(wrapperRef2);
+    function useOutsideAlerter2(ref) {
+        useEffect(() => {
+            function handleClickOutside2(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setdDrop1(false);
+                    setdDrop2(false);
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside2);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside2);
+            };
+        }, [ref]);
+    }
+
+    let interval;
+    function handleSearch(e) {
+        clearInterval(interval);
+        interval = setTimeout(function () {
+            if (e.target.value.length > 0) {
+                axios
+                    .post(route("search.address"), { term: e.target.value })
+                    .then(function (response) {
+                        console.log(response);
+                        setResult(response.data);
+                    });
+            } else setResult([]);
+        }, 300);
+    }
+
+    //-------------------------------------------------
+
+    let dropOff =  false;
+    let diffLoc = false;
+
   return (
       <Layout seo={seo}>
           <div className="wrapper singleCar">
@@ -172,7 +245,7 @@ const SingleCar = ({seo}) => {
                                   </div>
                                   <div>
                                       <RiErrorWarningFill />
-                                      M{__('client.car_age_restriction2',localizations)}
+                                      {__('client.car_age_restriction2',localizations)}
                                   </div>
                               </div>
                           </div>
@@ -180,11 +253,126 @@ const SingleCar = ({seo}) => {
                   </div>
                   <div className="right">
                       <div className="selects">
-                          <PickupLocation dropOff={false} />
-                          <PickupLocation dropOff={true} />
+                          {/*<PickupLocation dropOff={false} />*/}
+                          {/*---------------------------------------*/}
+
+                          <div
+                              ref={wrapperRef}
+                              className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
+                          >
+                              <div className="box flex" style={{ marginBottom: "0" }}>
+                                  <div
+                                      onClick={() => setDrop1(!drop1)}
+                                      className={`inner_box ${dropOff === true && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      {pickup}{" "}
+                                      <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
+                                  </div>
+                                  <div
+                                      onClick={() => setDrop2(!drop2)}
+                                      className={`inner_box ${dropOff === false && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      Select drop-off location{" "}
+                                      <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
+                                  </div>
+                              </div>
+
+                              <div className={`dropdown ${drop1 && "show"}`}>
+                                  <div className="flex" style={{ flexDirection: "row" }}>
+                                      <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
+
+                                  </div>
+
+                                  {result.map((item, index) => {
+                                      return (
+                                          <button onClick={() => {
+                                              setPickup(item.text);
+                                              setValues((values) => ({
+                                                  ...values,
+                                                  pickup_id: item.id,
+                                              }));
+                                          }}>
+                                              {" "}
+                                              <ImLocation2 className="icon" /> {item.text}
+                                          </button>
+                                      );
+                                  })}
+
+                              </div>
+                          </div>
+
+
+                          <div
+                              ref={wrapperRef2}
+                              className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
+                          >
+                              <div className="box flex" style={{ marginBottom: "0" }}>
+                                  <div
+                                      onClick={() => setdDrop1(!ddrop1)}
+                                      className={`inner_box ${dropOff === true && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      {dropoff}{" "}
+                                      <HiChevronDown className={`chevron ${ddrop1 && "rotate"}`} />
+                                  </div>
+                                  <div
+                                      onClick={() => setdDrop2(!ddrop2)}
+                                      className={`inner_box ${dropOff === false && "inner_box2"}`}
+                                  >
+                                      <ImLocation2 className="icon" />
+                                      Select drop-off location{" "}
+                                      <HiChevronDown className={`chevron ${ddrop2 && "rotate"}`} />
+                                  </div>
+                              </div>
+
+                              <div className={`dropdown ${ddrop1 && "show"}`}>
+                                  <div className="flex" style={{ flexDirection: "row" }}>
+                                      <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
+
+                                  </div>
+
+                                  {result.map((item, index) => {
+                                      return (
+                                          <button onClick={() => {
+                                              setDropoff(item.text);
+                                              setValues((values) => ({
+                                                  ...values,
+                                                  dropoff_id: item.id,
+                                              }));
+                                          }}>
+                                              {" "}
+                                              <ImLocation2 className="icon" /> {item.text}
+                                          </button>
+                                      );
+                                  })}
+
+                              </div>
+                          </div>
+
+                          {/*------------------------------------------------*/}
+                          {/*<PickupLocation dropOff={true} />*/}
                           <PickupDate />
+
+                          <Calendar onChange={(value)=>{
+                              onChange(value);
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={value} />
+
                           <DropoffDate />
-                          <button onClick={()=>alert(pickupDate)}>clickme</button>
+
+                          <Calendar onChange={(value)=>{
+                              onChange2(value);
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={value2} />
+
                       </div>
                       <strong>{__('client.car_extra_options',localizations)}</strong>
                       {extra_options.map((item, index) => {

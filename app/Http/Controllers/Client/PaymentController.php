@@ -138,11 +138,11 @@ class PaymentController extends Controller
 
 
     public function createBooking(Request $request){
-        //dd($request->all());
+        dd($request->all());
         $data = $request->validate([
             'car_id' => 'required',
-            //'pickup_loc' => 'required',
-            //dropoff_loc' => 'required',
+            'pickup_id' => 'required',
+            'dropoff_id' => 'required',
             //'pickup_date' => 'required',
             //'dropoff_date' => 'required'
         ]);
@@ -152,8 +152,8 @@ class PaymentController extends Controller
 
         $data['pickup_date'] = '2023-01-27 10:11:44';
         $data['dropoff_date'] = '2023-01-29 11:23:22';
-        $data['pickup_id'] = 1;
-        $data['dropoff_id'] = 2;
+        //$data['pickup_id'] = 1;
+        //$data['dropoff_id'] = 2;
         $data['options'] = $request->post('options');
 
         session()->put(['booking' => $data]);
