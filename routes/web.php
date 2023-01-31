@@ -218,10 +218,6 @@ Route::prefix('{locale?}')
             Route::get('account',[\App\Http\Controllers\Client\UserController::class,'index'])->name('client.cabinet');
             Route::get('account/orders',[\App\Http\Controllers\Client\UserController::class,'orders'])->name('client.orders');
             Route::get('account/order/{order}/details',[\App\Http\Controllers\Client\UserController::class,'orderDetails'])->name('client.order-details');
-            Route::get('favorites',[\App\Http\Controllers\Client\CarController::class,'index'])->name('client.favorite.index');
-            Route::post('favorites',[\App\Http\Controllers\Client\CarController::class,'addToWishlist'])->name('client.favorite.add');
-            Route::post('favorites-set',[\App\Http\Controllers\Client\CarController::class,'addToWishlistCollection'])->name('client.favorite.add-set');
-            Route::get('favorites/remove',[\App\Http\Controllers\Client\CarController::class,'removeFromWishlist'])->name('client.favorite.remove');
 
 
             Route::post('checkout',[\App\Http\Controllers\Client\BookController::class,'createBook'])->name('client.checkout.order');

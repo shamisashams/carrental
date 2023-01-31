@@ -17,8 +17,11 @@ import {
     EditOrder,
     PersonalInfo,
 } from "./CabPopups";
+import {usePage} from "@inertiajs/inertia-react";
+import moment from "moment";
 
 const Cabinet = ({ seo }) => {
+    const { user, localizations, current_booking } = usePage().props;
     const [editOrder, setEditOrder] = useState(false);
     const [cancelOrder, setCancelOrder] = useState(false);
     const [personalInfo, setPersonalInfo] = useState(false);
@@ -103,6 +106,8 @@ const Cabinet = ({ seo }) => {
         },
     ];
 
+    //console.log(current_booking);
+
     return (
         <Layout seo={seo}>
             <div className="cabinetPage wrapper ">
@@ -134,7 +139,7 @@ const Cabinet = ({ seo }) => {
                                         paddingLeft: "11px",
                                     }}
                                 >
-                                    847$
+                                    {current_booking.grand_total}GEL
                                 </h2>
                             </h5>
                         </div>
@@ -144,7 +149,7 @@ const Cabinet = ({ seo }) => {
                         >
                             <div>
                                 {" "}
-                                <h6>Volkswagen Golf 2019</h6>
+                                <h6>{current_booking.car}</h6>
                                 <img
                                     src="/client/assets/images/cars/5.png"
                                     alt=""
@@ -162,18 +167,52 @@ const Cabinet = ({ seo }) => {
                             </div>
                             <div className="right">
                                 <div className="grid">
-                                    {info.map((item, index) => {
+                                    {/*{info.map((item, index) => {
                                         return (
                                             <div key={index} className="">
                                                 <h6>{item.title}</h6>
                                                 <div>{item.value}</div>
                                             </div>
                                         );
-                                    })}
+                                    })}*/}
+                                    <div className="">
+                                        <h6>pickup-loc</h6>
+                                        <div>{current_booking.pickup_loc}</div>
+                                    </div>
+                                    <div className="">
+                                        <h6>pickup-date</h6>
+                                        <div>{moment(current_booking.pickup_date).format('MMMM DD, YYYY')}</div>
+                                    </div>
+
+                                    <div className="">
+                                        <h6>pickup-time</h6>
+                                        <div>{moment(current_booking.pickup_date).format('LT')}</div>
+                                    </div>
+
+                                    <div className="">
+                                        <h6>drop-off-loc</h6>
+                                        <div>{current_booking.dropoff_loc}</div>
+                                    </div>
+                                    <div className="">
+                                        <h6>pickup-date</h6>
+                                        <div>{moment(current_booking.dropoff_date).format('MMMM DD, YYYY')}</div>
+                                    </div>
+
+                                    <div className="">
+                                        <h6>pickup-time</h6>
+                                        <div>{moment(current_booking.dropoff_date).format('LT')}</div>
+                                    </div>
                                 </div>
                                 <h6>Aditional options</h6>
                                 <div className="prices">
-                                    <div>
+                                    {current_booking.options.options.map((item,index) => {
+                                       return (
+                                           <div>
+                                               {item.title} - Price per day: {item.price} GEL
+                                           </div>
+                                       )
+                                    })}
+                                    {/*<div>
                                         Super cover - Price per day: 53 GEL
                                     </div>
                                     <div>
@@ -183,7 +222,7 @@ const Cabinet = ({ seo }) => {
                                     <div>
                                         Additional driver - Price per day: 31
                                         GEL
-                                    </div>
+                                    </div>*/}
                                 </div>
                             </div>
                         </div>
@@ -212,15 +251,15 @@ const Cabinet = ({ seo }) => {
                             </div>
                             <div className="flex line">
                                 <div>Name Surname </div>
-                                <div>James bong </div>
+                                <div>{user.name} {user.surname} </div>
                             </div>
                             <div className="flex line">
                                 <div>Email</div>
-                                <div>Example@email.com</div>
+                                <div>{user.email}</div>
                             </div>
                             <div className="flex line">
                                 <div>Phone</div>
-                                <div>+995 555 555 555</div>
+                                <div>{user.phone}</div>
                             </div>
                             <div className="flex line">
                                 <div>Password</div>

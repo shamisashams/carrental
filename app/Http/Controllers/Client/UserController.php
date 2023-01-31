@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Certificate;
 use App\Models\Order;
 use App\Models\Page;
 use App\Repositories\Eloquent\UserRepository;
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -41,7 +43,10 @@ class UserController extends Controller
 
         //dd($files);
 
-        return Inertia::render('PersonalInformation', ["page" => $page, "seo" => [
+        return Inertia::render('Cabinet/Cabinet', [
+            'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->first(),
+            "page" => $page,
+            "seo" => [
             "title"=>$page->meta_title,
             "description"=>$page->meta_description,
             "keywords"=>$page->meta_keyword,
@@ -65,22 +70,22 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'address' => 'required',
             'phone' => 'required',
             'email' => 'required|email|unique:users,email,' . auth()->id(),
-            'id_number' => 'required'
         ]);
 
-        if($request->post('password')){
+        if($request->post('password_old')){
             $data = $request->validate([
                 'password' => 'min:3',
-                'repeat_password' => 'same:password'
+                'password_repeat' => 'same:password',
+                'password_old' => ['required',new MatchOldPassword()]
             ]);
 
             //dd($data);
 
             $data['password'] = Hash::make($data['password']);
         }
+        //dd($data);
 
         auth()->user()->update($data);
         return redirect()->back()->with('success',__('client.success_saved'));
