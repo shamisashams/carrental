@@ -1,240 +1,240 @@
 .heroSection {
-  background-size: cover;
-  padding: 150px 0;
+    background-size: cover;
+    padding: 150px 0;
 }
 .heroSection h1 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .heroSection p {
-  max-width: 480px;
+    max-width: 480px;
 }
 .carSlider_section {
-  padding: 80px 0;
+    padding: 80px 0;
 }
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 .homeFilter {
-  position: relative;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px #141d3610;
-  padding: 25px 110px;
-  font-size: 14px;
-  margin-top: -70px;
-  align-items: flex-end;
+    position: relative;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px #141d3610;
+    padding: 25px 110px;
+    font-size: 14px;
+    margin-top: -70px !important;
+    align-items: flex-end;
 }
 .homeFilter .animated {
-  position: absolute;
-  right: 140px;
-  bottom: 50%;
+    position: absolute;
+    right: 140px;
+    bottom: 50%;
 }
 .homeFilter .left {
-  width: 58%;
+    width: 58%;
 }
 .homeFilter .left .flex:first-child {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .homeFilter .gap {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 .homeFilter .right {
-  width: 38%;
+    width: 38%;
 }
 .homeFilter .right .main-btn {
-  padding: 10px 30px;
+    padding: 10px 30px;
 }
 .easyFastSafe {
-  text-align: center;
-  margin-bottom: 100px;
+    text-align: center;
+    margin-bottom: 100px;
 }
 .easyFastSafe .steps {
-  align-items: flex-start;
-  position: relative;
+    align-items: flex-start;
+    position: relative;
 }
 .easyFastSafe .steps::before {
-  width: 630px;
-  height: 0;
-  border-top: 5px dashed #1aa3ba;
-  top: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: -1;
-  opacity: 0.5;
+    width: 630px;
+    height: 0;
+    border-top: 5px dashed #1aa3ba;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    opacity: 0.5;
 }
 .easyFastSafe h1 {
-  color: #1aa3ba;
-  margin-bottom: 40px;
+    color: #1aa3ba;
+    margin-bottom: 40px;
 }
 .easyFastSafe .icon {
-  width: 95px;
-  height: 95px;
-  border: 5px solid #fff;
-  margin: auto;
-  box-shadow: 0 5px 10px #34324b1a;
-  background-color: #f2f3f3;
-  color: #ff715a;
-  font-size: 30px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+    width: 95px;
+    height: 95px;
+    border: 5px solid #fff;
+    margin: auto;
+    box-shadow: 0 5px 10px #34324b1a;
+    background-color: #f2f3f3;
+    color: #ff715a;
+    font-size: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 .easyFastSafe p {
-  text-align: justify;
-  margin-top: 20px;
-  max-width: 200px;
+    text-align: justify;
+    margin-top: 20px;
+    max-width: 200px;
 }
 .easyFastSafe .each_step:nth-child(2) {
-  margin: 0 150px;
-  position: relative;
+    margin: 0 150px;
+    position: relative;
 }
 .easyFastSafe .each_step:nth-child(2) .icon {
-  background-color: #ff715a;
-  color: #fff;
+    background-color: #ff715a;
+    color: #fff;
 }
 .locationSection {
-  align-items: flex-start;
-  margin-bottom: 80px;
+    align-items: flex-start;
+    margin-bottom: 80px;
 }
 .locationSection h3 {
-  display: inline;
+    display: inline;
 }
 .locationSection p {
-  max-width: 290px;
-  margin: 20px 0;
+    max-width: 290px;
+    margin: 20px 0;
 }
 .locationSection .left {
-  flex-shrink: 0;
-  position: relative;
+    flex-shrink: 0;
+    position: relative;
 }
 .locationSection .left .animated {
-  display: block;
-  position: absolute;
-  top: 100%;
-  left: -50px;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: -50px;
 }
 .locationSection .right {
-  margin-left: 30px;
+    margin-left: 30px;
 }
 .locationSection .right .tags {
-  display: block;
+    display: block;
 }
 .locationSection .destinationGrid {
-  display: flex;
-  /* flex-wrap: wrap; */
-  gap: 25px;
-  margin: 20px 0;
+    display: flex;
+    /* flex-wrap: wrap; */
+    gap: 25px;
+    margin: 20px 0;
 }
 
 @media screen and (max-width: 1300px) {
-  .homeFilter {
-    padding: 25px 42px;
-  }
+    .homeFilter {
+        padding: 25px 42px;
+    }
 }
 @media screen and (max-width: 1100px) {
-  .homeFilter .animated {
-    right: 67px;
-    bottom: 46%;
-    width: 254px;
-  }
+    .homeFilter .animated {
+        right: 67px;
+        bottom: 46%;
+        width: 254px;
+    }
 }
 @media screen and (max-width: 1000px) {
-  .easyFastSafe .each_step:nth-child(2) {
-    margin: 0 30px;
-  }
-  .easyFastSafe .steps {
-    justify-content: space-between;
-  }
-  .easyFastSafe .steps::before {
-    width: 80%;
-  }
-  .locationSection {
-    flex-direction: column;
-  }
-  .locationSection .right {
-    margin-left: 0;
-    margin-top: 30px;
-  }
-  .locationSection p {
-    max-width: none;
-  }
-  .locationSection .left .animated {
-    position: relative;
-    top: auto;
-    left: auto;
-  }
-  .locationSection .destinationGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .homeFilter {
-    flex-direction: column;
-  }
-  .homeFilter .left,
-  .homeFilter .right {
-    width: 100%;
-    margin: 0;
-    margin-bottom: 30px;
-  }
-  .homeFilter .animated {
-    display: none;
-  }
+    .easyFastSafe .each_step:nth-child(2) {
+        margin: 0 30px;
+    }
+    .easyFastSafe .steps {
+        justify-content: space-between;
+    }
+    .easyFastSafe .steps::before {
+        width: 80%;
+    }
+    .locationSection {
+        flex-direction: column;
+    }
+    .locationSection .right {
+        margin-left: 0;
+        margin-top: 30px;
+    }
+    .locationSection p {
+        max-width: none;
+    }
+    .locationSection .left .animated {
+        position: relative;
+        top: auto;
+        left: auto;
+    }
+    .locationSection .destinationGrid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .homeFilter {
+        flex-direction: column;
+    }
+    .homeFilter .left,
+    .homeFilter .right {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 30px;
+    }
+    .homeFilter .animated {
+        display: none;
+    }
 }
 @media screen and (max-width: 850px) {
-  .heroSection h1 {
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  .homeFilter {
-    padding: 25px 18px;
-  }
+    .heroSection h1 {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+    .homeFilter {
+        padding: 25px 18px;
+    }
 }
 @media screen and (max-width: 600px) {
-  .heroSection {
-    background-size: cover;
-    padding: 100px 0;
-  }
-  .easyFastSafe .steps {
-    flex-direction: column;
-  }
-  .easyFastSafe .each_step {
-    display: flex;
-    text-align: left;
-  }
-  .easyFastSafe .each_step:nth-child(2) {
-    margin: 30px 0;
-  }
-  .easyFastSafe .icon {
-    margin: 0;
-    margin-right: 15px;
-    width: 70px;
-    height: 70px;
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-  .easyFastSafe .text {
-    margin-top: 3px;
-  }
-  .easyFastSafe p {
-    text-align: left;
-    margin-top: 8px;
-    max-width: none;
-  }
-  .easyFastSafe .steps::before {
-    width: 5px;
-    height: 100%;
-    left: 32px;
-    transform: none;
-    top: 0;
-    border-top: none;
-    border-left: 5px dashed #1aa3ba;
-  }
-  .homeFilter .flex {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .homeFilter .flex.check {
-    flex-direction: row;
-    justify-content: flex-start;
-  }
+    .heroSection {
+        background-size: cover;
+        padding: 100px 0;
+    }
+    .easyFastSafe .steps {
+        flex-direction: column;
+    }
+    .easyFastSafe .each_step {
+        display: flex;
+        text-align: left;
+    }
+    .easyFastSafe .each_step:nth-child(2) {
+        margin: 30px 0;
+    }
+    .easyFastSafe .icon {
+        margin: 0;
+        margin-right: 15px;
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    .easyFastSafe .text {
+        margin-top: 3px;
+    }
+    .easyFastSafe p {
+        text-align: left;
+        margin-top: 8px;
+        max-width: none;
+    }
+    .easyFastSafe .steps::before {
+        width: 5px;
+        height: 100%;
+        left: 32px;
+        transform: none;
+        top: 0;
+        border-top: none;
+        border-left: 5px dashed #1aa3ba;
+    }
+    .homeFilter .flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .homeFilter .flex.check {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
 }

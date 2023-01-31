@@ -243,7 +243,6 @@ Route::prefix('{locale?}')
             Route::get('', [HomeController::class, 'index'])->name('client.home.index');
 
 
-
             // Contact Page
             Route::get('/contact', [ContactController::class, 'index'])->name('client.contact.index');
             Route::post('/contact-us', [ContactController::class, 'mail'])->name('client.contact.mail');
@@ -251,6 +250,8 @@ Route::prefix('{locale?}')
 
             // About Page
             Route::get('about', [AboutUsController::class, 'index'])->name('client.about.index');
+            // Cabinet Page
+            Route::get('cabinet', [AboutUsController::class, 'cabinet'])->name('client.about.cabinet');
 
         Route::get('FAQ', [\App\Http\Controllers\Client\FaqController::class, 'index'])->name('client.faq.index');
 
