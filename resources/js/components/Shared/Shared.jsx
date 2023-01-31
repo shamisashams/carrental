@@ -13,8 +13,8 @@ import {
 } from "react-icons/md";
 import { Calendar } from "../Calendar/Calendar";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
-import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
-import {BsSnow2} from "react-icons/bs";
+import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
+import { BsSnow2 } from "react-icons/bs";
 import axios from "axios";
 
 export const Hashtag = ({ text }) => {
@@ -56,11 +56,11 @@ export const DestinationBox = (props) => {
 };
 
 export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
-  const [drop1, setDrop1] = useState(false);
-  const [drop2, setDrop2] = useState(false);
+    const [drop1, setDrop1] = useState(false);
+    const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
-    const [pickup, setPickup] = useState('Select pick-up location');
-  const wrapperRef = useRef(null);
+    const [pickup, setPickup] = useState("Select pick-up location");
+    const wrapperRef = useRef(null);
 
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -93,53 +93,58 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
         }, 300);
     }
 
-
-
-
-  return (
-    <div
-      ref={wrapperRef}
-      className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
-    >
-      <div className="box flex" style={{ marginBottom: "0" }}>
+    return (
         <div
             ref={wrapperRef}
             className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
         >
-          <ImLocation2 className="icon" />
-            {pickup}{" "}
-          <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
-        </div>
-        <div
-          onClick={() => setDrop2(!drop2)}
-          className={`inner_box ${dropOff === false && "inner_box2"}`}
-        >
-          <ImLocation2 className="icon" />
-          Select drop-off location{" "}
-          <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
-        </div>
-      </div>
+            <div className="box flex" style={{ marginBottom: "0" }}>
+                <div
+                    ref={wrapperRef}
+                    className={`selectBox pickupLocation ${
+                        diffLoc && "diffLoc"
+                    }`}
+                >
+                    <ImLocation2 className="icon" />
+                    {pickup}{" "}
+                    <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
+                </div>
+                <div
+                    onClick={() => setDrop2(!drop2)}
+                    className={`inner_box ${dropOff === false && "inner_box2"}`}
+                >
+                    <ImLocation2 className="icon" />
+                    Select drop-off location{" "}
+                    <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
+                </div>
+            </div>
 
-      <div className={`dropdown ${drop1 && "show"}`}>
-        <div className="flex" style={{ flexDirection: "row" }}>
-          <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
-          {/*<div>
+            <div className={`dropdown ${drop1 && "show"}`}>
+                <div className="flex" style={{ flexDirection: "row" }}>
+                    <input
+                        onKeyUp={handleSearch}
+                        type="text"
+                        placeholder="Enter address"
+                    />
+                    {/*<div>
             <button className="main-btn"> Ok</button>
           </div>*/}
-        </div>
+                </div>
 
-          {result.map((item, index) => {
-              return (
-                  <button onClick={(event) => {
-                      setPickup(item.text);
-                      onChange(item.id,event,item.text)
-                  }}>
-                      {" "}
-                      <ImLocation2 className="icon" /> {item.text}
-                  </button>
-              );
-          })}
-        {/*<button>
+                {result.map((item, index) => {
+                    return (
+                        <button
+                            onClick={(event) => {
+                                setPickup(item.text);
+                                onChange(item.id, event, item.text);
+                            }}
+                        >
+                            {" "}
+                            <ImLocation2 className="icon" /> {item.text}
+                        </button>
+                    );
+                })}
+                {/*<button>
           {" "}
           <ImLocation2 className="icon" /> 522 Junkins Avenue. Tbilisi, Georgia
         </button>
@@ -152,21 +157,22 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
           {" "}
           <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei, Georgia.
         </button>*/}
-      </div>
-      <div className={`dropdown ${drop2 && "show"}`}>
-        <div className="flex" style={{ flexDirection: "row" }}>
-          <input type="text" placeholder="Enter address" />
-          <div>
-            <button className="main-btn"> Ok</button>
-          </div>
+            </div>
+            <div className={`dropdown ${drop2 && "show"}`}>
+                <div className="flex" style={{ flexDirection: "row" }}>
+                    <input type="text" placeholder="Enter address" />
+                    <div>
+                        <button className="main-btn"> Ok</button>
+                    </div>
+                </div>
+                <button>
+                    {" "}
+                    <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei,
+                    Georgia.
+                </button>
+            </div>
         </div>
-        <button>
-          {" "}
-          <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei, Georgia.
-        </button>
-      </div>
-    </div>
-  );
+    );
 };
 
 export const PickupDate = () => {
@@ -235,26 +241,26 @@ export const DropoffDate = () => {
     );
 };
 
-export const TimeSelect = ({onChange}) => {
-  const [drop, setDrop] = useState(false);
-  const wrapperRef = useRef(null);
+export const TimeSelect = ({ onChange }) => {
+    const [drop, setDrop] = useState(false);
+    const wrapperRef = useRef(null);
 
-    const [dropv, setDropv] = useState('select date');
+    const [dropv, setDropv] = useState("select date");
 
-  useOutsideAlerter(wrapperRef);
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
-          setDrop(false);
-        }
-      }
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setDrop(false);
+                }
+            }
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
 
     function returnTimesInBetween(start, end) {
         var timesInBetween = [];
@@ -264,50 +270,48 @@ export const TimeSelect = ({onChange}) => {
         var endH = parseInt(end.split(":")[0]);
         var endM = parseInt(end.split(":")[1]);
 
-        if (startM == 30)
-            startH++;
+        if (startM == 30) startH++;
 
         for (var i = startH; i < endH; i++) {
             timesInBetween.push(i < 10 ? "0" + i + ":00" : i + ":00");
             timesInBetween.push(i < 10 ? "0" + i + ":30" : i + ":30");
         }
 
-
-
         timesInBetween.push(endH + ":00");
-        if (endM == 30)
-            timesInBetween.push(endH + ":30")
+        if (endM == 30) timesInBetween.push(endH + ":30");
 
         return timesInBetween;
     }
 
-    let t = returnTimesInBetween('00:00:00','23:30:00');
+    let t = returnTimesInBetween("00:00:00", "23:30:00");
 
+    return (
+        <div ref={wrapperRef} className="selectBox ">
+            <div onClick={() => setDrop(!drop)} className="box">
+                {dropv}
+                <HiChevronDown className={`chevron ${drop && "rotate"}`} />
+            </div>
+            <div className={`dropdown time ${drop && "show"}`}>
+                {t.map((item, index) => {
+                    return (
+                        <button
+                            onClick={(event) => {
+                                onChange(event.target.innerText);
+                                setDropv(event.target.innerText);
+                                setDrop(false);
+                            }}
+                        >
+                            {item}
+                        </button>
+                    );
+                })}
 
-  return (
-    <div ref={wrapperRef} className="selectBox ">
-      <div onClick={() => setDrop(!drop)} className="box">
-          {dropv}
-        <HiChevronDown className={`chevron ${drop && "rotate"}`} />
-      </div>
-      <div className={`dropdown time ${drop && "show"}`}>
-
-          {t.map((item,index) => {
-             return (
-                 <button onClick={(event) => {
-                     onChange(event.target.innerText);
-                     setDropv(event.target.innerText);
-                     setDrop(false);
-                 }}>{item}</button>
-             )
-          })}
-
-        {/*<button>12:00</button>
+                {/*<button>12:00</button>
         <button>15:30</button>
         <button>18:45</button>*/}
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 };
 
 export const NumberOfSeats = () => {
@@ -347,59 +351,64 @@ export const NumberOfSeats = () => {
 };
 
 export const CarBox = (props) => {
-    const {localizations} = usePage().props;
+    const { localizations } = usePage().props;
     const carFeatures = [
         {
             icon: <MdAirlineSeatReclineNormal />,
-            text: ${props.car.seat} Seats,
+            text: `${props.car.seat} Seats`,
         },
         {
             icon: <GiCarDoor />,
-            text: ${props.car.door} doors,
+            text: `${props.car.door} doors`,
         },
         {
             icon: <MdLocalGasStation />,
-            text: props.car.fuel?props.car.fuel.title:'unknown',
+            text: props.car.fuel ? props.car.fuel.title : "unknown",
         },
         {
             icon: <MdLuggage />,
-            text: props.car.bag?props.car.bag.title:'unknown',
+            text: props.car.bag ? props.car.bag.title : "unknown",
         },
         {
             icon: <GiGearStickPattern />,
-            text: props.car.transmission?props.car.transmission.title:'unknown',
+            text: props.car.transmission
+                ? props.car.transmission.title
+                : "unknown",
         },
         {
             icon: <BsSnow2 />,
-            text: props.car.air_conditioning?'Air conditioning':'none',
+            text: props.car.air_conditioning ? "Air conditioning" : "none",
         },
     ];
-  return (
-    <div className="carBox">
-      <h5>{props.model}</h5>
-      <div className="flex">
-        <div className="img">
-          <img src={props.img} alt="" />
+    return (
+        <div className="carBox">
+            <h5>{props.model}</h5>
+            <div className="flex">
+                <div className="img">
+                    <img src={props.img} alt="" />
+                </div>
+                <div className="grid">
+                    {carFeatures.map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <span>{item.icon}</span>
+                                {item.text}
+                            </div>
+                        );
+                    })}
+                </div>
+                <div>
+                    <h3>{props.price}GEL day</h3>
+                    <Link
+                        href={route("client.car.show", props.slug)}
+                        className="main-btn-sml"
+                    >
+                        {__("client.book_now", localizations)}
+                    </Link>
+                </div>
+            </div>
         </div>
-        <div className="grid">
-          {carFeatures.map((item, index) => {
-            return (
-              <div key={index}>
-                <span>{item.icon}</span>
-                {item.text}
-              </div>
-            );
-          })}
-        </div>
-        <div>
-          <h3>{props.price}GEL day</h3>
-          <Link href={route('client.car.show',props.slug)} className="main-btn-sml">
-              {__('client.book_now',localizations)}
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export const Pagination = () => {
