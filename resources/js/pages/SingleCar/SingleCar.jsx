@@ -167,70 +167,7 @@ const SingleCar = ({seo}) => {
         Inertia.post(route("client.book"), values);
     }
 
-   // ----------------------------------------------
 
-    const [drop1, setDrop1] = useState(false);
-    const [drop2, setDrop2] = useState(false);
-
-    const [ddrop1, setdDrop1] = useState(false);
-    const [ddrop2, setdDrop2] = useState(false);
-
-    const [result, setResult] = useState([]);
-    const [pickup, setPickup] = useState('Select pick-up location');
-    const [dropoff, setDropoff] = useState('Select dropoff location');
-    const wrapperRef = useRef(null);
-    const wrapperRef2 = useRef(null);
-
-    useOutsideAlerter(wrapperRef);
-    function useOutsideAlerter(ref) {
-        useEffect(() => {
-            function handleClickOutside(event) {
-                if (ref.current && !ref.current.contains(event.target)) {
-                    setDrop1(false);
-                    setDrop2(false);
-                }
-            }
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside);
-            };
-        }, [ref]);
-    }
-    useOutsideAlerter2(wrapperRef2);
-    function useOutsideAlerter2(ref) {
-        useEffect(() => {
-            function handleClickOutside2(event) {
-                if (ref.current && !ref.current.contains(event.target)) {
-                    setdDrop1(false);
-                    setdDrop2(false);
-                }
-            }
-            document.addEventListener("mousedown", handleClickOutside2);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside2);
-            };
-        }, [ref]);
-    }
-
-    let interval;
-    function handleSearch(e) {
-        clearInterval(interval);
-        interval = setTimeout(function () {
-            if (e.target.value.length > 0) {
-                axios
-                    .post(route("search.address"), { term: e.target.value })
-                    .then(function (response) {
-                        console.log(response);
-                        setResult(response.data);
-                    });
-            } else setResult([]);
-        }, 300);
-    }
-
-    //-------------------------------------------------
-
-    let dropOff =  false;
-    let diffLoc = false;
 
   return (
       <Layout seo={seo}>
@@ -290,106 +227,19 @@ const SingleCar = ({seo}) => {
                   </div>
                   <div className="right">
                       <div className="selects">
-                          {/*<PickupLocation dropOff={false} />*/}
-                          {/*---------------------------------------*/}
+                          <PickupLocation dropOff={false} onChange={(value)=>{
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_id: value,
+                              }));
+                          }} />
 
-                          <div
-                              ref={wrapperRef}
-                              className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
-                          >
-                              <div className="box flex" style={{ marginBottom: "0" }}>
-                                  <div
-                                      onClick={() => setDrop1(!drop1)}
-                                      className={`inner_box ${dropOff === true && "inner_box2"}`}
-                                  >
-                                      <ImLocation2 className="icon" />
-                                      {pickup}{" "}
-                                      <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
-                                  </div>
-                                  <div
-                                      onClick={() => setDrop2(!drop2)}
-                                      className={`inner_box ${dropOff === false && "inner_box2"}`}
-                                  >
-                                      <ImLocation2 className="icon" />
-                                      Select drop-off location{" "}
-                                      <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
-                                  </div>
-                              </div>
-
-                              <div className={`dropdown ${drop1 && "show"}`}>
-                                  <div className="flex" style={{ flexDirection: "row" }}>
-                                      <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
-
-                                  </div>
-
-                                  {result.map((item, index) => {
-                                      return (
-                                          <button onClick={() => {
-                                              setPickup(item.text);
-                                              setValues((values) => ({
-                                                  ...values,
-                                                  pickup_id: item.id,
-                                              }));
-                                          }}>
-                                              {" "}
-                                              <ImLocation2 className="icon" /> {item.text}
-                                          </button>
-                                      );
-                                  })}
-
-                              </div>
-                          </div>
-
-
-                          <div
-                              ref={wrapperRef2}
-                              className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
-                          >
-                              <div className="box flex" style={{ marginBottom: "0" }}>
-                                  <div
-                                      onClick={() => setdDrop1(!ddrop1)}
-                                      className={`inner_box ${dropOff === true && "inner_box2"}`}
-                                  >
-                                      <ImLocation2 className="icon" />
-                                      {dropoff}{" "}
-                                      <HiChevronDown className={`chevron ${ddrop1 && "rotate"}`} />
-                                  </div>
-                                  <div
-                                      onClick={() => setdDrop2(!ddrop2)}
-                                      className={`inner_box ${dropOff === false && "inner_box2"}`}
-                                  >
-                                      <ImLocation2 className="icon" />
-                                      Select drop-off location{" "}
-                                      <HiChevronDown className={`chevron ${ddrop2 && "rotate"}`} />
-                                  </div>
-                              </div>
-
-                              <div className={`dropdown ${ddrop1 && "show"}`}>
-                                  <div className="flex" style={{ flexDirection: "row" }}>
-                                      <input onKeyUp={handleSearch} type="text" placeholder="Enter address" />
-
-                                  </div>
-
-                                  {result.map((item, index) => {
-                                      return (
-                                          <button onClick={() => {
-                                              setDropoff(item.text);
-                                              setValues((values) => ({
-                                                  ...values,
-                                                  dropoff_id: item.id,
-                                              }));
-                                          }}>
-                                              {" "}
-                                              <ImLocation2 className="icon" /> {item.text}
-                                          </button>
-                                      );
-                                  })}
-
-                              </div>
-                          </div>
-
-                          {/*------------------------------------------------*/}
-                          {/*<PickupLocation dropOff={true} />*/}
+                          <PickupLocation dropOff={true} onChange={(value)=>{
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_id: value,
+                              }));
+                          }} />
                           <PickupDate />
 
                           <Calendar onChange={(value)=>{

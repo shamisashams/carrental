@@ -54,7 +54,7 @@ export const DestinationBox = (props) => {
   );
 };
 
-export const PickupLocation = ({ diffLoc, dropOff }) => {
+export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
   const [drop1, setDrop1] = useState(false);
   const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
@@ -131,7 +131,7 @@ export const PickupLocation = ({ diffLoc, dropOff }) => {
               return (
                   <button onClick={() => {
                       setPickup(item.text);
-                      pickupLoc = item.id;
+                      onChange(item.id,item.text)
                   }}>
                       {" "}
                       <ImLocation2 className="icon" /> {item.text}
