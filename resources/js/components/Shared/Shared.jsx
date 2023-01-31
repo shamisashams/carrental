@@ -6,12 +6,15 @@ import { HiChevronDown } from "react-icons/hi";
 import { ImLocation2 } from "react-icons/im";
 import { RiCalendar2Fill } from "react-icons/ri";
 import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-icons/md";
-import { Calendar } from "../Calendar/Calendar";
+//import { Calendar } from "../Calendar/Calendar";
 import { carFeatures } from "../Data";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
 import {BsSnow2} from "react-icons/bs";
 import axios from "axios";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import moment from "moment";
 
 export const Hashtag = ({ text }) => {
   const [active, setActive] = useState();
@@ -168,7 +171,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
   );
 };
 
-export const PickupDate = () => {
+export const PickupDate = ({onChange,value}) => {
   const [drop, setDrop] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -191,17 +194,19 @@ export const PickupDate = () => {
     <div ref={wrapperRef} className="selectBox ">
       <div onClick={() => setDrop(!drop)} className="box date">
         <RiCalendar2Fill className="icon" />
-        Pick-up date
+          {value}
         <HiChevronDown className={`chevron ${drop && "rotate"}`} />
       </div>
       <div className={`dropdown calendar_drop ${drop && "show"}`}>
-        <Calendar />
+        <Calendar onChange={(value)=>{
+            onChange(value)
+        }} />
       </div>
     </div>
   );
 };
 
-export const DropoffDate = () => {
+export const DropoffDate = ({onChange,value}) => {
   const [drop, setDrop] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -224,11 +229,13 @@ export const DropoffDate = () => {
     <div ref={wrapperRef} className="selectBox ">
       <div onClick={() => setDrop(!drop)} className="box date">
         <RiCalendar2Fill className="icon" />
-        Drop-off date
+          {value}
         <HiChevronDown className={`chevron ${drop && "rotate"}`} />
       </div>
       <div className={`dropdown calendar_drop ${drop && "show"}`}>
-        <Calendar />
+        <Calendar onChange={(value)=>{
+            onChange(value)
+        }} />
       </div>
     </div>
   );

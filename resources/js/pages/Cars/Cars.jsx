@@ -215,8 +215,12 @@ const Cars = ({seo}) => {
                       <PickupLocation dropOff={true} onChange={(value,event)=>{
                           handleFilterClickAddress(event,'dropoff',value)
                       }} />
-                      <PickupDate />
-                      <DropoffDate />
+                      <PickupDate onChange={(value)=>{
+                          alert(value)
+                      }} />
+                      <DropoffDate onChange={(value)=>{
+                          alert(value)
+                      }} />
                       <div className="gray_box">
                           <div className="title">
                               <FaCar />

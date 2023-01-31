@@ -22,8 +22,8 @@ import {Inertia} from "@inertiajs/inertia";
 import {ImLocation2} from "react-icons/im";
 import {HiChevronDown} from "react-icons/hi";
 import axios from "axios";
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+//import Calendar from 'react-calendar';
+//import 'react-calendar/dist/Calendar.css';
 import moment from "moment";
 
 const SingleCar = ({seo}) => {
@@ -36,6 +36,9 @@ const SingleCar = ({seo}) => {
     const [value, onChange] = useState(new Date());
 
     const [value2, onChange2] = useState(new Date());
+
+    const [pickupd, setPickupd] = useState('pickup date');
+    const [dropoffd, setDropoffd] = useState('dropoff date');
 
 
     //console.log(car)
@@ -240,15 +243,21 @@ const SingleCar = ({seo}) => {
                                   dropoff_id: value,
                               }));
                           }} />
-                          <PickupDate />
+                          <PickupDate onChange={(value)=>{
+                              setPickupd(moment(value).format('YYYY-MM-DD'));
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={pickupd} />
 
-                          <Calendar onChange={(value)=>{
+                          {/*<Calendar onChange={(value)=>{
                               onChange(value);
                               setValues((values) => ({
                                   ...values,
                                   pickup_date: moment(value).format('YYYY-MM-DD'),
                               }));
-                          }} value={value} />
+                          }} value={value} />*/}
                           <TimeSelect onChange={(value) => {
                               setValues((values) => ({
                                   ...values,
@@ -256,15 +265,21 @@ const SingleCar = ({seo}) => {
                               }));
                           }} />
 
-                          <DropoffDate />
+                          <DropoffDate onChange={(value)=>{
+                              setDropoffd(moment(value).format('YYYY-MM-DD'));
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={dropoffd} />
 
-                          <Calendar onChange={(value)=>{
+                          {/*<Calendar onChange={(value)=>{
                               onChange2(value);
                               setValues((values) => ({
                                   ...values,
                                   dropoff_date: moment(value).format('YYYY-MM-DD'),
                               }));
-                          }} value={value2} />
+                          }} value={value2} />*/}
 
                           <TimeSelect onChange={(value) => {
                               setValues((values) => ({
