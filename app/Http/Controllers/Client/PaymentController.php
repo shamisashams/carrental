@@ -142,7 +142,7 @@ class PaymentController extends Controller
         $data = $request->validate([
             'car_id' => 'required',
             'pickup_id' => 'required',
-            //'dropoff_id' => 'required',
+            'dropoff_id' => 'required',
             'pickup_date' => 'required',
             'dropoff_date' => 'required',
             'pickup_time' => 'required',
@@ -155,7 +155,7 @@ class PaymentController extends Controller
         $data['pickup_date'] = $data['pickup_date'].' '.$data['pickup_time'] . ':00';
         $data['dropoff_date'] = $data['dropoff_date'].' '.$data['dropoff_time'] . ':00';
         //$data['pickup_id'] = 1;
-        $data['dropoff_id'] = 2;
+        //$data['dropoff_id'] = 2;
         unset($data['pickup_time'],$data['dropoff_time']);
         $data['options'] = $request->post('options');
 

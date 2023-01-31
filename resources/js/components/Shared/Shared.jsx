@@ -61,6 +61,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
     const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
     const [pickup, setPickup] = useState("Select pick-up location");
+    const [dropoff, setDropoff] = useState("Select pick-up location");
     const wrapperRef = useRef(null);
 
     useOutsideAlerter(wrapperRef);
@@ -109,7 +110,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
                     className={`inner_box ${dropOff === true && "inner_box2"}`}
                 >
                     <ImLocation2 className="icon" />
-                    Select pick-up location{" "}
+                    {pickup}{" "}
                     <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
                 </div>
                 <div
@@ -119,7 +120,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
                     className={`inner_box ${dropOff === false && "inner_box2"}`}
                 >
                     <ImLocation2 className="icon" />
-                    Select drop-off location{" "}
+                    {dropoff}{" "}
                     <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
                 </div>
             </div>
@@ -165,16 +166,31 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
             </div>
             <div className={`dropdown ${drop2 && "show"}`}>
                 <div className="flex" style={{ flexDirection: "row" }}>
-                    <input type="text" placeholder="Enter address" />
-                    <div>
+                    <input type="text" placeholder="Enter address" onKeyUp={handleSearch} />
+
+                    {/*<div>
                         <button className="main-btn"> Ok</button>
-                    </div>
+                    </div>*/}
                 </div>
-                <button>
+                {result.map((item, index) => {
+                    return (
+                        <button
+                            onClick={(event) => {
+                                setDropoff(item.text);
+
+                                onChange(item.id, event, item.text);
+                            }}
+                        >
+                            {" "}
+                            <ImLocation2 className="icon" /> {item.text}
+                        </button>
+                    );
+                })}
+                {/*<button>
                     {" "}
                     <ImLocation2 className="icon" /> 4550 Red Bud Lane. Telavei,
                     Georgia.
-                </button>
+                </button>*/}
             </div>
         </div>
     );
