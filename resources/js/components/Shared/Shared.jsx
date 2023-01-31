@@ -103,10 +103,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
         >
             <div className="box flex" style={{ marginBottom: "0" }}>
                 <div
-                    ref={wrapperRef}
-                    className={`selectBox pickupLocation ${
-                        diffLoc && "diffLoc"
-                    }`}
+                    className={`inner_box ${dropOff === true && "inner_box2"}`}
                     onClick={() => {
 
                         setDrop1(!drop1)
