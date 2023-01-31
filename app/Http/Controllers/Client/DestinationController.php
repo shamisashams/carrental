@@ -117,7 +117,7 @@ class DestinationController extends Controller
             'similar_products' => null,
             'product_images' => null,
             'product_attributes' => null,
-            'news' => $blog,
+            'destination' => $blog,
             "seo" => [
                 "title"=>$blog->meta_title,
                 "description"=>$blog->meta_description,

@@ -10,8 +10,10 @@ import { Navigation, Pagination } from "swiper";
 import React, { useRef } from "react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
+import {usePage} from "@inertiajs/inertia-react";
 
 export default ({cars}) => {
+    const {localizations} = usePage().props;
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -71,14 +73,14 @@ export default ({cars}) => {
                   <GiGearStickPattern /> {item.transmission?item.transmission.title:''}
                 </p>
               </div>
-              <h4>{item.price}</h4>
-              <h3 className="orange">{item.newPrice}</h3>
+                {item.special_price?<h4>{item.price}GEL</h4>:null}
+              <h3 className="orange">{item.real_price}GEL</h3>
               <div className="img">
                 <img src={item.latest_image?item.latest_image.file_full_url:null} alt="" />
               </div>
               <button onClick={() => {
                   visit(item.slug)
-              }} className="main-btn">Book now</button>
+              }} className="main-btn">{__('client.book_now',localizations)}</button>
             </div>
           </SwiperSlide>
         );

@@ -13,6 +13,7 @@ const Login = ({seo}) => {
     const [values, setValues] = useState({
         email: "",
         password: "",
+        remember: false
     });
 
     function handleChange(e) {
@@ -36,27 +37,27 @@ const Login = ({seo}) => {
       <Layout seo={seo}>
           <div className="accountPage login wrapper">
               <div className="container">
-                  <h2>Log in</h2>
+                  <h2>{__('client.login_h',localizations)}</h2>
                   {errors.email && <div>{errors.email}</div>}
-                  <input type="text" placeholder="Name" name="email" onChange={handleChange} />
-                  <input type="password" placeholder="Password" name="password" onChange={handleChange} />
+                  <input type="text" placeholder={__('client.form_name',localizations)} name="email" onChange={handleChange} />
+                  <input type="password" placeholder={__('client.form_password',localizations)} name="password" onChange={handleChange} />
                   <div className="flex">
                       <div>
                           <input type="checkbox" name="remember" id="agreeTerm" onClick={handleChange} />
                           <label htmlFor="agreeTerm">
                               <div></div>
                           </label>
-                          <label htmlFor="agreeTerm">Remember me</label>
+                          <label htmlFor="agreeTerm">{__('client.form_remember',localizations)}</label>
                       </div>
                       <Link style={{ color: "#4267B2" }} href="/">
-                          Forgot password?
+                          {__('client.login_forgot_pass',localizations)}
                       </Link>
                   </div>
-                  <button onClick={handleSubmit} className="main-btn">Log in</button>
+                  <button onClick={handleSubmit} className="main-btn">{__('client.login_btn',localizations)}</button>
                   <div>
-                      Not have account yet?{" "}
+                      {__('client.login_have_not_account',localizations)}{" "}
                       <Link style={{ color: "#FF715A" }} href={route('client.registration.index')}>
-                          Join now
+                          {__('client.login_join_now',localizations)}
                       </Link>{" "}
                   </div>
               </div>

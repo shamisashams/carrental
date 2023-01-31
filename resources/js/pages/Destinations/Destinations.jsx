@@ -125,9 +125,7 @@ const Destinations = ({seo}) => {
                   <div>
                       <h3>{__('client.destination_header',localizations)}</h3>
                       <div>
-                          Regardless of the country, you will still need to present your
-                          driver’s license and identity documentation. All up mentioned
-                          documents are mandatory.
+                          {__('client.destination_text',localizations)}
                       </div>
                   </div>
               </div>

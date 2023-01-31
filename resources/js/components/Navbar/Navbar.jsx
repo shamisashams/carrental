@@ -73,10 +73,10 @@ const Navbar = () => {
         </ul>
         <div className="flex aut-seg">
           <Link className="sign-up" href={route('client.registration.index')}>
-            Sign Up
+              {__('client.nav_signup',localizations)}
           </Link>
           <Link className="main-btn-sml log-in" href={route('client.login.index')}>
-            Log In
+              {__('client.nav_login',localizations)}
           </Link>
           <div className="languages">
             <div className="">

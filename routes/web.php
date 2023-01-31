@@ -146,6 +146,8 @@ Route::prefix('{locale?}')
                 Route::put('mail-templates/update',[\App\Http\Controllers\Admin\MailTemplateController::class,'update'])->name('mail-template.update');
 
 
+                Route::resource('booking', \App\Http\Controllers\Admin\BookingController::class);
+
 
             });
         });
@@ -220,9 +222,9 @@ Route::prefix('{locale?}')
             Route::post('favorites',[\App\Http\Controllers\Client\CarController::class,'addToWishlist'])->name('client.favorite.add');
             Route::post('favorites-set',[\App\Http\Controllers\Client\CarController::class,'addToWishlistCollection'])->name('client.favorite.add-set');
             Route::get('favorites/remove',[\App\Http\Controllers\Client\CarController::class,'removeFromWishlist'])->name('client.favorite.remove');
-            Route::post('apply-promocode',[\App\Http\Controllers\Client\CartController::class,'applyPromocode'])->name('apply-promocode');
 
-            Route::post('checkout',[\App\Http\Controllers\Client\OrderController::class,'order'])->name('client.checkout.order');
+
+            Route::post('checkout',[\App\Http\Controllers\Client\BookController::class,'createBook'])->name('client.checkout.order');
             Route::post('settings',[\App\Http\Controllers\Client\UserController::class,'saveSettings'])->name('client.save-settings');
             Route::get('invoice/{order}',[\App\Http\Controllers\Client\UserController::class,'invoice'])->name('client.invoice');
         });
@@ -271,6 +273,7 @@ Route::prefix('{locale?}')
 
 
 
+        Route::post('/search/address', [\App\Http\Controllers\Client\SearchController::class, 'searchAddress'])->name('search.address');
             //checkout
 
             Route::get('checkout',[\App\Http\Controllers\Client\OrderController::class,'index'])->name('client.checkout.index');

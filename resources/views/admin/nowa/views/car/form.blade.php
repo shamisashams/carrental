@@ -350,6 +350,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="form-label">@lang('admin.special_price')</label>
+                        <input type="number" step="0.01" class="form-control" name="special_price" value="{{$model->special_price??old('special_price')}}">
+                        @error('special_price')
+                        <small class="text-danger">
+                            <div class="error">
+                                {{$message}}
+                            </div>
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
                         <label class="ckbox">
                             <input type="checkbox" name="special"
                                    value="true" {{$model->special ? 'checked' : (old('special') ? 'checked' : '')}}>

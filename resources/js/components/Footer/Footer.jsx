@@ -8,7 +8,7 @@ import {ImLocation} from "react-icons/im";
 
 const Footer = () => {
 
-    const { info, localizations } = usePage().props;
+    const { info, localizations, carTypes } = usePage().props;
 
     const contactInfo = [
         {
@@ -70,17 +70,17 @@ const Footer = () => {
     <footer>
       <div className="wrapper flex">
         <div className="col">
-          <h3 className="op50">Garage</h3>
-          {garage.map((item, index) => {
+          <h3 className="op50">{__('client.footer_garage',localizations)}</h3>
+          {carTypes.map((item, index) => {
             return (
-              <Link key={index} href={item.link}>
-                <h5>{item.text}</h5>
+              <Link key={index} href={`${route('client.car.index')}?type=${item.id}`}>
+                <h5>{item.title}</h5>
               </Link>
             );
           })}
         </div>
         <div className="col">
-          <h3 className="op50">Contact</h3>
+          <h3 className="op50">{__('client.footer_contact',localizations)}</h3>
           {contactInfo.map((item, index) => {
             return (
               <Link className="contact" key={index} href={item.link}>
@@ -94,7 +94,7 @@ const Footer = () => {
             style={{ justifyContent: "flex-start", marginTop: "35px" }}
           >
             <h3 className="op50" style={{ marginRight: "20px" }}>
-              Social:
+                {__('client.footer_social',localizations)}
             </h3>
             {socialMedia.map((item, index) => {
               return (

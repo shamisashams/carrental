@@ -5,17 +5,25 @@ import "./Destinations.css";
 import React from "react";
 
 import Layout from "@/Layouts/Layout";
+import {usePage} from "@inertiajs/inertia-react";
 
 const SingleDestination = ({seo}) => {
+    const {destination, localizations} = usePage().props;
+    const renderHTML = (rawHTML) =>
+        React.createElement("p", {
+            dangerouslySetInnerHTML: { __html: rawHTML },
+        });
   return (
       <Layout seo={seo}>
           <div className="singleDestination wrapper">
               <div className="showcase img">
-                  <img src="/client/assets/images/locations/4.png" alt="" />
+                  <img src={destination.latest_image?destination.latest_image.file_full_url:null} alt="" />
               </div>
               <div className="container">
-                  <h6>Destination Name</h6>
-                  <p>
+                  <h6>{destination.title}</h6>
+
+                  {renderHTML(destination.description)}
+                  {/*<p>
                       The landscape of Svaneti is dominated by mountains that are separated
                       by deep gorges. Most of the region which lies below 1,800 meters
                       (5,904 ft) above sea level is covered by mixed and coniferous forests.
@@ -59,7 +67,7 @@ const SingleDestination = ({seo}) => {
                       that are less common but may still be found in some areas include
                       chestnut, birch, maple, pine and box. The zone which extends from
                       1,800 meters to roughly about 3,000 meters
-                  </p>
+                  </p>*/}
               </div>
           </div>
       </Layout>

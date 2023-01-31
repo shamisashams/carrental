@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
@@ -271,5 +272,14 @@ class SearchController extends Controller
     }
 
 
+    public function searchAddress(Request $request){
+
+        $query = Address::where(function ($tQ) use ($request){
+            $tQ->whereTranslationLike('title', '%'.$request['term'].'%')
+                ->orWhereTranslationLike('text', '%'.$request['term'].'%');
+        });
+
+        return $query->get();
+    }
 
 }

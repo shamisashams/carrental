@@ -72,6 +72,10 @@ class Car extends Model implements Searchable
 
     //protected $with = ['translation'];
 
+    protected $appends = [
+        'real_price'
+    ];
+
 
     public function getFilterScopes(): array
     {
@@ -183,5 +187,9 @@ class Car extends Model implements Searchable
 
     public function bag(){
         return $this->belongsTo(Bag::class);
+    }
+
+    public function getRealPriceAttribute(){
+        return $this->special_price?$this->special_price:$this->price;
     }
 }

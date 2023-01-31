@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./SingleCar.css";
 import CarSlider from "../../components/CarSlider/CarSlider";
 //import Car5 from "../../assets/images/cars/5.png";
@@ -7,9 +7,9 @@ import { BiDetail } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiErrorWarningFill } from "react-icons/ri";
 import {
-  DropoffDate,
-  PickupDate,
-  PickupLocation,
+    DropoffDate,
+    PickupDate,
+    PickupLocation, TimeSelect,
 } from "../../components/Shared/Shared";
 //import { Link } from "react-router-dom";
 import { Link, usePage } from "@inertiajs/inertia-react";
@@ -19,13 +19,23 @@ import {MdAirlineSeatReclineNormal, MdLocalGasStation, MdLuggage} from "react-ic
 import {GiCarDoor, GiGearStickPattern} from "react-icons/gi";
 import {BsSnow2} from "react-icons/bs";
 import {Inertia} from "@inertiajs/inertia";
+import {ImLocation2} from "react-icons/im";
+import {HiChevronDown} from "react-icons/hi";
+import axios from "axios";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import moment from "moment";
 
 const SingleCar = ({seo}) => {
 
     const {car, cars, features, extra_options, localizations} = usePage().props;
 
     const [price, setPrice] = useState(car.price);
+    const [period, setPeriod] = useState(1);
 
+    const [value, onChange] = useState(new Date());
+
+    const [value2, onChange2] = useState(new Date());
 
 
     //console.log(car)
@@ -33,11 +43,47 @@ const SingleCar = ({seo}) => {
     const [values, setValues] = useState({
         options: [],
         car_id: car.id,
-        pickup_loc: "",
-        dropoff_loc: "",
+        pickup_id: "",
+        dropoff_id: "",
         pickup_date: "",
         dropoff_date: "",
+        pickup_time: '',
+        dropoff_time: ''
     });
+
+    useEffect(() => {
+        if(values.pickup_date && values.dropoff_date){
+            let carPrice = parseFloat(car.price);
+            var date1 = new Date(values.pickup_date);
+            var date2 = new Date(values.dropoff_date);
+
+            // To calculate the time difference of two dates
+            var Difference_In_Time = date2.getTime() - date1.getTime();
+
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+            //To display the final no. of days (result)
+            console.log("Total number of days between dates  <br>"
+                + date1 + "<br> and <br>"
+                + date2 + " is: <br> "
+                + Difference_In_Days);
+
+            if (Difference_In_Days === 0)Difference_In_Days = 1;
+
+            let checked = document.querySelectorAll('input[name="extra"]:checked');
+
+            let c_price = 0;
+
+            checked.forEach((item, index) => {
+                c_price += parseInt(item.dataset.per_day) === 1?(parseFloat(item.value)*Difference_In_Days):parseFloat(item.value);
+            });
+
+            setPeriod(Difference_In_Days);
+
+            setPrice((carPrice * Difference_In_Days)+c_price);
+        }
+    })
 
     function finalPrice(e){
         let carPrice = parseFloat(car.price);
@@ -51,10 +97,10 @@ const SingleCar = ({seo}) => {
         let c_price = 0;
         let _options = [];
         checked.forEach((item, index) => {
-            c_price += parseFloat(item.value);
+            c_price += parseInt(item.dataset.per_day) === 1?(parseFloat(item.value)*period):parseFloat(item.value);
             _options.push(item.dataset.id);
         });
-        setPrice(carPrice + c_price);
+        setPrice((carPrice * period) + c_price);
         setValues((values) => ({
             ...values,
             options: _options,
@@ -121,6 +167,8 @@ const SingleCar = ({seo}) => {
         Inertia.post(route("client.book"), values);
     }
 
+
+
   return (
       <Layout seo={seo}>
           <div className="wrapper singleCar">
@@ -134,7 +182,7 @@ const SingleCar = ({seo}) => {
                           <div>
                               <strong>
                                   <BiDetail />
-                                  Car specifications
+                                  {__('client.car_specifications',localizations)}
                               </strong>
                               <div className="grid list">
                                   {carFeatures.map((item, index) => {
@@ -150,7 +198,7 @@ const SingleCar = ({seo}) => {
                       </div>
                       <div className="flex bottom">
                           <div className="includes">
-                              <strong>Price includes:</strong>
+                              <strong>{__('client.car_price_includes',localizations)}</strong>
                               <div className="grid list">
                                   {features.map((item, index) => {
                                       return (
@@ -163,15 +211,15 @@ const SingleCar = ({seo}) => {
                               </div>
                           </div>
                           <div>
-                              <strong>Age restrictions:</strong>
+                              <strong>{__('client.car_age_restrictions',localizations)}</strong>
                               <div className="list age">
                                   <div>
                                       <RiErrorWarningFill />
-                                      Minimum age of driver: 21 years
+                                      {__('client.car_age_restriction1',localizations)}
                                   </div>
                                   <div>
                                       <RiErrorWarningFill />
-                                      Minimum time driving licence held: 3 years
+                                      {__('client.car_age_restriction2',localizations)}
                                   </div>
                               </div>
                           </div>
@@ -179,34 +227,76 @@ const SingleCar = ({seo}) => {
                   </div>
                   <div className="right">
                       <div className="selects">
-                          <PickupLocation dropOff={false} />
-                          <PickupLocation dropOff={true} />
+                          <PickupLocation dropOff={false} onChange={(value)=>{
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_id: value,
+                              }));
+                          }} />
+
+                          <PickupLocation dropOff={true} onChange={(value)=>{
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_id: value,
+                              }));
+                          }} />
                           <PickupDate />
+
+                          <Calendar onChange={(value)=>{
+                              onChange(value);
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={value} />
+                          <TimeSelect onChange={(value) => {
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_time: value,
+                              }));
+                          }} />
+
                           <DropoffDate />
+
+                          <Calendar onChange={(value)=>{
+                              onChange2(value);
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_date: moment(value).format('YYYY-MM-DD'),
+                              }));
+                          }} value={value2} />
+
+                          <TimeSelect onChange={(value) => {
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_time: value,
+                              }));
+                          }} />
+
                       </div>
-                      <strong>Aditional options</strong>
+                      <strong>{__('client.car_extra_options',localizations)}</strong>
                       {extra_options.map((item, index) => {
                           return (
                               <div className="flex check">
                                   <input onClick={(event)=>{
                                       finalPrice(event)
-                                  }} type="checkbox" name="extra" data-id={item.id} id={`option_${index}`} value={item.price} />
+                                  }} type="checkbox" name="extra" data-per_day={item.price_per_day} data-id={item.id} id={`option_${index}`} value={item.price} />
                                   <label htmlFor={`option_${index}`}>
                                       <div></div>
                                   </label>
-                                  <div>{item.text} - Price per day: {item.price}GEL</div>
+                                  <div>{item.text} - Price {parseInt(item.price_per_day) === 1?` per ${period} days`:''}: {parseInt(item.price_per_day) === 1?item.price*period:item.price}GEL</div>
                               </div>
                           );
                       })}
                       <div>
-                          <h2>{price}GEL day</h2>
+                          <h2>{price}GEL {period}day</h2>
                           <button onClick={book} className="main-btn">
-                              Book now
+                              {__('client.book_now',localizations)}
                           </button>
                       </div>
                   </div>
               </div>
-              <h6 style={{ fontSize: "16px" }}>You may like</h6>
+              <h6 style={{ fontSize: "16px" }}>{__('client.car_u_may_like',localizations)}</h6>
               <CarSlider cars={cars} />
           </div>
       </Layout>

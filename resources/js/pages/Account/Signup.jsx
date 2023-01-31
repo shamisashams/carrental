@@ -36,17 +36,17 @@ const Signup = ({seo}) => {
       <Layout seo={seo}>
           <div className="accountPage wrapper">
               <div className="container">
-                  <h2>Create account</h2>
-                  <div>Fill all the sections below</div>
+                  <h2>{__('client.signup_h',localizations)}</h2>
+                  <div>{__('client.signup_t',localizations)}</div>
                   <div className="grid">
-                      <input type="text" placeholder="Name" name="name" onChange={handleChange} />
-                      <input type="text" placeholder="Surname" name="surname" onChange={handleChange} />
-                      <input type="text" placeholder="Email address" name="email" onChange={handleChange} />
-                      <input type="text" placeholder="Phone number" name="phone" onChange={handleChange} />
-                      <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-                      <input type="password" placeholder="Repeate password" name="password_repeat" onChange={handleChange} />
+                      <input type="text" placeholder={__('client.form_name',localizations)} name="name" onChange={handleChange} />
+                      <input type="text" placeholder={__('client.form_surname',localizations)} name="surname" onChange={handleChange} />
+                      <input type="text" placeholder={__('client.form_email',localizations)} name="email" onChange={handleChange} />
+                      <input type="text" placeholder={__('client.form_phone',localizations)} name="phone" onChange={handleChange} />
+                      <input type="password" placeholder={__('client.form_password',localizations)} name="password" onChange={handleChange} />
+                      <input type="password" placeholder={__('client.form_password_repeat',localizations)} name="password_repeat" onChange={handleChange} />
                   </div>
-                  <div>Upload documents</div>
+                  <div>{__('client.form_upload',localizations)}</div>
                   <div className="grid">
                       <div className="input">
                           <input type="file" name="file1" onChange={(e) =>
@@ -75,20 +75,20 @@ const Signup = ({seo}) => {
                           <div></div>
                       </label>
                       <label htmlFor="agreeTerm">
-                          I agree with{" "}
+                          {__('client.signup_agree',localizations)}{" "}
                           <Link style={{ textDecoration: "underline" }} href="/">
-                              Terms of Use
+                              {__('client.signup_terms',localizations)}
                           </Link>{" "}
                       </label>
                   </div>
                   {/* remove attribute "disabled" if inputs are filled */}
                   <button onClick={handleSubmit} className="main-btn">
-                      Create account
+                      {__('client.create_account',localizations)}
                   </button>
                   <div>
-                      Already have an account?{" "}
+                      {__('client.signup_have_account',localizations)}{" "}
                       <Link style={{ color: "#FF715A" }} href={route('client.login.index')}>
-                          Log in
+                          {__('client.login',localizations)}
                       </Link>{" "}
                   </div>
               </div>
