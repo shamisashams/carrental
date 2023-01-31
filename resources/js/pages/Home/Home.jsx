@@ -268,7 +268,9 @@ const Home = ({seo}) => {
                       </div>
                       <div className="flex">
                           <PickupDate />
-                          <TimeSelect />
+                          <TimeSelect onChange={(value) => {
+                              //alert(value)
+                          }} />
                           <div className="gap"></div>
                           <DropoffDate />
                           <TimeSelect />

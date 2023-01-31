@@ -7,9 +7,9 @@ import { BiDetail } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import { RiErrorWarningFill } from "react-icons/ri";
 import {
-  DropoffDate,
-  PickupDate,
-  PickupLocation,
+    DropoffDate,
+    PickupDate,
+    PickupLocation, TimeSelect,
 } from "../../components/Shared/Shared";
 //import { Link } from "react-router-dom";
 import { Link, usePage } from "@inertiajs/inertia-react";
@@ -31,6 +31,7 @@ const SingleCar = ({seo}) => {
     const {car, cars, features, extra_options, localizations} = usePage().props;
 
     const [price, setPrice] = useState(car.price);
+    const [period, setPeriod] = useState(1);
 
     const [value, onChange] = useState(new Date());
 
@@ -46,7 +47,43 @@ const SingleCar = ({seo}) => {
         dropoff_id: "",
         pickup_date: "",
         dropoff_date: "",
+        pickup_time: '',
+        dropoff_time: ''
     });
+
+    useEffect(() => {
+        if(values.pickup_date && values.dropoff_date){
+            let carPrice = parseFloat(car.price);
+            var date1 = new Date(values.pickup_date);
+            var date2 = new Date(values.dropoff_date);
+
+            // To calculate the time difference of two dates
+            var Difference_In_Time = date2.getTime() - date1.getTime();
+
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+            //To display the final no. of days (result)
+            console.log("Total number of days between dates  <br>"
+                + date1 + "<br> and <br>"
+                + date2 + " is: <br> "
+                + Difference_In_Days);
+
+            if (Difference_In_Days === 0)Difference_In_Days = 1;
+
+            let checked = document.querySelectorAll('input[name="extra"]:checked');
+
+            let c_price = 0;
+
+            checked.forEach((item, index) => {
+                c_price += parseInt(item.dataset.per_day) === 1?(parseFloat(item.value)*Difference_In_Days):parseFloat(item.value);
+            });
+
+            setPeriod(Difference_In_Days);
+
+            setPrice((carPrice * Difference_In_Days)+c_price);
+        }
+    })
 
     function finalPrice(e){
         let carPrice = parseFloat(car.price);
@@ -60,10 +97,10 @@ const SingleCar = ({seo}) => {
         let c_price = 0;
         let _options = [];
         checked.forEach((item, index) => {
-            c_price += parseFloat(item.value);
+            c_price += parseInt(item.dataset.per_day) === 1?(parseFloat(item.value)*period):parseFloat(item.value);
             _options.push(item.dataset.id);
         });
-        setPrice(carPrice + c_price);
+        setPrice((carPrice * period) + c_price);
         setValues((values) => ({
             ...values,
             options: _options,
@@ -362,6 +399,12 @@ const SingleCar = ({seo}) => {
                                   pickup_date: moment(value).format('YYYY-MM-DD'),
                               }));
                           }} value={value} />
+                          <TimeSelect onChange={(value) => {
+                              setValues((values) => ({
+                                  ...values,
+                                  pickup_time: value,
+                              }));
+                          }} />
 
                           <DropoffDate />
 
@@ -373,6 +416,13 @@ const SingleCar = ({seo}) => {
                               }));
                           }} value={value2} />
 
+                          <TimeSelect onChange={(value) => {
+                              setValues((values) => ({
+                                  ...values,
+                                  dropoff_time: value,
+                              }));
+                          }} />
+
                       </div>
                       <strong>{__('client.car_extra_options',localizations)}</strong>
                       {extra_options.map((item, index) => {
@@ -380,16 +430,16 @@ const SingleCar = ({seo}) => {
                               <div className="flex check">
                                   <input onClick={(event)=>{
                                       finalPrice(event)
-                                  }} type="checkbox" name="extra" data-id={item.id} id={`option_${index}`} value={item.price} />
+                                  }} type="checkbox" name="extra" data-per_day={item.price_per_day} data-id={item.id} id={`option_${index}`} value={item.price} />
                                   <label htmlFor={`option_${index}`}>
                                       <div></div>
                                   </label>
-                                  <div>{item.text} - Price per day: {item.price}GEL</div>
+                                  <div>{item.text} - Price {parseInt(item.price_per_day) === 1?` per ${period} days`:''}: {parseInt(item.price_per_day) === 1?item.price*period:item.price}GEL</div>
                               </div>
                           );
                       })}
                       <div>
-                          <h2>{price}GEL day</h2>
+                          <h2>{price}GEL {period}day</h2>
                           <button onClick={book} className="main-btn">
                               {__('client.book_now',localizations)}
                           </button>

@@ -234,9 +234,11 @@ export const DropoffDate = () => {
   );
 };
 
-export const TimeSelect = () => {
+export const TimeSelect = ({onChange}) => {
   const [drop, setDrop] = useState(false);
   const wrapperRef = useRef(null);
+
+    const [dropv, setDropv] = useState('select date');
 
   useOutsideAlerter(wrapperRef);
   function useOutsideAlerter(ref) {
@@ -253,17 +255,55 @@ export const TimeSelect = () => {
     }, [ref]);
   }
 
+    function returnTimesInBetween(start, end) {
+        var timesInBetween = [];
+
+        var startH = parseInt(start.split(":")[0]);
+        var startM = parseInt(start.split(":")[1]);
+        var endH = parseInt(end.split(":")[0]);
+        var endM = parseInt(end.split(":")[1]);
+
+        if (startM == 30)
+            startH++;
+
+        for (var i = startH; i < endH; i++) {
+            timesInBetween.push(i < 10 ? "0" + i + ":00" : i + ":00");
+            timesInBetween.push(i < 10 ? "0" + i + ":30" : i + ":30");
+        }
+
+
+
+        timesInBetween.push(endH + ":00");
+        if (endM == 30)
+            timesInBetween.push(endH + ":30")
+
+        return timesInBetween;
+    }
+
+    let t = returnTimesInBetween('00:00:00','23:30:00');
+
+
   return (
     <div ref={wrapperRef} className="selectBox ">
       <div onClick={() => setDrop(!drop)} className="box">
-        01:25
+          {dropv}
         <HiChevronDown className={`chevron ${drop && "rotate"}`} />
       </div>
       <div className={`dropdown time ${drop && "show"}`}>
-        <button>01:25</button>
-        <button>12:00</button>
+
+          {t.map((item,index) => {
+             return (
+                 <button onClick={(event) => {
+                     onChange(event.target.innerText);
+                     setDropv(event.target.innerText);
+                     setDrop(false);
+                 }}>{item}</button>
+             )
+          })}
+
+        {/*<button>12:00</button>
         <button>15:30</button>
-        <button>18:45</button>
+        <button>18:45</button>*/}
       </div>
     </div>
   );

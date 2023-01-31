@@ -138,23 +138,28 @@ class PaymentController extends Controller
 
 
     public function createBooking(Request $request){
-        dd($request->all());
+        //dd($request->all());
         $data = $request->validate([
             'car_id' => 'required',
             'pickup_id' => 'required',
             'dropoff_id' => 'required',
-            //'pickup_date' => 'required',
-            //'dropoff_date' => 'required'
+            'pickup_date' => 'required',
+            'dropoff_date' => 'required',
+            'pickup_time' => 'required',
+            'dropoff_time' => 'required'
         ]);
 
         $booking_count = Booking::query()->where('car_id',$data['car_id'])->whereIn('status',['pending'])->count();
         if ($booking_count > 0) return redirect()->back()->with('error','not available now');
 
-        $data['pickup_date'] = '2023-01-27 10:11:44';
-        $data['dropoff_date'] = '2023-01-29 11:23:22';
+        $data['pickup_date'] = $data['pickup_date'].' '.$data['pickup_time'] . ':00';
+        $data['dropoff_date'] = $data['dropoff_date'].' '.$data['dropoff_time'] . ':00';
         //$data['pickup_id'] = 1;
         //$data['dropoff_id'] = 2;
+        unset($data['pickup_time'],$data['dropoff_time']);
         $data['options'] = $request->post('options');
+
+        //dd($data);
 
         session()->put(['booking' => $data]);
         if(session('booking')) return redirect()->route('client.payment.index');
