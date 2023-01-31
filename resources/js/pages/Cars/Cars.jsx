@@ -151,6 +151,20 @@ const Cars = ({seo}) => {
 
     };
 
+    const handleFilterClickAddress = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+
+        if(value){
+            appliedFilters[code] = [value];
+        } else {
+            delete appliedFilters[code];
+        }
+
+
+        //console.log(appliedFilters);
+
+    };
+
     function search(){
         let params = [];
 
@@ -195,8 +209,12 @@ const Cars = ({seo}) => {
                           <IoCloseOutline style={{ fontSize: "inherit" }} />
                       </button>
                       <h5>{__('client.filter',localizations)}</h5>
-                      <PickupLocation dropOff={false} />
-                      <PickupLocation dropOff={true} />
+                      <PickupLocation dropOff={false} onChange={(value,event)=>{
+                          handleFilterClickAddress(event,'pickup',value)
+                      }} />
+                      <PickupLocation dropOff={true} onChange={(value,event)=>{
+                          handleFilterClickAddress(event,'dropoff',value)
+                      }} />
                       <PickupDate />
                       <DropoffDate />
                       <div className="gray_box">

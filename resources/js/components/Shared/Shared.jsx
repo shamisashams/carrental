@@ -129,9 +129,9 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
 
           {result.map((item, index) => {
               return (
-                  <button onClick={() => {
+                  <button onClick={(event) => {
                       setPickup(item.text);
-                      onChange(item.id,item.text)
+                      onChange(item.id,event,item.text)
                   }}>
                       {" "}
                       <ImLocation2 className="icon" /> {item.text}

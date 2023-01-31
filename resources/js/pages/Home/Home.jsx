@@ -178,7 +178,9 @@ const Home = ({seo}) => {
                           }} />
                           <div className="gap"></div>
                           <DropoffDate />
-                          <TimeSelect />
+                          <TimeSelect onChange={(value)=>{
+
+                          }} />
                       </div>
                   </div>
                   <div className="right">
