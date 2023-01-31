@@ -85,4 +85,8 @@ class Booking extends Model
         return (new Carbon($this->created_at))->format('d.m.Y');
     }
 
+    public function getOptionsAttribute($value){
+        return json_decode($value,true);
+    }
+
 }

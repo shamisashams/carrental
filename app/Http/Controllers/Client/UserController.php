@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use App\Models\Certificate;
 use App\Models\Order;
 use App\Models\Page;
@@ -42,7 +43,10 @@ class UserController extends Controller
 
         //dd($files);
 
-        return Inertia::render('Cabinet/Cabinet', ["page" => $page, "seo" => [
+        return Inertia::render('Cabinet/Cabinet', [
+            'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->first(),
+            "page" => $page,
+            "seo" => [
             "title"=>$page->meta_title,
             "description"=>$page->meta_description,
             "keywords"=>$page->meta_keyword,
