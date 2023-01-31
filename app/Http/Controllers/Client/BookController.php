@@ -35,12 +35,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use App\Repositories\Eloquent\ProductRepository;
 use Spatie\TranslationLoader\TranslationLoaders\Db;
 use Illuminate\Support\Facades\DB as DataBase;
 use function Symfony\Component\String\s;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -431,6 +433,8 @@ class BookController extends Controller
             $opt_data['drop_address_pay'] = $dropoff_address->price;
         }
 
+        $opt_data['car_image'] = $car->file?$car->file->title:'';
+
         $data['options'] = json_encode($opt_data);
 
         $data['pickup_loc'] = $pickup_address->text;
@@ -444,7 +448,12 @@ class BookController extends Controller
 
 
         //dd($data);
-        Booking::query()->create($data);
+        $booking = Booking::query()->create($data);
+
+        if($car->file){
+            Storage::copy('public/Car/'.$car->id.'/thumb/'.$car->file->title,'public/Order/'.$booking->id.'/'.$car->file->title);
+        }
+
 
         session()->forget('booking');
         return redirect()->back()->with('success','booking created');

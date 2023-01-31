@@ -38,7 +38,8 @@ class Booking extends Model
     ];
 
     protected $appends = [
-        'formatted_date'
+        'formatted_date',
+        'car_image'
     ];
 
     public function getFilterScopes(): array
@@ -87,6 +88,11 @@ class Booking extends Model
 
     public function getOptionsAttribute($value){
         return json_decode($value,true);
+    }
+
+    public function getCarImageAttribute(){
+
+        return asset('storage/Order/'.$this->id.'/'.$this->options['car_image']);
     }
 
 }

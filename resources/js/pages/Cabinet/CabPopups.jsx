@@ -68,7 +68,30 @@ export const EditOrder = ({ show, hide }) => {
     );
 };
 
-export const CancelOrder = ({ show, hide }) => {
+export const CancelOrder = ({ show, hide, current_booking }) => {
+
+    const { user, localizations, errors } = usePage().props;
+    const[disabled,setDisabled] = useState(true);
+
+    const [values, setValues] = useState({
+        password: null,
+
+    });
+
+    function handleChange(e) {
+        const key = e.target.name;
+        const value = e.target.value;
+        setValues((values) => ({
+            ...values,
+            [key]: value,
+        }));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        Inertia.post(route("client.cancel_booking",current_booking.id), values);
+    }
+
     return (
         <>
             <div className={`cabBackground ${show && "show"}`}>
@@ -88,19 +111,24 @@ export const CancelOrder = ({ show, hide }) => {
                                 <input
                                     type="password"
                                     placeholder="Enter password"
-                                    name=""
+                                    name="password"
                                     id=""
+                                    onChange={handleChange}
                                 />
                                 <button className="eye">
                                     <FaEye />
                                 </button>
                             </div>
+                            {errors.password && <div>{errors.password}</div>}
                         </div>
                         <div
                             className="flex check"
                             style={{ justifyContent: "center" }}
                         >
-                            <input type="checkbox" name="" id="terms_use" />
+                            <input type="checkbox" name="" id="terms_use" onClick={(event)=>{
+                                if (event.target.checked)setDisabled(false);
+                                else setDisabled(true);
+                            }} />
                             <label htmlFor="terms_use">
                                 <div></div>
                             </label>
@@ -116,7 +144,7 @@ export const CancelOrder = ({ show, hide }) => {
                             </label>
                         </div>
 
-                        <button disabled className="main-btn submit">
+                        <button onClick={handleSubmit} disabled={disabled} className="main-btn submit">
                             Cancel order
                         </button>
                     </div>

@@ -45,6 +45,7 @@ class UserController extends Controller
 
         return Inertia::render('Cabinet/Cabinet', [
             'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->first(),
+            'bookings' => Booking::query()->where('user_id',auth()->id())->whereIn('status',['canceled','finished'])->get(),
             "page" => $page,
             "seo" => [
             "title"=>$page->meta_title,
@@ -89,6 +90,19 @@ class UserController extends Controller
 
         auth()->user()->update($data);
         return redirect()->back()->with('success',__('client.success_saved'));
+    }
+
+    public function cancelBooking(Request $request,$locale, $booking){
+        //dd($booking);
+        $request->validate([
+            'password' => ['required',new MatchOldPassword()]
+        ]);
+        $book =  Booking::query()->where('id',$booking)->where('user_id',auth()->id())->first();
+        if(!$book){
+            return back()->with('error','wrong booking');
+        }
+        $book->update(['status'=>'canceled']);
+        return back()->with('success','booking canceled');
     }
 
 

@@ -162,6 +162,8 @@
                                                         case 'pending':
                                                             $color = '#4fa9d2';
                                                             break;
+                                                        default:
+                                                            $color = 'red';
                                                     }
                                                 ?>
                                             <td><span style="color: {{$color}};font-weight: bold">{{$order->status}}</span></td>

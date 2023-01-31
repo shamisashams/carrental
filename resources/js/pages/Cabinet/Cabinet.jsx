@@ -21,7 +21,7 @@ import {usePage} from "@inertiajs/inertia-react";
 import moment from "moment";
 
 const Cabinet = ({ seo }) => {
-    const { user, localizations, current_booking } = usePage().props;
+    const { user, localizations, current_booking, bookings } = usePage().props;
     const [editOrder, setEditOrder] = useState(false);
     const [cancelOrder, setCancelOrder] = useState(false);
     const [personalInfo, setPersonalInfo] = useState(false);
@@ -106,7 +106,7 @@ const Cabinet = ({ seo }) => {
         },
     ];
 
-    //console.log(current_booking);
+    console.log(current_booking);
 
     return (
         <Layout seo={seo}>
@@ -115,17 +115,17 @@ const Cabinet = ({ seo }) => {
                 <div className="flex cabinet">
                     <div className="gray_box large">
                         {/* if there's no current order make no {{ display: flex }} 👇 */}
-                        <div
+                        {!current_booking?<div
                             className="no_order flex center"
-                            style={{ display: "none" }}
+                            style={{ display: "flex" }}
                         >
                             <img
                                 src="/client/assets/images/other/filesearch.png"
                                 alt=""
                             />
                             <h5>Nothing to show</h5>
-                        </div>
-                        <div className="flex head">
+                        </div>:null}
+                        {current_booking?<div className="flex head">
                             <h5 style={{ position: "relative", zIndex: "300" }}>
                                 Current order
                             </h5>
@@ -142,8 +142,8 @@ const Cabinet = ({ seo }) => {
                                     {current_booking.grand_total}GEL
                                 </h2>
                             </h5>
-                        </div>
-                        <div
+                        </div>:null}
+                        {current_booking?<div
                             className="flex main"
                             style={{ alignItems: "flex-start" }}
                         >
@@ -151,7 +151,7 @@ const Cabinet = ({ seo }) => {
                                 {" "}
                                 <h6>{current_booking.car}</h6>
                                 <img
-                                    src="/client/assets/images/cars/5.png"
+                                    src={current_booking.car_image}
                                     alt=""
                                 />
                                 <div className="grid list">
@@ -225,8 +225,8 @@ const Cabinet = ({ seo }) => {
                                     </div>*/}
                                 </div>
                             </div>
-                        </div>
-                        <div className="bottom flex">
+                        </div>:null}
+                        {current_booking?<div className="bottom flex">
                             <button
                                 onClick={() => setEditOrder(true)}
                                 className="main-btn"
@@ -239,7 +239,7 @@ const Cabinet = ({ seo }) => {
                             >
                                 <FaTrashAlt />
                             </button>
-                        </div>
+                        </div>:null}
                     </div>
                     <div className="smalls">
                         <div className="gray_box">
@@ -294,22 +294,22 @@ const Cabinet = ({ seo }) => {
                 </div>
                 <h5>Order history</h5>
                 <div className="flex history">
-                    {history.length !== 0 ? (
+                    {bookings.length !== 0 ? (
                         // if there is history this shows
-                        history.map((item, index) => {
+                        bookings.map((item, index) => {
                             return (
                                 <div key={index} className="box flex">
                                     <div>
-                                        <h6>{item.name}</h6>
-                                        <img src={item.img} alt="" />
+                                        <h6>{item.car}</h6>
+                                        <img src={item.car_image} alt="" />
                                     </div>
                                     <div className="right">
                                         <div>{item.status}</div>
                                         <div className="date">
-                                            <div>From - {item.from}</div>
-                                            <div>to - {item.to}</div>
+                                            <div>From - {moment(item.pickup_date).format('DD/MM/YYYY')}</div>
+                                            <div>to - {moment(item.dropoff_date).format('DD/MM/YYYY')}</div>
                                         </div>
-                                        <h6>Total: {item.total}</h6>
+                                        <h6>Total: {item.grand_total}</h6>
                                     </div>
                                 </div>
                             );
@@ -329,6 +329,7 @@ const Cabinet = ({ seo }) => {
                 <CancelOrder
                     show={cancelOrder}
                     hide={() => setCancelOrder(false)}
+                    current_booking={current_booking}
                 />
                 <PersonalInfo
                     show={personalInfo}

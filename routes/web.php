@@ -223,6 +223,7 @@ Route::prefix('{locale?}')
             Route::post('checkout',[\App\Http\Controllers\Client\BookController::class,'createBook'])->name('client.checkout.order');
             Route::post('settings',[\App\Http\Controllers\Client\UserController::class,'saveSettings'])->name('client.save-settings');
             Route::get('invoice/{order}',[\App\Http\Controllers\Client\UserController::class,'invoice'])->name('client.invoice');
+            Route::post('cancel-booking/{booking}',[\App\Http\Controllers\Client\UserController::class,'cancelBooking'])->name('client.cancel_booking');
         });
         Route::post('shipping-submit',[\App\Http\Controllers\Client\ShippingController::class,'submitShipping'])->name('shipping-submit');
 
