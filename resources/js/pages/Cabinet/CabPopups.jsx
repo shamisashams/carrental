@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {
     DropoffDate,
     PickupDate,
@@ -7,7 +7,8 @@ import {
 import { MdOutlineClose } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import "./Cabinet.css";
-import { Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
+import { Inertia } from "@inertiajs/inertia";
 
 export const EditOrder = ({ show, hide }) => {
     const options = [
@@ -126,6 +127,34 @@ export const CancelOrder = ({ show, hide }) => {
 };
 
 export const PersonalInfo = ({ show, hide, changeSettings }) => {
+    const { user, localizations, errors } = usePage().props;
+
+    const [values, setValues] = useState({
+        name: user.name ?? "",
+        surname: user.surname ?? "",
+        email: user.email,
+        phone: user.phone ?? "",
+        password_old: null,
+        password: null,
+        password_repeat: null
+    });
+
+    const[disabled,setDisabled] = useState(true);
+
+    function handleChange(e) {
+        const key = e.target.name;
+        const value = e.target.value;
+        setValues((values) => ({
+            ...values,
+            [key]: value,
+        }));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        Inertia.post(route("client.save-settings"), values);
+    }
+
     return (
         <>
             <div className={`cabBackground ${show && "show"}`}>
@@ -137,60 +166,73 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                     <div className="container">
                         <h3>personal information</h3>
                         <div className="label">Personal information</div>
-                        <input type="text" placeholder="Name" name="" id="" />
+                        <input type="text" placeholder="Name" name="name" id="" value={values.name} onChange={handleChange} />
+                        {errors.name && <div>{errors.name}</div>}
                         <input
                             type="text"
                             placeholder="Surname"
-                            name=""
+                            name="surname"
                             id=""
+                            value={values.surname} onChange={handleChange}
                         />
+                        {errors.surname && <div>{errors.surname}</div>}
                         <div className="label">Contact information</div>
-                        <input type="text" placeholder="E-mail" name="" id="" />
+                        <input type="text" placeholder="E-mail" name="email" id="" value={values.email} onChange={handleChange} />
                         <input
                             type="text"
                             placeholder="Phone number"
-                            name=""
+                            name="phone"
                             id=""
+                            value={values.phone} onChange={handleChange}
                         />
                         <div className="label">Change password</div>
                         <div className="input">
                             <input
                                 type="password"
                                 placeholder="Enter old password"
-                                name=""
+                                name="password_old"
                                 id=""
+                                onChange={handleChange}
                             />
                             <button className="eye">
                                 <FaEye />
                             </button>
                         </div>
+                        {errors.password_old && <div>{errors.password_old}</div>}
                         <div className="input">
                             <input
                                 type="password"
                                 placeholder="Enter new password"
-                                name=""
+                                name="password"
                                 id=""
+                                onChange={handleChange}
                             />
                             <button className="eye">
                                 <FaEye />
                             </button>
                         </div>
+                        {errors.password && <div>{errors.password}</div>}
                         <div className="input">
                             <input
                                 type="password"
                                 placeholder="Repeat new password"
-                                name=""
+                                name="password_repeat"
                                 id=""
+                                onChange={handleChange}
                             />
                             <button className="eye">
                                 <FaEye />
                             </button>
                         </div>
+                        {errors.password_repeat && <div>{errors.password_repeat}</div>}
                         <div
                             className="flex check"
                             style={{ justifyContent: "center" }}
                         >
-                            <input type="checkbox" name="" id="terms_use2" />
+                            <input type="checkbox" name="" id="terms_use2" onClick={(event)=>{
+                                if (event.target.checked)setDisabled(false);
+                                else setDisabled(true);
+                            }} />
                             <label htmlFor="terms_use2">
                                 <div></div>
                             </label>
@@ -208,11 +250,11 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
 
                         <button
                             // this opens the component ChangeSettings
-                            onClick={changeSettings}
-                            disabled
+                            onClick={handleSubmit}
+                            disabled={disabled}
                             className="main-btn submit"
                         >
-                            Cancel order
+                            Save
                         </button>
                     </div>
                 </div>

@@ -17,8 +17,10 @@ import {
     EditOrder,
     PersonalInfo,
 } from "./CabPopups";
+import {usePage} from "@inertiajs/inertia-react";
 
 const Cabinet = ({ seo }) => {
+    const { user, localizations } = usePage().props;
     const [editOrder, setEditOrder] = useState(false);
     const [cancelOrder, setCancelOrder] = useState(false);
     const [personalInfo, setPersonalInfo] = useState(false);
@@ -212,15 +214,15 @@ const Cabinet = ({ seo }) => {
                             </div>
                             <div className="flex line">
                                 <div>Name Surname </div>
-                                <div>James bong </div>
+                                <div>{user.name} {user.surname} </div>
                             </div>
                             <div className="flex line">
                                 <div>Email</div>
-                                <div>Example@email.com</div>
+                                <div>{user.email}</div>
                             </div>
                             <div className="flex line">
                                 <div>Phone</div>
-                                <div>+995 555 555 555</div>
+                                <div>{user.phone}</div>
                             </div>
                             <div className="flex line">
                                 <div>Password</div>
