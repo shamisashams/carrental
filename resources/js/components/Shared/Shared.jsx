@@ -9,16 +9,14 @@ import {
     MdAirlineSeatReclineNormal,
     MdLocalGasStation,
     MdLuggage,
+    MdFileUpload,
 } from "react-icons/md";
-//import { Calendar } from "../Calendar/Calendar";
-import { carFeatures } from "../Data";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { GiCarDoor, GiGearStickPattern } from "react-icons/gi";
 import { BsSnow2 } from "react-icons/bs";
 import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import moment from "moment";
 
 export const Hashtag = ({ text }) => {
     const [active, setActive] = useState();
@@ -99,27 +97,24 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
     return (
         <div
             ref={wrapperRef}
-            className={`selectBox pickupLocation ${diffLoc && "diffLoc"}`}
+            className={`selectBox pickupLocation ${
+                diffLoc == true && "diffLoc"
+            }`}
         >
             <div className="box flex" style={{ marginBottom: "0" }}>
                 <div
-                    ref={wrapperRef}
-                    className={`selectBox pickupLocation ${
-                        diffLoc && "diffLoc"
-                    }`}
                     onClick={() => {
-
-                        setDrop1(!drop1)
+                        setDrop1(!drop1);
                     }}
+                    className={`inner_box ${dropOff === true && "inner_box2"}`}
                 >
                     <ImLocation2 className="icon" />
-                    {pickup}{" "}
+                    Select pick-up location{" "}
                     <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
                 </div>
                 <div
                     onClick={() => {
-
-                        setDrop2(!drop2)
+                        setDrop2(!drop2);
                     }}
                     className={`inner_box ${dropOff === false && "inner_box2"}`}
                 >
@@ -263,7 +258,7 @@ export const TimeSelect = ({ onChange }) => {
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
 
-    const [dropv, setDropv] = useState("select date");
+    const [dropv, setDropv] = useState("select time");
 
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -415,8 +410,20 @@ export const CarBox = (props) => {
                         );
                     })}
                 </div>
-                <div>
-                    <h3>{props.price}GEL day</h3>
+                <div style={{ textAlign: "center" }}>
+                    {props.special_price ? (
+                        <>
+                            <h4 style={{ textDecoration: "line-through" }}>
+                                {props.price}GEL
+                            </h4>
+                            <h3 className="orange">
+                                {props.special_price}GEL day
+                            </h3>{" "}
+                        </>
+                    ) : (
+                        <h4>{props.price}GEL</h4>
+                    )}
+
                     <Link
                         href={route("client.car.show", props.slug)}
                         className="main-btn-sml"
