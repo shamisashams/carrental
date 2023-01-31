@@ -83,13 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function cv(): MorphOne{
-        return $this->morphOne(File::class,'fileable');
-    }
 
-    public function partner(): HasOne{
-        return $this->hasOne(Partner::class);
-    }
+
+
 
     public function referrals(): HasMany{
         return $this->hasMany(self::class,'referred_by','affiliate_id');
@@ -99,33 +95,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(self::class, 'referred_by','affiliate_id');
     }
 
-    public function wishlist()
-    {
-        return $this->hasMany(Wishlist::class, 'user_id');
-    }
 
-    public function promoCode(){
-        return $this->hasOne(UserPromoCode::class);
-    }
 
-    public function promoCodes(){
-        return $this->hasMany(UserPromoCode::class);
-    }
 
     public function orders(){
         return $this->hasMany(Order::class);
     }
 
-    public function bankAccount(){
-        return $this->hasOne(BankAccount::class);
-    }
 
-    public function bankAccounts(){
-        return $this->hasMany(BankAccount::class);
-    }
 
-    public function cart(){
-        return $this->hasOne(Cart::class);
-    }
+
 
 }
