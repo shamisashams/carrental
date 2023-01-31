@@ -111,11 +111,9 @@
                                 <td class="tx-right">Sub-Total</td>
                                 <td class="tx-right" colspan="2">{{$order->car_price * $order->period}}₾</td>
                             </tr>
-                            <?php
-                            $options =  json_decode($order->options,true);
-                            ?>
 
-                            @foreach($options['options'] as $option)
+
+                            @foreach($order->options['options'] as $option)
                             <tr>
                                 <td class="tx-right">{{$option['title']}} {{$option['per_day']?' x ' . $order->period . 'days':''}}</td>
                                 <td class="tx-right" colspan="2">{{$option['per_day']?$option['price']*$order->period:$option['price']}}₾</td>
@@ -124,7 +122,7 @@
                             @if(!$order->same_address)
                             <tr>
                                 <td class="tx-right">Drop address pay</td>
-                                <td class="tx-right" colspan="2">{{$options['drop_address_pay']}}₾</td>
+                                <td class="tx-right" colspan="2">{{$order->options['drop_address_pay']}}₾</td>
                             </tr>
                             @endif
 
