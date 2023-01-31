@@ -107,13 +107,20 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange }) => {
                     className={`selectBox pickupLocation ${
                         diffLoc && "diffLoc"
                     }`}
+                    onClick={() => {
+
+                        setDrop1(!drop1)
+                    }}
                 >
                     <ImLocation2 className="icon" />
                     {pickup}{" "}
                     <HiChevronDown className={`chevron ${drop1 && "rotate"}`} />
                 </div>
                 <div
-                    onClick={() => setDrop2(!drop2)}
+                    onClick={() => {
+
+                        setDrop2(!drop2)
+                    }}
                     className={`inner_box ${dropOff === false && "inner_box2"}`}
                 >
                     <ImLocation2 className="icon" />
