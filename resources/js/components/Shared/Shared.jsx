@@ -493,7 +493,7 @@ export const Pagination = () => {
     );
 };
 
-export const UploadImg = ({ objectID }) => {
+export const UploadImg = ({ objectID, value }) => {
     const [selectedImg, setSelectedImg] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -512,7 +512,7 @@ export const UploadImg = ({ objectID }) => {
                 id={objectID}
             />
             <label className="icon flex center" htmlFor={objectID}>
-                {imageUrl ? <img src={imageUrl} alt="" /> : <MdFileUpload />}
+                {imageUrl||value ? <img src={imageUrl||value} alt="" /> : <MdFileUpload />}
             </label>
         </>
     );

@@ -45,6 +45,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
+    protected $appends = [
+        'personal_files'
+    ];
+
 
     /*protected $with = [
       'referrals'
@@ -96,6 +100,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function personalFiles(){
+        return $this->morphMany(File::class, 'fileable')->whereIn('type',[File::ID1,File::ID2,File::DRL1,File::DRL2]);
+    }
 
 
     public function orders(){
@@ -103,6 +110,33 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+    public function getPersonalFilesAttribute(){
+        $files = $this->personalFiles()->get();
+
+        $result = [];
+        $result['id1'] = null;
+        $result['id2'] = null;
+        $result['drl1'] = null;
+        $result['drl2'] = null;
+
+        foreach ($files as $item){
+            switch ($item->type){
+                case File::ID1:
+                    $result['id1'] = $item->file_full_url;
+                    break;
+                case File::ID2:
+                    $result['id2'] = $item->file_full_url;
+                    break;
+                case File::DRL1:
+                    $result['drl1'] = $item->file_full_url;
+                    break;
+                case File::DRL2:
+                    $result['drl2'] = $item->file_full_url;
+                    break;
+            }
+        }
+        return $result;
+    }
 
 
 

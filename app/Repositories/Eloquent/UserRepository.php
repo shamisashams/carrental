@@ -58,7 +58,7 @@ class UserRepository extends BaseRepository
             $request->file('id_2')->move($destination, $imagename);
             $this->model->files()->create([
                 'title' => $imagename,
-                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/cv',
+                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/id',
                 'format' => $request->file('id_2')->getClientOriginalExtension(),
                 'type' => File::ID2,
                 'main' => 0
@@ -109,6 +109,9 @@ class UserRepository extends BaseRepository
 
 
 
+    public function getCustomers(Request $request){
+        return $this->model->filter($request)->where('is_partner',0)->where('is_admin',0)->paginate(10);
+    }
 
 
 }
