@@ -41,7 +41,7 @@ class UserController extends Controller
         $files = [];
         if($page->images) $files = $page->files;
 
-        //dd($files);
+        //dd(Booking::query()->where('user_id',auth()->id())->whereIn('status',['canceled','finished'])->get());
 
         return Inertia::render('Cabinet/Cabinet', [
             'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->first(),
