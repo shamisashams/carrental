@@ -376,7 +376,10 @@ const Cabinet = ({ seo }) => {
                         bookings.map((item, index) => {
                             return (
                                 <div
-                                    onClick={() => setEditOrder(true)}
+                                    onClick={() => {
+                                        setEditOrder(true);
+                                        setCancelBooking(item);
+                                    }}
                                     key={index}
                                     className="box flex"
                                 >
@@ -416,7 +419,7 @@ const Cabinet = ({ seo }) => {
                         </div>
                     )}
                 </div>
-                <EditOrder show={editOrder} hide={() => setEditOrder(false)} />
+                <EditOrder show={editOrder} hide={() => setEditOrder(false)} booking={cancelBooking} />
                 <CancelOrder
                     show={cancelOrder}
                     hide={() => setCancelOrder(false)}

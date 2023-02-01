@@ -11,25 +11,28 @@ import { FaEye } from "react-icons/fa";
 import "./Cabinet.css";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import { Inertia } from "@inertiajs/inertia";
+import moment from "moment";
 
-export const EditOrder = ({ show, hide }) => {
+export const EditOrder = ({ show, hide, booking }) => {
+    const {localizations} = usePage().props;
     const options = [
         "Super cover - Price per day: 53 GEL",
         "Additional driver -  Price per day: 31 GEL",
     ];
+    console.log(booking);
 
     return (
         <>
-            <div className={`cabBackground ${show && "show"}`}>
+            {booking?<div className={`cabBackground ${show && "show"}`}>
                 <div onClick={hide} className="underlay"></div>
                 <div className="cabPopup editOrder">
                     <button onClick={hide} className="close">
                         <MdOutlineClose />
                     </button>
                     <div className="container">
-                        <h3>Edit order</h3>
-                        <h6>Volkswagen Golf 2019</h6>
-                        <img src="/client/assets/images/cars/5.png" alt="" />
+                        <h3>View order</h3>
+                        <h6>{booking.car}</h6>
+                        <img src={booking.car_image} alt="" />
                         <h6>Locations</h6>
                         <div className={`selectBox pickupLocation `}>
                             <div
@@ -38,7 +41,7 @@ export const EditOrder = ({ show, hide }) => {
                             >
                                 <div className="inner_box">
                                     <ImLocation2 className="icon" />
-                                    522 Junkins Avenue. Tbilisi...
+                                    {booking.pickup_loc}
                                 </div>
                             </div>
                         </div>
@@ -49,7 +52,7 @@ export const EditOrder = ({ show, hide }) => {
                             >
                                 <div className="inner_box">
                                     <ImLocation2 className="icon" />
-                                    Drop off Location
+                                    {booking.dropoff_loc}
                                 </div>
                             </div>
                         </div>
@@ -61,7 +64,9 @@ export const EditOrder = ({ show, hide }) => {
                             >
                                 <div className="inner_box">
                                     <RiCalendar2Fill className="icon" />
-                                    December 14, 2022
+                                    {moment(
+                                        booking.pickup_date
+                                    ).format("MMMM DD, YYYY")}
                                 </div>
                             </div>
                         </div>
@@ -72,13 +77,15 @@ export const EditOrder = ({ show, hide }) => {
                             >
                                 <div className="inner_box">
                                     <RiCalendar2Fill className="icon" />
-                                    December 23, 2022
+                                    {moment(
+                                        booking.dropoff_date
+                                    ).format("MMMM DD, YYYY")}
                                 </div>
                             </div>
                         </div>
 
                         <h6>Aditional options</h6>
-                        {options.map((item, index) => {
+                        {booking.options.options.map((item, index) => {
                             return (
                                 <div
                                     key={index}
@@ -95,15 +102,15 @@ export const EditOrder = ({ show, hide }) => {
                                         <div></div>
                                     </label>
                                     <label htmlFor={`option_${index}`}>
-                                        {item}
+                                        {item.title} - {item.price}
                                     </label>
                                 </div>
                             );
                         })}
-                        <button className="main-btn submit">Save change</button>
+                        <button onClick={hide} className="main-btn submit">{__('client.got_it',localizations)}</button>
                     </div>
                 </div>
-            </div>
+            </div>:null}
         </>
     );
 };
