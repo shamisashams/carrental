@@ -1,97 +1,132 @@
 .carsPage {
-  padding: 120px 0;
-  background: #f2f3f3;
-  font-size: 14px;
+    padding: 120px 0;
+    background: #f2f3f3;
+    font-size: 14px;
 }
 .carsPage .wrapper {
-  align-items: flex-start;
-  gap: 30px;
+    align-items: flex-start;
+    gap: 30px;
 }
 .carsPage .selectBox .box.date {
-  width: 100%;
+    width: 100%;
 }
 .carsPage .selectBox {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 .carsPage .section {
-  padding: 40px 34px;
-  background: #fff;
-  border-radius: 15px;
+    padding: 40px 34px;
+    background: #fff;
+    border-radius: 15px;
 }
 .carsPage .carsFilter {
-  position: relative;
+    position: relative;
 }
 .carsPage .carsFilter h5 {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 .carsPage .carsFilter .title {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 .carsPage .carsFilter .title svg {
-  color: #ff715a;
-  margin-right: 10px;
-  vertical-align: middle;
+    color: #ff715a;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 .carsPage .gray_box {
-  background: #f2f3f3;
-  border-radius: 10px;
-  padding: 20px 15px;
-  margin: 30px 0;
+    background: #f2f3f3;
+    border-radius: 10px;
+    padding: 20px 15px;
+    margin: 30px 0;
 }
 .carsPage .gray_box .flex {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .carsPage .main-btn {
-  margin-top: 30px;
-  border-radius: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
 }
 .carsPage .carsTabs {
-  padding: 65px;
-  width: 75%;
+    padding: 65px;
+    width: 75%;
 }
 .FilterBtn {
-  display: none;
+    display: none;
+}
+.carsPage .check {
+    justify-content: flex-start;
+    margin-bottom: 14px;
+}
+.carsPage .check label {
+    margin-left: 0;
 }
 .carsPage .carsFilter .closeFilter {
-  position: absolute;
-  top: 22px;
-  right: 20px;
-  font-size: 18px;
-  display: none;
+    position: absolute;
+    top: 22px;
+    right: 20px;
+    font-size: 18px;
+    display: none;
+}
+
+.carsPage .pickupLocation .box {
+    flex-direction: column;
+}
+.carsPage .pickupLocation .inner_box.inner_box2 {
+    height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    display: none;
+}
+.carsPage .pickupLocation.diffLoc .inner_box {
+    width: 100%;
+}
+.carsPage .pickupLocation.diffLoc .inner_box.inner_box2 {
+    margin-left: 0;
+    height: 100%;
+    margin-top: 0;
+    display: block;
+}
+.carsPage .pickupLocation .box::after {
+    top: 50%;
+    left: 0;
+    transform: none;
+    height: 0;
+    width: 100%;
+    border-top: #1b5a654b 0.5px solid;
+    border-right: none;
 }
 @media screen and (max-width: 1200px) {
-  .carsPage .carsTabs {
-    padding: 19px;
-  }
-  .carsPage .carsFilter {
-    padding: 30px 22px;
-  }
-  .carsPage .wrapper {
-    gap: 16px;
-  }
+    .carsPage .carsTabs {
+        padding: 19px;
+    }
+    .carsPage .carsFilter {
+        padding: 30px 22px;
+    }
+    .carsPage .wrapper {
+        gap: 16px;
+    }
 }
 @media screen and (max-width: 1000px) {
-  .carsPage .carsTabs {
-    width: 100%;
-  }
-  .carsPage .carsFilter .closeFilter {
-    display: block;
-  }
-  .carsPage .carsFilter {
-    position: absolute;
-    left: 0;
-    top: 100px;
-    z-index: 1000;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.075);
-    transition: 0.5s;
-    transform: translateX(-100%);
-  }
-  .carsPage .carsFilter.show {
-    transform: translateX(0);
-  }
-  .FilterBtn {
-    display: block;
-    margin-left: 20px;
-    margin-bottom: 20px;
-  }
+    .carsPage .carsTabs {
+        width: 100%;
+    }
+    .carsPage .carsFilter .closeFilter {
+        display: block;
+    }
+    .carsPage .carsFilter {
+        position: absolute;
+        left: 0;
+        top: 100px;
+        z-index: 1000;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.075);
+        transition: 0.5s;
+        transform: translateX(-100%);
+    }
+    .carsPage .carsFilter.show {
+        transform: translateX(0);
+    }
+    .FilterBtn {
+        display: block;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
 }

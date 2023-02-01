@@ -56,7 +56,12 @@ export const DestinationBox = (props) => {
     );
 };
 
-export const PickupLocation = ({ diffLoc, dropOff, onChange, onChangeDrop }) => {
+export const PickupLocation = ({
+    diffLoc,
+    dropOff,
+    onChange,
+    onChangeDrop,
+}) => {
     const [drop1, setDrop1] = useState(false);
     const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
@@ -120,7 +125,7 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange, onChangeDrop }) => 
                     className={`inner_box ${dropOff === false && "inner_box2"}`}
                 >
                     <ImLocation2 className="icon" />
-                    {dropoff}{" "}
+                    {dropoff}
                     <HiChevronDown className={`chevron ${drop2 && "rotate"}`} />
                 </div>
             </div>
@@ -166,7 +171,11 @@ export const PickupLocation = ({ diffLoc, dropOff, onChange, onChangeDrop }) => 
             </div>
             <div className={`dropdown ${drop2 && "show"}`}>
                 <div className="flex" style={{ flexDirection: "row" }}>
-                    <input type="text" placeholder="Enter address" onKeyUp={handleSearch} />
+                    <input
+                        type="text"
+                        placeholder="Enter address"
+                        onKeyUp={handleSearch}
+                    />
 
                     {/*<div>
                         <button className="main-btn"> Ok</button>

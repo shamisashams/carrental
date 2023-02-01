@@ -22,15 +22,12 @@ a:hover {
     padding: 25px 110px;
     font-size: 14px;
     margin-top: -70px !important;
-    align-items: flex-end;
+    align-items: flex-end !important;
 }
 .homeFilter .animated {
     position: absolute;
-    right: 140px;
+    right: 8%;
     bottom: 50%;
-}
-.homeFilter .left {
-    width: 58%;
 }
 .homeFilter .left .flex:first-child {
     margin-bottom: 20px;
@@ -39,7 +36,8 @@ a:hover {
     padding: 0 10px;
 }
 .homeFilter .right {
-    width: 38%;
+    width: 35%;
+    margin-left: 20px;
 }
 .homeFilter .right .main-btn {
     padding: 10px 30px;

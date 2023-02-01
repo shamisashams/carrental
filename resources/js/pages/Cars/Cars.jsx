@@ -179,6 +179,9 @@ const Cars = ({ seo }) => {
 
     //console.log(cars);
 
+    const [diffLoc, setDiffLoc] = useState(false);
+    const dropLocationCheck = useRef();
+
     return (
         <Layout seo={seo}>
             <div className="carsPage">
@@ -201,25 +204,43 @@ const Cars = ({ seo }) => {
                         </button>
                         <h5>{__("client.filter", localizations)}</h5>
                         <PickupLocation
+                            diffLoc={diffLoc}
                             dropOff={false}
-                            onChange={(value, event) => {
-                                handleFilterClickAddress(
-                                    event,
-                                    "pickup",
-                                    value
-                                );
+                            onChange={(value, text) => {
+                                setValues((values) => ({
+                                    ...values,
+                                    pickup_id: value,
+                                }));
+                            }}
+                            onChangeDrop={(value) => {
+                                setValues((values) => ({
+                                    ...values,
+                                    dropoff_id: value,
+                                }));
                             }}
                         />
-                        <PickupLocation
-                            dropOff={true}
-                            onChangeDrop={(value, event) => {
-                                handleFilterClickAddress(
-                                    event,
-                                    "dropoff",
-                                    value
-                                );
-                            }}
-                        />
+
+                        <div className="flex check">
+                            <input
+                                ref={dropLocationCheck}
+                                type="checkbox"
+                                name=""
+                                id="dropLocationCheck"
+                                checked={diffLoc}
+                            />
+                            <label
+                                onClick={() => setDiffLoc(!diffLoc)}
+                                htmlFor="dropLocationCheck"
+                            >
+                                <div></div>
+                            </label>
+                            <label
+                                onClick={() => setDiffLoc(!diffLoc)}
+                                htmlFor="dropLocationCheck"
+                            >
+                                Drop on different location
+                            </label>
+                        </div>
                         <PickupDate
                             onChange={(value) => {
                                 alert(value);
