@@ -187,6 +187,12 @@
     visibility: hidden;
     transition: 0.5s;
 }
+.cabBackground.success {
+    text-align: center;
+}
+.cabBackground.success img {
+    margin-bottom: 14px;
+}
 .cabBackground.show {
     opacity: 1;
     visibility: visible;
