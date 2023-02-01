@@ -56,6 +56,7 @@ const SingleCar = ({ seo }) => {
         dropoff_date: "",
         pickup_time: "",
         dropoff_time: "",
+        same_address: true
     });
 
     useEffect(() => {
@@ -296,6 +297,12 @@ const SingleCar = ({ seo }) => {
                                     name=""
                                     id="dropLocationCheck"
                                     checked={diffLoc}
+                                    onClick={(event)=>{
+                                        setValues((values) => ({
+                                            ...values,
+                                            same_address: event.target.checked,
+                                        }));
+                                    }}
                                 />
                                 <label
                                     onClick={() => setDiffLoc(!diffLoc)}
