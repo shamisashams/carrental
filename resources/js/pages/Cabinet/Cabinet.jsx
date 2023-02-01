@@ -31,6 +31,8 @@ const Cabinet = ({ seo }) => {
     const [success, setSuccess] = useState(false);
     const [failure, setFailure] = useState(false);
 
+    const [cancelBooking, setCancelBooking] = useState(null);
+
     const history = [
         {
             status: "Finished",
@@ -119,7 +121,7 @@ const Cabinet = ({ seo }) => {
                 <div className="flex cabinet">
                     <div className="gray_box large">
                         {/* if there's no current order make no {{ display: flex }} 👇 */}
-                        {!current_booking ? (
+                        {!current_booking.length ? (
                             <div
                                 className="no_order flex center"
                                 style={{ display: "flex" }}
@@ -131,57 +133,62 @@ const Cabinet = ({ seo }) => {
                                 <h5>Nothing to show</h5>
                             </div>
                         ) : null}
-                        {current_booking ? (
-                            <div className="flex head">
-                                <h5
-                                    style={{
-                                        position: "relative",
-                                        zIndex: "300",
-                                    }}
-                                >
-                                    Current order
-                                </h5>
-                                <h5>
-                                    Total:{" "}
-                                    <h2
-                                        style={{
-                                            display: "inline",
-                                            color: "#ff715a",
-                                            verticalAlign: "middle",
-                                            paddingLeft: "11px",
-                                        }}
-                                    >
-                                        {current_booking.grand_total}GEL
-                                    </h2>
-                                </h5>
-                            </div>
-                        ) : null}
-                        {current_booking ? (
-                            <div
-                                className="flex main"
-                                style={{ alignItems: "flex-start" }}
-                            >
-                                <div>
-                                    {" "}
-                                    <h6>{current_booking.car}</h6>
-                                    <img
-                                        src={current_booking.car_image}
-                                        alt=""
-                                    />
-                                    <div className="grid list">
-                                        {carFeatures.map((item, index) => {
-                                            return (
-                                                <div key={index}>
-                                                    <span>{item.icon}</span>
-                                                    {item.text}
+
+                        {current_booking.length ?
+                            current_booking.map((item,index)=>{
+                                return (
+                                    <div>
+
+                                        <div className="flex head">
+                                            <h5
+                                                style={{
+                                                    position: "relative",
+                                                    zIndex: "300",
+                                                }}
+                                            >
+                                                Current order
+                                            </h5>
+                                            <h5>
+                                                Total:{" "}
+                                                <h2
+                                                    style={{
+                                                        display: "inline",
+                                                        color: "#ff715a",
+                                                        verticalAlign: "middle",
+                                                        paddingLeft: "11px",
+                                                    }}
+                                                >
+                                                    {item.grand_total}GEL
+                                                </h2>
+                                            </h5>
+                                        </div>
+
+
+                                        <div
+                                            className="flex main"
+                                            style={{ alignItems: "flex-start" }}
+                                        >
+                                            <div>
+                                                {" "}
+                                                <h6>{item.car}</h6>
+                                                <img
+                                                    src={item.car_image}
+                                                    alt=""
+                                                />
+                                                <div className="grid list">
+                                                    {carFeatures.map((item, index) => {
+                                                        return (
+                                                            <div key={index}>
+                                                                <span>{item.icon}</span>
+                                                                {item.text}
+                                                            </div>
+                                                        );
+                                                    })}
                                                 </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                                <div className="right">
-                                    <div className="grid">
-                                        {/*{info.map((item, index) => {
+                                            </div>
+                                            <div className="right">
+                                                <div className="grid">
+                                                    {/*{info.map((item, index) => {
                                         return (
                                             <div key={index} className="">
                                                 <h6>{item.title}</h6>
@@ -189,67 +196,67 @@ const Cabinet = ({ seo }) => {
                                             </div>
                                         );
                                     })}*/}
-                                        <div className="">
-                                            <h6>pickup-loc</h6>
-                                            <div>
-                                                {current_booking.pickup_loc}
-                                            </div>
-                                        </div>
-                                        <div className="">
-                                            <h6>pickup-date</h6>
-                                            <div>
-                                                {moment(
-                                                    current_booking.pickup_date
-                                                ).format("MMMM DD, YYYY")}
-                                            </div>
-                                        </div>
-
-                                        <div className="">
-                                            <h6>pickup-time</h6>
-                                            <div>
-                                                {moment(
-                                                    current_booking.pickup_date
-                                                ).format("LT")}
-                                            </div>
-                                        </div>
-
-                                        <div className="">
-                                            <h6>drop-off-loc</h6>
-                                            <div>
-                                                {current_booking.dropoff_loc}
-                                            </div>
-                                        </div>
-                                        <div className="">
-                                            <h6>pickup-date</h6>
-                                            <div>
-                                                {moment(
-                                                    current_booking.dropoff_date
-                                                ).format("MMMM DD, YYYY")}
-                                            </div>
-                                        </div>
-
-                                        <div className="">
-                                            <h6>pickup-time</h6>
-                                            <div>
-                                                {moment(
-                                                    current_booking.dropoff_date
-                                                ).format("LT")}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h6>Aditional options</h6>
-                                    <div className="prices">
-                                        {current_booking.options.options.map(
-                                            (item, index) => {
-                                                return (
-                                                    <div>
-                                                        {item.title} - Price per
-                                                        day: {item.price} GEL
+                                                    <div className="">
+                                                        <h6>pickup-loc</h6>
+                                                        <div>
+                                                            {item.pickup_loc}
+                                                        </div>
                                                     </div>
-                                                );
-                                            }
-                                        )}
-                                        {/*<div>
+                                                    <div className="">
+                                                        <h6>pickup-date</h6>
+                                                        <div>
+                                                            {moment(
+                                                                item.pickup_date
+                                                            ).format("MMMM DD, YYYY")}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="">
+                                                        <h6>pickup-time</h6>
+                                                        <div>
+                                                            {moment(
+                                                                item.pickup_date
+                                                            ).format("LT")}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="">
+                                                        <h6>drop-off-loc</h6>
+                                                        <div>
+                                                            {item.dropoff_loc}
+                                                        </div>
+                                                    </div>
+                                                    <div className="">
+                                                        <h6>pickup-date</h6>
+                                                        <div>
+                                                            {moment(
+                                                                item.dropoff_date
+                                                            ).format("MMMM DD, YYYY")}
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="">
+                                                        <h6>pickup-time</h6>
+                                                        <div>
+                                                            {moment(
+                                                                item.dropoff_date
+                                                            ).format("LT")}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <h6>Aditional options</h6>
+                                                <div className="prices">
+                                                    {item.options.options.map(
+                                                        (item, index) => {
+                                                            return (
+                                                                <div>
+                                                                    {item.title} - Price per
+                                                                    day: {item.price} GEL
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )}
+                                                    {/*<div>
                                         Super cover - Price per day: 53 GEL
                                     </div>
                                     <div>
@@ -260,26 +267,33 @@ const Cabinet = ({ seo }) => {
                                         Additional driver - Price per day: 31
                                         GEL
                                     </div>*/}
-                                    </div>
-                                </div>
-                            </div>
-                        ) : null}
-                        {current_booking ? (
-                            <div className="bottom flex">
-                                {/* <button
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div className="bottom flex">
+                                            {/* <button
                                 onClick={() => setEditOrder(true)}
                                 className="main-btn"
                             >
                                 Edit order
                             </button> */}
-                                <button
-                                    onClick={() => setCancelOrder(true)}
-                                    className="delete flex center icon"
-                                >
-                                    <FaTrashAlt />
-                                </button>
-                            </div>
-                        ) : null}
+                                            <button
+                                                onClick={() => {
+                                                    setCancelOrder(true);
+                                                    setCancelBooking(item);
+                                                }}
+                                                className="delete flex center icon"
+                                            >
+                                                <FaTrashAlt />
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                )
+                            })
+                            :null}
                     </div>
                     <div className="smalls">
                         <div className="gray_box">
@@ -385,7 +399,7 @@ const Cabinet = ({ seo }) => {
                 <CancelOrder
                     show={cancelOrder}
                     hide={() => setCancelOrder(false)}
-                    current_booking={current_booking}
+                    current_booking={cancelBooking}
                 />
                 <PersonalInfo
                     show={personalInfo}

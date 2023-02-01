@@ -435,7 +435,22 @@ class BookController extends Controller
 
         $opt_data['car_image'] = $car->file?$car->file->title:'';
 
+        //dd($car->transmission);
+        $opt_data['car_info'] = [
+            'brand' => $car->brand?$car->brand->title:'',
+            'model' => $car->model,
+            'seat' => $car->seat,
+            'door' => $car->door,
+            'fuel' =>  $car->fuel?$car->fuel->title:'',
+            'transmission' => $car->transmission?$car->transmission->title:'',
+            'bag' => $car->bag?$car->bag->title:'',
+            'air_conditioning' => $car->air_conditioning
+        ];
+
+
+
         $data['options'] = json_encode($opt_data);
+
 
         $data['pickup_loc'] = $pickup_address->text;
         $data['dropoff_loc'] = $dropoff_address->text;
@@ -456,7 +471,7 @@ class BookController extends Controller
 
 
         session()->forget('booking');
-        return redirect()->back()->with('success','booking created');
+        return redirect()->route('client.cabinet')->with('success','booking created');
 
     }
 
