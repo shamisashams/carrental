@@ -96,9 +96,25 @@ export const PickupLocation = ({
                         console.log(response);
                         setResult(response.data);
                     });
-            } else setResult([]);
+            } else {
+                axios
+                    .post(route("search.address"), { term: '' })
+                    .then(function (response) {
+                        console.log(response);
+                        setResult(response.data);
+                    });
+            }
         }, 300);
     }
+
+    useEffect(()=>{
+        axios
+            .post(route("search.address"), { term: '' })
+            .then(function (response) {
+                console.log(response);
+                setResult(response.data);
+            });
+    },[])
 
     return (
         <div

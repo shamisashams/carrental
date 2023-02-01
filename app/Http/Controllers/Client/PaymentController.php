@@ -142,15 +142,24 @@ class PaymentController extends Controller
         $data = $request->validate([
             'car_id' => 'required',
             'pickup_id' => 'required',
-            'dropoff_id' => 'required',
             'pickup_date' => 'required',
             'dropoff_date' => 'required',
             'pickup_time' => 'required',
             'dropoff_time' => 'required'
         ]);
 
-        $booking_count = Booking::query()->where('car_id',$data['car_id'])->whereIn('status',['pending'])->count();
-        if ($booking_count > 0) return redirect()->back()->with('error','not available now');
+        if ($request['same_address']){
+            $data['dropoff_id'] = $data['pickup_id'];
+        } else {
+            $request->validate([
+                'dropoff_id' => 'required',
+            ]);
+            $data['dropoff_id'] = $request->post('dropoff_id');
+        }
+
+        //dd($data);
+        //$booking_count = Booking::query()->where('car_id',$data['car_id'])->whereIn('status',['pending'])->count();
+        //if ($booking_count > 0) return redirect()->back()->with('error','not available now');
 
         $data['pickup_date'] = $data['pickup_date'].' '.$data['pickup_time'] . ':00';
         $data['dropoff_date'] = $data['dropoff_date'].' '.$data['dropoff_time'] . ':00';
