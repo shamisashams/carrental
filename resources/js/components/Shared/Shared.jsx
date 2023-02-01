@@ -42,12 +42,13 @@ export const Hashtag2 = ({ text, onClick, active }) => {
 };
 
 export const DestinationBox = (props) => {
+    const {localizations} = usePage().props;
     return (
         <div className="destinationBox">
             <Link href={props.link} className="img">
                 <img src={props.img} alt="" />
                 <div className="overlay flex center">
-                    <button>Learn more</button>
+                    <button>{__('client.learn_more',localizations)}</button>
                 </div>
             </Link>
             <div>{props.title}</div>
