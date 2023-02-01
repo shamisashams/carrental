@@ -560,7 +560,7 @@ const Cars = ({ seo }) => {
                                         img={
                                             item.latest_image
                                                 ? item.latest_image
-                                                      .file_full_url
+                                                    .file_full_url
                                                 : null
                                         }
                                         price={item.price}
