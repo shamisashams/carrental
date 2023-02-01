@@ -17,6 +17,7 @@ import Layout from "@/Layouts/Layout";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
+import moment from "moment";
 
 const Cars = ({ seo }) => {
     const {
@@ -179,6 +180,9 @@ const Cars = ({ seo }) => {
 
     //console.log(cars);
 
+    const [pickupd, setPickupd] = useState("pickup date");
+    const [dropoffd, setDropoffd] = useState("dropoff date");
+
     return (
         <Layout seo={seo}>
             <div className="carsPage">
@@ -209,6 +213,7 @@ const Cars = ({ seo }) => {
                                     value
                                 );
                             }}
+
                         />
                         <PickupLocation
                             dropOff={true}
@@ -219,16 +224,29 @@ const Cars = ({ seo }) => {
                                     value
                                 );
                             }}
+
                         />
                         <PickupDate
                             onChange={(value) => {
-                                alert(value);
+                                setPickupd(moment(value).format("YYYY-MM-DD"));
+                                setValues((values) => ({
+                                    ...values,
+                                    pickup_date:
+                                        moment(value).format("YYYY-MM-DD"),
+                                }));
                             }}
+                            value={pickupd}
                         />
                         <DropoffDate
                             onChange={(value) => {
-                                alert(value);
+                                setDropoffd(moment(value).format("YYYY-MM-DD"));
+                                setValues((values) => ({
+                                    ...values,
+                                    dropoff_date:
+                                        moment(value).format("YYYY-MM-DD"),
+                                }));
                             }}
+                            value={dropoffd}
                         />
                         <div className="gray_box">
                             <div className="title">
