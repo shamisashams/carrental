@@ -212,7 +212,7 @@ const Cars = ({ seo }) => {
                         />
                         <PickupLocation
                             dropOff={true}
-                            onChange={(value, event) => {
+                            onChangeDrop={(value, event) => {
                                 handleFilterClickAddress(
                                     event,
                                     "dropoff",

@@ -32,7 +32,7 @@ import axios from "axios";
 import moment from "moment";
 
 const SingleCar = ({ seo }) => {
-    const { car, cars, features, extra_options, localizations } =
+    const { car, cars, features, extra_options, localizations, errors } =
         usePage().props;
 
     const [price, setPrice] = useState(car.price);
@@ -279,10 +279,10 @@ const SingleCar = ({ seo }) => {
                                     }));
                                 }}
                             />
-
+                            {errors.pickup_id && <div>{errors.pickup_id}</div>}
                             <PickupLocation
                                 dropOff={true}
-                                onChange={(value) => {
+                                onChangeDrop={(value) => {
                                     setValues((values) => ({
                                         ...values,
                                         dropoff_id: value,
