@@ -17,7 +17,6 @@ import Layout from "@/Layouts/Layout";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
-import moment from "moment";
 
 const Cars = ({ seo }) => {
     const {
@@ -180,8 +179,8 @@ const Cars = ({ seo }) => {
 
     //console.log(cars);
 
-    const [pickupd, setPickupd] = useState("pickup date");
-    const [dropoffd, setDropoffd] = useState("dropoff date");
+    const [diffLoc, setDiffLoc] = useState(false);
+    const dropLocationCheck = useRef();
 
     return (
         <Layout seo={seo}>
@@ -205,48 +204,52 @@ const Cars = ({ seo }) => {
                         </button>
                         <h5>{__("client.filter", localizations)}</h5>
                         <PickupLocation
+                            diffLoc={diffLoc}
                             dropOff={false}
-                            onChange={(value, event) => {
-                                handleFilterClickAddress(
-                                    event,
-                                    "pickup",
-                                    value
-                                );
-                            }}
-
-                        />
-                        <PickupLocation
-                            dropOff={true}
-                            onChangeDrop={(value, event) => {
-                                handleFilterClickAddress(
-                                    event,
-                                    "dropoff",
-                                    value
-                                );
-                            }}
-
-                        />
-                        <PickupDate
-                            onChange={(value) => {
-                                setPickupd(moment(value).format("YYYY-MM-DD"));
+                            onChange={(value, text) => {
                                 setValues((values) => ({
                                     ...values,
-                                    pickup_date:
-                                        moment(value).format("YYYY-MM-DD"),
+                                    pickup_id: value,
                                 }));
                             }}
-                            value={pickupd}
+                            onChangeDrop={(value) => {
+                                setValues((values) => ({
+                                    ...values,
+                                    dropoff_id: value,
+                                }));
+                            }}
+                        />
+
+                        <div className="flex check">
+                            <input
+                                ref={dropLocationCheck}
+                                type="checkbox"
+                                name=""
+                                id="dropLocationCheck"
+                                checked={diffLoc}
+                            />
+                            <label
+                                onClick={() => setDiffLoc(!diffLoc)}
+                                htmlFor="dropLocationCheck"
+                            >
+                                <div></div>
+                            </label>
+                            <label
+                                onClick={() => setDiffLoc(!diffLoc)}
+                                htmlFor="dropLocationCheck"
+                            >
+                                Drop on different location
+                            </label>
+                        </div>
+                        <PickupDate
+                            onChange={(value) => {
+                                alert(value);
+                            }}
                         />
                         <DropoffDate
                             onChange={(value) => {
-                                setDropoffd(moment(value).format("YYYY-MM-DD"));
-                                setValues((values) => ({
-                                    ...values,
-                                    dropoff_date:
-                                        moment(value).format("YYYY-MM-DD"),
-                                }));
+                                alert(value);
                             }}
-                            value={dropoffd}
                         />
                         <div className="gray_box">
                             <div className="title">
@@ -557,7 +560,7 @@ const Cars = ({ seo }) => {
                                         img={
                                             item.latest_image
                                                 ? item.latest_image
-                                                      .file_full_url
+                                                    .file_full_url
                                                 : null
                                         }
                                         price={item.price}

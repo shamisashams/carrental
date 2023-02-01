@@ -182,6 +182,8 @@ const SingleCar = ({ seo }) => {
         e.preventDefault();
         Inertia.post(route("client.book"), values);
     }
+    const [diffLoc, setDiffLoc] = useState(false);
+    const dropLocationCheck = useRef();
 
     return (
         <Layout seo={seo}>
@@ -271,6 +273,44 @@ const SingleCar = ({ seo }) => {
                     <div className="right">
                         <div className="selects">
                             <PickupLocation
+                                diffLoc={diffLoc}
+                                dropOff={false}
+                                onChange={(value, text) => {
+                                    setValues((values) => ({
+                                        ...values,
+                                        pickup_id: value,
+                                    }));
+                                }}
+                                onChangeDrop={(value) => {
+                                    setValues((values) => ({
+                                        ...values,
+                                        dropoff_id: value,
+                                    }));
+                                }}
+                            />
+
+                            <div className="flex check">
+                                <input
+                                    ref={dropLocationCheck}
+                                    type="checkbox"
+                                    name=""
+                                    id="dropLocationCheck"
+                                    checked={diffLoc}
+                                />
+                                <label
+                                    onClick={() => setDiffLoc(!diffLoc)}
+                                    htmlFor="dropLocationCheck"
+                                >
+                                    <div></div>
+                                </label>
+                                <label
+                                    onClick={() => setDiffLoc(!diffLoc)}
+                                    htmlFor="dropLocationCheck"
+                                >
+                                    Drop on different location
+                                </label>
+                            </div>
+                            {/* <PickupLocation
                                 dropOff={false}
                                 onChange={(value) => {
                                     setValues((values) => ({
@@ -288,7 +328,7 @@ const SingleCar = ({ seo }) => {
                                         dropoff_id: value,
                                     }));
                                 }}
-                            />
+                            /> */}
                             <PickupDate
                                 onChange={(value) => {
                                     setPickupd(

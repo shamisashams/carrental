@@ -37,7 +37,8 @@ const Home = ({ seo }) => {
 
     function search() {
         Inertia.visit(
-            route("client.car.index") + `?pickup=${values.pickup_id}&dropoff=${values.dropoff_id}`
+            route("client.car.index") +
+                `?pickup=${values.pickup_id}&dropoff=${values.dropoff_id}`
         );
     }
     /* -----------------------------------*/
@@ -133,7 +134,7 @@ const Home = ({ seo }) => {
                                         pickup_id: value,
                                     }));
                                 }}
-                                onChangeDrop={(value)=>{
+                                onChangeDrop={(value) => {
                                     setValues((values) => ({
                                         ...values,
                                         dropoff_id: value,
@@ -164,18 +165,14 @@ const Home = ({ seo }) => {
                             </div>
                         </div>
                         <div className="flex">
-                            <PickupDate onChange={(value)=>{
-
-                            }} />
+                            <PickupDate onChange={(value) => {}} />
                             <TimeSelect
                                 onChange={(value) => {
                                     //alert(value)
                                 }}
                             />
                             <div className="gap"></div>
-                            <DropoffDate onChange={(value)=>{
-
-                            }} />
+                            <DropoffDate onChange={(value) => {}} />
                             <TimeSelect onChange={(value) => {}} />
                         </div>
                     </div>

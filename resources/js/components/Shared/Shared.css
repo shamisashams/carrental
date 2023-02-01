@@ -271,11 +271,13 @@
         margin-left: 0;
         height: 100%;
         margin-top: 20px;
+        display: block;
     }
     .pickupLocation .inner_box.inner_box2 {
         height: 0;
         overflow: hidden;
         margin-top: 0;
+        display: none;
     }
     .pickupLocation .box::after {
         top: 50%;
