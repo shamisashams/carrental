@@ -112,12 +112,12 @@ const Cabinet = ({ seo }) => {
         },
     ];
 
-    console.log(user);
+    //console.log(user);
 
     return (
         <Layout seo={seo}>
             <div className="cabinetPage wrapper ">
-                <h2>My Cabinet</h2>
+                <h2>{__('client.cabinet',localizations)}</h2>
                 <div className="flex cabinet">
                     <div className="gray_box large">
                         {/* if there's no current order make no {{ display: flex }} 👇 */}
@@ -130,7 +130,7 @@ const Cabinet = ({ seo }) => {
                                     src="/client/assets/images/other/filesearch.png"
                                     alt=""
                                 />
-                                <h5>Nothing to show</h5>
+                                <h5>{__('client.nothing_show',localizations)}</h5>
                             </div>
                         ) : null}
 
@@ -146,10 +146,10 @@ const Cabinet = ({ seo }) => {
                                                     zIndex: "300",
                                                 }}
                                             >
-                                                Current order
+                                                {__('client.current_booking',localizations)}
                                             </h5>
                                             <h5>
-                                                Total:{" "}
+                                                {__('client.grand_total',localizations)}:{" "}
                                                 <h2
                                                     style={{
                                                         display: "inline",
@@ -179,12 +179,12 @@ const Cabinet = ({ seo }) => {
 
                                                         <div >
                                                             <span><MdAirlineSeatReclineNormal/></span>
-                                                            {item.options.car_info.seat} Seats
+                                                            {item.options.car_info.seat} {__('client.seats',localizations)}
                                                         </div>
 
                                                     <div >
                                                         <span><GiCarDoor/></span>
-                                                        {item.options.car_info.door} Doors
+                                                        {item.options.car_info.door} {__('client.doors',localizations)}
                                                     </div>
 
                                                     <div >
@@ -202,7 +202,7 @@ const Cabinet = ({ seo }) => {
                                                     </div>
                                                     <div >
                                                         <span><BsSnow2/></span>
-                                                        {item.options.car_info.air_conditioning?`Air conditioning`:'none'}
+                                                        {item.options.car_info.air_conditioning?__('client.air_conditioning',localizations):__('client.none',localizations)}
                                                     </div>
 
                                                 </div>
@@ -218,13 +218,13 @@ const Cabinet = ({ seo }) => {
                                         );
                                     })}*/}
                                                     <div className="">
-                                                        <h6>pickup-loc</h6>
+                                                        <h6>{__('client.pickup_loc',localizations)}</h6>
                                                         <div>
                                                             {item.pickup_loc}
                                                         </div>
                                                     </div>
                                                     <div className="">
-                                                        <h6>pickup-date</h6>
+                                                        <h6>{__('client.pickup_date',localizations)}</h6>
                                                         <div>
                                                             {moment(
                                                                 item.pickup_date
@@ -233,7 +233,7 @@ const Cabinet = ({ seo }) => {
                                                     </div>
 
                                                     <div className="">
-                                                        <h6>pickup-time</h6>
+                                                        <h6>{__('client.pickup_time',localizations)}</h6>
                                                         <div>
                                                             {moment(
                                                                 item.pickup_date
@@ -242,13 +242,13 @@ const Cabinet = ({ seo }) => {
                                                     </div>
 
                                                     <div className="">
-                                                        <h6>drop-off-loc</h6>
+                                                        <h6>{__('client.drop_off_loc',localizations)}</h6>
                                                         <div>
                                                             {item.dropoff_loc}
                                                         </div>
                                                     </div>
                                                     <div className="">
-                                                        <h6>pickup-date</h6>
+                                                        <h6>{__('client.drop_off_date',localizations)}</h6>
                                                         <div>
                                                             {moment(
                                                                 item.dropoff_date
@@ -257,7 +257,7 @@ const Cabinet = ({ seo }) => {
                                                     </div>
 
                                                     <div className="">
-                                                        <h6>pickup-time</h6>
+                                                        <h6>{__('client.drop_off_time',localizations)}</h6>
                                                         <div>
                                                             {moment(
                                                                 item.dropoff_date
@@ -265,7 +265,7 @@ const Cabinet = ({ seo }) => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <h6>Aditional options</h6>
+                                                <h6>{__('client.extra_options',localizations)}</h6>
                                                 <div className="prices">
                                                     {item.options.options.map(
                                                         (item, index) => {
@@ -319,48 +319,48 @@ const Cabinet = ({ seo }) => {
                     <div className="smalls">
                         <div className="gray_box">
                             <div className="head flex">
-                                <h5>Personal information</h5>
+                                <h5>{__('client.personal_info',localizations)}</h5>
                                 <button onClick={() => setPersonalInfo(true)}>
                                     <FiEdit />
                                 </button>
                             </div>
                             <div className="flex line">
-                                <div>Name Surname </div>
+                                <div>{__('client.form_name',localizations)} {__('client.form_surname',localizations)} </div>
                                 <div>
                                     {user.name} {user.surname}{" "}
                                 </div>
                             </div>
                             <div className="flex line">
-                                <div>Email</div>
+                                <div>{__('client.form_email',localizations)}</div>
                                 <div>{user.email}</div>
                             </div>
                             <div className="flex line">
-                                <div>Phone</div>
+                                <div>{__('client.form_phone',localizations)}</div>
                                 <div>{user.phone}</div>
                             </div>
                             <div className="flex line">
-                                <div>Password</div>
+                                <div>{__('client.form_password',localizations)}</div>
                                 <div>*************</div>
                             </div>
                         </div>
                         <div className="gray_box">
                             <div className="head flex">
-                                <h5>Documents</h5>
+                                <h5>{__('client.documents',localizations)}</h5>
                             </div>
                             <div className="flex line">
-                                <div>Personal ID</div>
+                                <div>{__('client.personal_id',localizations)}</div>
                                 <div
                                     className="flex"
                                     style={{ position: "relative" }}
                                 >
-                                    <div className="title front">front</div>
-                                    <div className="title back">back</div>
+                                    <div className="title front">{__('client.front',localizations)}</div>
+                                    <div className="title back">{__('client.back',localizations)}</div>
                                     <UploadImg objectID="imgUpload1" value={user.personal_files.id1} type={'id_1'} />
                                     <UploadImg objectID="imgUpload2" value={user.personal_files.id2} type={'id_2'} />
                                 </div>
                             </div>
                             <div className="flex line">
-                                <div>Driving license</div>
+                                <div>{__('client.driving_license',localizations)}</div>
                                 <div className="flex">
                                     <UploadImg objectID="imgUpload3" value={user.personal_files.drl1} type={'drl_1'} />
                                     <UploadImg objectID="imgUpload4" value={user.personal_files.drl2} type={'drl_2'} />
@@ -369,7 +369,7 @@ const Cabinet = ({ seo }) => {
                         </div>
                     </div>
                 </div>
-                <h5>Order history</h5>
+                <h5>{__('client.book_history',localizations)}</h5>
                 <div className="flex history">
                     {bookings.length !== 0 ? (
                         // if there is history this shows
@@ -403,7 +403,7 @@ const Cabinet = ({ seo }) => {
                                                 ).format("DD/MM/YYYY")}
                                             </div>
                                         </div>
-                                        <h6>Total: {item.grand_total}</h6>
+                                        <h6>{__('client.grand_total',localizations)}: {item.grand_total}</h6>
                                     </div>
                                 </div>
                             );
@@ -415,7 +415,7 @@ const Cabinet = ({ seo }) => {
                                 src="/client/assets/images/other/filesearch.png"
                                 alt=""
                             />
-                            <h5>Nothing to show</h5>
+                            <h5>{__('client.nothing_show',localizations)}</h5>
                         </div>
                     )}
                 </div>

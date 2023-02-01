@@ -30,10 +30,10 @@ export const EditOrder = ({ show, hide, booking }) => {
                         <MdOutlineClose />
                     </button>
                     <div className="container">
-                        <h3>View order</h3>
+                        <h3>{__('client.view_book',localizations)}</h3>
                         <h6>{booking.car}</h6>
                         <img src={booking.car_image} alt="" />
-                        <h6>Locations</h6>
+                        <h6>{__('client.locations',localizations)}</h6>
                         <div className={`selectBox pickupLocation `}>
                             <div
                                 className="box flex "
@@ -56,7 +56,7 @@ export const EditOrder = ({ show, hide, booking }) => {
                                 </div>
                             </div>
                         </div>
-                        <h6>Date</h6>
+                        <h6>{__('client.dates',localizations)}</h6>
                         <div className="selectBox pickupLocation">
                             <div
                                 className="box flex "
@@ -84,7 +84,7 @@ export const EditOrder = ({ show, hide, booking }) => {
                             </div>
                         </div>
 
-                        <h6>Aditional options</h6>
+                        <h6>{__('client.extra_options',localizations)}</h6>
                         {booking.options.options.map((item, index) => {
                             return (
                                 <div
@@ -149,16 +149,15 @@ export const CancelOrder = ({ show, hide, current_booking }) => {
                         <MdOutlineClose />
                     </button>
                     <div className="container">
-                        <h3>Cancel order?</h3>
+                        <h3>{__('client.cancel_book_h',localizations)}</h3>
                         <div>
-                            To cancel order please enter password and accept
-                            terms of use
+                            {__('client.cancel_book_t',localizations)}
                         </div>
                         <div style={{ marginTop: "30px" }}>
                             <div className="input">
                                 <input
                                     type="password"
-                                    placeholder="Enter password"
+                                    placeholder={__('client.form_password',localizations)}
                                     name="password"
                                     id=""
                                     onChange={handleChange}
@@ -187,13 +186,13 @@ export const CancelOrder = ({ show, hide, current_booking }) => {
                                 <div></div>
                             </label>
                             <label htmlFor="terms_use">
-                                I agree with{" "}
+                                {__('client.agree_with',localizations)}{" "}
                                 <Link
                                     href="/"
                                     style={{ textDecoration: "underline" }}
                                 >
                                     {" "}
-                                    Terms of Use
+                                    {__('client.terms',localizations)}
                                 </Link>
                             </label>
                         </div>
@@ -203,7 +202,7 @@ export const CancelOrder = ({ show, hide, current_booking }) => {
                             disabled={disabled}
                             className="main-btn submit"
                         >
-                            Cancel order
+                            {__('client.cancel_order',localizations)}
                         </button>
                     </div>
                 </div>
@@ -250,11 +249,11 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                         <MdOutlineClose />
                     </button>
                     <div className="container">
-                        <h3>personal information</h3>
-                        <div className="label">Personal information</div>
+                        <h3>{__('client.personal_info',localizations)}</h3>
+                        <div className="label">{__('client.personal_info',localizations)}</div>
                         <input
                             type="text"
-                            placeholder="Name"
+                            placeholder={__('client.form_name',localizations)}
                             name="name"
                             id=""
                             value={values.name}
@@ -263,17 +262,17 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                         {errors.name && <div>{errors.name}</div>}
                         <input
                             type="text"
-                            placeholder="Surname"
+                            placeholder={__('client.form_surname',localizations)}
                             name="surname"
                             id=""
                             value={values.surname}
                             onChange={handleChange}
                         />
                         {errors.surname && <div>{errors.surname}</div>}
-                        <div className="label">Contact information</div>
+                        <div className="label"><div className="label">{__('client.contact_info',localizations)}</div></div>
                         <input
                             type="text"
-                            placeholder="E-mail"
+                            placeholder={__('client.form_email',localizations)}
                             name="email"
                             id=""
                             value={values.email}
@@ -281,17 +280,17 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                         />
                         <input
                             type="text"
-                            placeholder="Phone number"
+                            placeholder={__('client.form_phone',localizations)}
                             name="phone"
                             id=""
                             value={values.phone}
                             onChange={handleChange}
                         />
-                        <div className="label">Change password</div>
+                        <div className="label"><div className="label">{__('client.change_password',localizations)}</div></div>
                         <div className="input">
                             <input
                                 type="password"
-                                placeholder="Enter old password"
+                                placeholder={__('client.form_old_password',localizations)}
                                 name="password_old"
                                 id=""
                                 onChange={handleChange}
@@ -306,7 +305,7 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                         <div className="input">
                             <input
                                 type="password"
-                                placeholder="Enter new password"
+                                placeholder={__('client.form_password',localizations)}
                                 name="password"
                                 id=""
                                 onChange={handleChange}
@@ -319,7 +318,7 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                         <div className="input">
                             <input
                                 type="password"
-                                placeholder="Repeat new password"
+                                placeholder={__('client.form_password_repeat',localizations)}
                                 name="password_repeat"
                                 id=""
                                 onChange={handleChange}
@@ -349,13 +348,13 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                                 <div></div>
                             </label>
                             <label htmlFor="terms_use2">
-                                I agree with{" "}
+                                {__('client.agree_with',localizations)}{" "}
                                 <Link
                                     href="/"
                                     style={{ textDecoration: "underline" }}
                                 >
                                     {" "}
-                                    Terms of Use
+                                    {__('client.terms',localizations)}
                                 </Link>
                             </label>
                         </div>
@@ -366,7 +365,7 @@ export const PersonalInfo = ({ show, hide, changeSettings }) => {
                             disabled={disabled}
                             className="main-btn submit"
                         >
-                            Save
+                            {__('client.form_save',localizations)}
                         </button>
                     </div>
                 </div>
