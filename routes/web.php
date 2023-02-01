@@ -218,7 +218,7 @@ Route::prefix('{locale?}')
             Route::get('account',[\App\Http\Controllers\Client\UserController::class,'index'])->name('client.cabinet');
             Route::get('account/orders',[\App\Http\Controllers\Client\UserController::class,'orders'])->name('client.orders');
             Route::get('account/order/{order}/details',[\App\Http\Controllers\Client\UserController::class,'orderDetails'])->name('client.order-details');
-
+            Route::post('upload-img',[\App\Http\Controllers\Client\UserController::class,'uploadImg'])->name('client.upload_img');
 
             Route::post('checkout',[\App\Http\Controllers\Client\BookController::class,'createBook'])->name('client.checkout.order');
             Route::post('settings',[\App\Http\Controllers\Client\UserController::class,'saveSettings'])->name('client.save-settings');

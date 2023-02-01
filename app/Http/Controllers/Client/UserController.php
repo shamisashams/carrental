@@ -227,4 +227,11 @@ class UserController extends Controller
             'og_description' => $page->meta_og_description
         ]);
     }
+
+    public function uploadImg(Request $request){
+
+        $this->userRepository->uploadId(auth()->user(),$request);
+        $this->userRepository->uploadDrl(auth()->user(),$request);
+        return back()->with('success','file uploaded');
+    }
 }

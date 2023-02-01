@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 //import { Link } from "react-router-dom";
-import { Link, usePage } from "@inertiajs/inertia-react";
+import {Link, useForm, usePage} from "@inertiajs/inertia-react";
 import "./Shared.css";
 import { HiChevronDown } from "react-icons/hi";
 import { ImLocation2 } from "react-icons/im";
@@ -493,20 +493,34 @@ export const Pagination = () => {
     );
 };
 
-export const UploadImg = ({ objectID, value }) => {
+export const UploadImg = ({ objectID, value, type }) => {
     const [selectedImg, setSelectedImg] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
         if (selectedImg) {
             setImageUrl(URL.createObjectURL(selectedImg));
+            handleSubmit()
         }
     }, [selectedImg]);
+
+    const { data, setData, post, progress } = useForm({
+        [type]: null,
+    });
+
+    function handleSubmit(e) {
+        //e.preventDefault();
+        post(route("client.upload_img"));
+    }
 
     return (
         <>
             <input
-                onChange={(e) => setSelectedImg(e.target.files[0])}
+                onChange={(e) => {
+                    setSelectedImg(e.target.files[0]);
+                    setData(type, e.target.files[0]);
+
+                }}
                 type="file"
                 name=""
                 id={objectID}

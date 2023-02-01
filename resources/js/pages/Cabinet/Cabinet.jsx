@@ -355,15 +355,15 @@ const Cabinet = ({ seo }) => {
                                 >
                                     <div className="title front">front</div>
                                     <div className="title back">back</div>
-                                    <UploadImg objectID="imgUpload1" value={user.personal_files.id1} type={'id1'} />
-                                    <UploadImg objectID="imgUpload2" value={user.personal_files.id2} type={'id2'} />
+                                    <UploadImg objectID="imgUpload1" value={user.personal_files.id1} type={'id_1'} />
+                                    <UploadImg objectID="imgUpload2" value={user.personal_files.id2} type={'id_2'} />
                                 </div>
                             </div>
                             <div className="flex line">
                                 <div>Driving license</div>
                                 <div className="flex">
-                                    <UploadImg objectID="imgUpload3" value={user.personal_files.drl1} type={'drl1'} />
-                                    <UploadImg objectID="imgUpload4" value={user.personal_files.drl2} type={'drl2'} />
+                                    <UploadImg objectID="imgUpload3" value={user.personal_files.drl1} type={'drl_1'} />
+                                    <UploadImg objectID="imgUpload4" value={user.personal_files.drl2} type={'drl_2'} />
                                 </div>
                             </div>
                         </div>

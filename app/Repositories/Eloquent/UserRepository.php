@@ -40,12 +40,13 @@ class UserRepository extends BaseRepository
         $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/id';
         if ($request->hasFile('id_1')) {
 
+            $this->model->files()->where('type',File::ID1)->delete();
             $imagename = date('Ymhs') . str_replace(' ', '', $request->file('id_1')->getClientOriginalName());
 
             $request->file('id_1')->move($destination, $imagename);
             $this->model->files()->create([
                 'title' => $imagename,
-                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/cv',
+                'path' => 'storage/' . $modelName . '/' . $this->model->id . '/id',
                 'format' => $request->file('id_1')->getClientOriginalExtension(),
                 'type' => File::ID1,
                 'main' => 0
@@ -53,7 +54,7 @@ class UserRepository extends BaseRepository
 
         }
         if ($request->hasFile('id_2')) {
-
+            $this->model->files()->where('type',File::ID2)->delete();
             $imagename = date('Ymhs') . str_replace(' ', '', $request->file('id_2')->getClientOriginalName());
             $request->file('id_2')->move($destination, $imagename);
             $this->model->files()->create([
@@ -77,7 +78,7 @@ class UserRepository extends BaseRepository
         $modelName = $reflection->getShortName();
         $destination = base_path() . '/storage/app/public/' . $modelName . '/' . $this->model->id . '/drl';
         if ($request->hasFile('drl_1')) {
-
+            $this->model->files()->where('type',File::DRL1)->delete();
             $imagename = date('Ymhs') . str_replace(' ', '', $request->file('drl_1')->getClientOriginalName());
 
             $request->file('drl_1')->move($destination, $imagename);
@@ -91,7 +92,7 @@ class UserRepository extends BaseRepository
 
         }
         if ($request->hasFile('drl_2')) {
-
+            $this->model->files()->where('type',File::DRL2)->delete();
             $imagename = date('Ymhs') . str_replace(' ', '', $request->file('drl_2')->getClientOriginalName());
             $request->file('drl_2')->move($destination, $imagename);
             $this->model->files()->create([
