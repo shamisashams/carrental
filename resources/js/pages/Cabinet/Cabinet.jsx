@@ -176,14 +176,35 @@ const Cabinet = ({ seo }) => {
                                                     alt=""
                                                 />
                                                 <div className="grid list">
-                                                    {carFeatures.map((item, index) => {
-                                                        return (
-                                                            <div key={index}>
-                                                                <span>{item.icon}</span>
-                                                                {item.text}
-                                                            </div>
-                                                        );
-                                                    })}
+
+                                                        <div >
+                                                            <span><MdAirlineSeatReclineNormal/></span>
+                                                            {item.options.car_info.seat} Seats
+                                                        </div>
+
+                                                    <div >
+                                                        <span><GiCarDoor/></span>
+                                                        {item.options.car_info.door} Doors
+                                                    </div>
+
+                                                    <div >
+                                                        <span><MdLocalGasStation/></span>
+                                                        {item.options.car_info.fuel}
+                                                    </div>
+
+                                                    <div >
+                                                        <span><MdLuggage/></span>
+                                                        {item.options.car_info.bag}
+                                                    </div>
+                                                    <div >
+                                                        <span><GiGearStickPattern/></span>
+                                                        {item.options.car_info.transmission}
+                                                    </div>
+                                                    <div >
+                                                        <span><BsSnow2/></span>
+                                                        {item.options.car_info.air_conditioning?`Air conditioning`:'none'}
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div className="right">

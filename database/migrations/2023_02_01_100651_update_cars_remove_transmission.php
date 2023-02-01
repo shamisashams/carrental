@@ -17,7 +17,7 @@ class UpdateCarsRemoveTransmission extends Migration
         Schema::table('cars', function (Blueprint $table) {
 
             $table->dropColumn('transmission');
-
+            $table->dropColumn('fuel');
         });
     }
 
@@ -32,6 +32,7 @@ class UpdateCarsRemoveTransmission extends Migration
         Schema::table('cars', function (Blueprint $table) {
 
             $table->string('transmission')->nullable()->default('manual');
+            $table->string('fuel')->nullable();
 
         });
     }

@@ -44,7 +44,7 @@ class UserController extends Controller
         //dd(Booking::query()->where('user_id',auth()->id())->whereIn('status',['canceled','finished'])->get());
 
         return Inertia::render('Cabinet/Cabinet', [
-            'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->get(),
+            'current_booking' => Booking::query()->where('user_id',auth()->id())->where('status','pending')->orderBy('id','desc')->get(),
             'bookings' => Booking::query()->where('user_id',auth()->id())->whereIn('status',['canceled','finished'])->get(),
             "page" => $page,
             "seo" => [
