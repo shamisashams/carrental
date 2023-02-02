@@ -56,10 +56,10 @@ const SingleCar = ({ seo }) => {
         dropoff_id = appliedFilters['dropoff'][0]
     }
     if (appliedFilters.hasOwnProperty("pickup_date")) {
-        pickup_date = appliedFilters['pickup_date']
+        pickup_date = appliedFilters['pickup_date'][0]
     }
     if (appliedFilters.hasOwnProperty("dropoff_date")) {
-        dropoff_date = appliedFilters['dropoff_date']
+        dropoff_date = appliedFilters['dropoff_date'][0]
     }
 
     if (!appliedFilters.hasOwnProperty("same")) {
@@ -206,12 +206,27 @@ const SingleCar = ({ seo }) => {
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
 
+    const [pickupdo, setPickupdo] = useState(null);
+    const [dropoffdo, setDroroffdo] = useState(null);
+
     useEffect(()=>{
         if (appliedFilters.hasOwnProperty("same")) {
             if (appliedFilters["same"].includes((1).toString())) {
                 setDiffLoc(true)
             } else setDiffLoc(false)
         } else setDiffLoc(false)
+
+        if (appliedFilters.hasOwnProperty("pickup_date")) {
+
+            setPickupdo(new Date(appliedFilters['pickup_date']));
+            setPickupd(appliedFilters['pickup_date']);
+        }
+
+        if (appliedFilters.hasOwnProperty("dropoff_date")) {
+
+            setDroroffdo(new Date(appliedFilters['dropoff_date']));
+            setDropoffd(appliedFilters['dropoff_date']);
+        }
     },[])
 
     return (
@@ -376,6 +391,7 @@ const SingleCar = ({ seo }) => {
                                     }));
                                 }}
                                 value={pickupd}
+                                cvalue={pickupdo}
                             />
 
                             {/*<Calendar onChange={(value)=>{
@@ -406,6 +422,7 @@ const SingleCar = ({ seo }) => {
                                     }));
                                 }}
                                 value={dropoffd}
+                                cvalue={dropoffdo}
                             />
 
                             {/*<Calendar onChange={(value)=>{

@@ -262,7 +262,7 @@ export const PickupLocation = ({
     );
 };
 
-export const PickupDate = ({ onChange, value }) => {
+export const PickupDate = ({ onChange, value, cvalue }) => {
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
 
@@ -290,16 +290,17 @@ export const PickupDate = ({ onChange, value }) => {
             </div>
             <div className={`dropdown calendar_drop ${drop && "show"}`}>
                 <Calendar
-                    onChange={(value) => {
-                        onChange(value);
+                    onChange={(value,event) => {
+                        onChange(value,event);
                     }}
+                    value={cvalue}
                 />
             </div>
         </div>
     );
 };
 
-export const DropoffDate = ({ onChange, value }) => {
+export const DropoffDate = ({ onChange, value, cvalue }) => {
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
 
@@ -327,9 +328,10 @@ export const DropoffDate = ({ onChange, value }) => {
             </div>
             <div className={`dropdown calendar_drop ${drop && "show"}`}>
                 <Calendar
-                    onChange={(value) => {
-                        onChange(value);
+                    onChange={(value,event) => {
+                        onChange(value,event);
                     }}
+                    value={cvalue}
                 />
             </div>
         </div>

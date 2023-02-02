@@ -18,6 +18,7 @@ import { Link, usePage } from "@inertiajs/inertia-react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
 import axios from "axios";
+import moment from "moment";
 
 const Cars = ({ seo }) => {
     const {
@@ -138,7 +139,7 @@ const Cars = ({ seo }) => {
         //Inertia.visit('?brand=12');
 
         if (event.target.checked === true) {
-            appliedFilters[code] = [value];
+            appliedFilters[code] = [value.toString()];
         } else {
             delete appliedFilters[code];
         }
@@ -200,6 +201,11 @@ const Cars = ({ seo }) => {
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
 
+    const [pickupd, setPickupd] = useState("pickup date");
+    const [dropoffd, setDropoffd] = useState("dropoff date");
+
+    const [pickupdo, setPickupdo] = useState(null);
+    const [dropoffdo, setDroroffdo] = useState(null);
 
     useEffect(()=>{
         if (appliedFilters.hasOwnProperty("same")) {
@@ -207,7 +213,21 @@ const Cars = ({ seo }) => {
                 setDiffLoc(true)
             } else setDiffLoc(false)
         } else setDiffLoc(false)
+
+        if (appliedFilters.hasOwnProperty("pickup_date")) {
+
+            setPickupdo(new Date(appliedFilters['pickup_date']));
+            setPickupd(appliedFilters['pickup_date']);
+        }
+
+        if (appliedFilters.hasOwnProperty("dropoff_date")) {
+
+            setDroroffdo(new Date(appliedFilters['dropoff_date']));
+            setDropoffd(appliedFilters['dropoff_date']);
+        }
+
     },[])
+
 
 
 
@@ -272,13 +292,25 @@ const Cars = ({ seo }) => {
                         </div>
                         <PickupDate
                             onChange={(value) => {
-                                alert(value);
+                                setPickupd(
+                                    moment(value).format("YYYY-MM-DD")
+                                );
+
+                                handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"))
                             }}
+                            value={pickupd}
+                            cvalue={pickupdo}
                         />
                         <DropoffDate
                             onChange={(value) => {
-                                alert(value);
+                                setDropoffd(
+                                    moment(value).format("YYYY-MM-DD")
+                                );
+
+                                handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"))
                             }}
+                            value={dropoffd}
+                            cvalue={dropoffdo}
                         />
                         <div className="gray_box">
                             <div className="title">

@@ -24,6 +24,7 @@ import { RiCalendar2Fill } from "react-icons/ri";
 import { FaKey } from "react-icons/fa";
 import { HiChevronDown } from "react-icons/hi";
 import axios from "axios";
+import moment from "moment";
 
 const Home = ({ seo }) => {
     const { localizations, destinations, categories, cars } = usePage().props;
@@ -112,12 +113,29 @@ const Home = ({ seo }) => {
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
 
+    const [pickupd, setPickupd] = useState("pickup date");
+    const [dropoffd, setDropoffd] = useState("dropoff date");
+
+    const [pickupdo, setPickupdo] = useState(null);
+    const [dropoffdo, setDroroffdo] = useState(null);
+
+
     useEffect(()=>{
         if (appliedFilters.hasOwnProperty("same")) {
             if (appliedFilters["same"].includes((1).toString())) {
                 setDiffLoc(true)
             } else setDiffLoc(false)
         } else setDiffLoc(false)
+        if (appliedFilters.hasOwnProperty("pickup_date")) {
+
+            setPickupdo(new Date(appliedFilters['pickup_date']));
+            setPickupd(appliedFilters['pickup_date']);
+        }
+        if (appliedFilters.hasOwnProperty("dropoff_date")) {
+
+            setDroroffdo(new Date(appliedFilters['dropoff_date']));
+            setDropoffd(appliedFilters['dropoff_date']);
+        }
     },[])
 
     return (
@@ -176,14 +194,23 @@ const Home = ({ seo }) => {
                             </div>
                         </div>
                         <div className="flex">
-                            <PickupDate onChange={(value) => {}} />
+                            <PickupDate onChange={(value,event) => {
+                                setPickupd(
+                                    moment(value).format("YYYY-MM-DD")
+                                );
+
+                                handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"))
+                            }} value={pickupd} cvalue={pickupdo} />
                             <TimeSelect
                                 onChange={(value) => {
                                     //alert(value)
                                 }}
                             />
                             <div className="gap"></div>
-                            <DropoffDate onChange={(value) => {}} />
+                            <DropoffDate onChange={(value,event) => {
+                                setDropoffd(moment(value).format("YYYY-MM-DD"))
+                                handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"))
+                            }} value={dropoffd} cvalue={dropoffdo} />
                             <TimeSelect onChange={(value) => {}} />
                         </div>
                     </div>
