@@ -395,6 +395,7 @@ const SingleCar = ({ seo }) => {
                                         pickup_date:
                                             moment(value).format("YYYY-MM-DD"),
                                     }));
+                                    setPickupdo(new Date(value));
                                 }}
                                 value={pickupd}
                                 cvalue={pickupdo}
@@ -426,6 +427,7 @@ const SingleCar = ({ seo }) => {
                                         dropoff_date:
                                             moment(value).format("YYYY-MM-DD"),
                                     }));
+                                    setDroroffdo(new Date(value));
                                 }}
                                 value={dropoffd}
                                 cvalue={dropoffdo}

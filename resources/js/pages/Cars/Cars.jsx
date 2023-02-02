@@ -296,7 +296,8 @@ const Cars = ({ seo }) => {
                                     moment(value).format("YYYY-MM-DD")
                                 );
 
-                                handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"))
+                                handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"));
+                                setPickupdo(new Date(value));
                             }}
                             value={pickupd}
                             cvalue={pickupdo}
@@ -307,7 +308,8 @@ const Cars = ({ seo }) => {
                                     moment(value).format("YYYY-MM-DD")
                                 );
 
-                                handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"))
+                                handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"));
+                                setDroroffdo(new Date(value));
                             }}
                             value={dropoffd}
                             cvalue={dropoffdo}

@@ -202,6 +202,7 @@ const Home = ({ seo }) => {
                                 setPickupd(
                                     moment(value).format("YYYY-MM-DD")
                                 );
+                                setPickupdo(new Date(value));
 
                                 handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"))
                             }} value={pickupd} cvalue={pickupdo} />
@@ -214,6 +215,7 @@ const Home = ({ seo }) => {
                             <div className="gap"></div>
                             <DropoffDate onChange={(value,event) => {
                                 setDropoffd(moment(value).format("YYYY-MM-DD"))
+                                setDroroffdo(new Date(value));
                                 handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"))
                             }} value={dropoffd} cvalue={dropoffdo} />
                             <TimeSelect onChange={(value,event) => {
