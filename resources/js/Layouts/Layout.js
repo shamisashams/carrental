@@ -17,6 +17,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Inertia } from "@inertiajs/inertia";
 
+//import {SuccessPopup} from "../pages/Cabinet/CabPopups";
+
 export default function Layout({ children, seo = null }) {
     function detectQueryString() {
         var currentQueryString = window.location.search;
