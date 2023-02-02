@@ -47,7 +47,7 @@ const SingleCar = ({ seo }) => {
 
     //console.log(car)
 
-    let pickup_id,dropoff_id,pickup_date,dropoff_date = null;
+    let pickup_id,dropoff_id,pickup_date,dropoff_date,pickup_time,dropoff_time = null;
     let same = false;
     if (appliedFilters.hasOwnProperty("pickup")) {
         pickup_id = appliedFilters['pickup'][0]
@@ -60,6 +60,12 @@ const SingleCar = ({ seo }) => {
     }
     if (appliedFilters.hasOwnProperty("dropoff_date")) {
         dropoff_date = appliedFilters['dropoff_date'][0]
+    }
+    if (appliedFilters.hasOwnProperty("pickup_time")) {
+        pickup_time = appliedFilters['pickup_time'][0]
+    }
+    if (appliedFilters.hasOwnProperty("dropoff_time")) {
+        dropoff_time = appliedFilters['dropoff_time'][0]
     }
 
     if (!appliedFilters.hasOwnProperty("same")) {
@@ -74,8 +80,8 @@ const SingleCar = ({ seo }) => {
         dropoff_id: dropoff_id,
         pickup_date: pickup_date,
         dropoff_date: dropoff_date,
-        pickup_time: "",
-        dropoff_time: "",
+        pickup_time: pickup_time,
+        dropoff_time: dropoff_time,
         same_address: same
     });
 
@@ -440,6 +446,7 @@ const SingleCar = ({ seo }) => {
                                         dropoff_time: value,
                                     }));
                                 }}
+                                drops={true}
                             />
                         </div>
                         <strong>

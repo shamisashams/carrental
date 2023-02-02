@@ -119,6 +119,9 @@ const Home = ({ seo }) => {
     const [pickupdo, setPickupdo] = useState(null);
     const [dropoffdo, setDroroffdo] = useState(null);
 
+    const [pickup_time, setPickup_time] = useState(null);
+
+
 
     useEffect(()=>{
         if (appliedFilters.hasOwnProperty("same")) {
@@ -136,6 +139,7 @@ const Home = ({ seo }) => {
             setDroroffdo(new Date(appliedFilters['dropoff_date']));
             setDropoffd(appliedFilters['dropoff_date']);
         }
+
     },[])
 
     return (
@@ -202,8 +206,9 @@ const Home = ({ seo }) => {
                                 handleFilterClickAddress(event,'pickup_date',moment(value).format("YYYY-MM-DD"))
                             }} value={pickupd} cvalue={pickupdo} />
                             <TimeSelect
-                                onChange={(value) => {
+                                onChange={(value,event) => {
                                     //alert(value)
+                                    handleFilterClickAddress(event,'pickup_time',value)
                                 }}
                             />
                             <div className="gap"></div>
@@ -211,7 +216,9 @@ const Home = ({ seo }) => {
                                 setDropoffd(moment(value).format("YYYY-MM-DD"))
                                 handleFilterClickAddress(event,'dropoff_date',moment(value).format("YYYY-MM-DD"))
                             }} value={dropoffd} cvalue={dropoffdo} />
-                            <TimeSelect onChange={(value) => {}} />
+                            <TimeSelect onChange={(value,event) => {
+                                handleFilterClickAddress(event,'dropoff_time',value)
+                            }} drops={true} />
                         </div>
                     </div>
                     <div className="right">

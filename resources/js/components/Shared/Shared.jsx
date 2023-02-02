@@ -338,7 +338,8 @@ export const DropoffDate = ({ onChange, value, cvalue }) => {
     );
 };
 
-export const TimeSelect = ({ onChange }) => {
+export const TimeSelect = ({ onChange, drops }) => {
+
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
 
@@ -382,6 +383,27 @@ export const TimeSelect = ({ onChange }) => {
 
     let t = returnTimesInBetween("00:00:00", "23:30:00");
 
+
+    useEffect(()=>{
+        if(!drops){
+            if (appliedFilters.hasOwnProperty("pickup_time")) {
+
+                //alert(appliedFilters['pickup_time'])
+                setDropv(appliedFilters['pickup_time']);
+
+            } else setDropv('pickup time select')
+        } else {
+            if (appliedFilters.hasOwnProperty("dropoff_time")) {
+
+                //alert(appliedFilters['pickup_time'])
+                setDropv(appliedFilters['dropoff_time']);
+
+            } else setDropv('drop time select')
+        }
+
+    },[])
+
+
     return (
         <div ref={wrapperRef} className="selectBox ">
             <div onClick={() => setDrop(!drop)} className="box">
@@ -393,7 +415,7 @@ export const TimeSelect = ({ onChange }) => {
                     return (
                         <button
                             onClick={(event) => {
-                                onChange(event.target.innerText);
+                                onChange(event.target.innerText,event);
                                 setDropv(event.target.innerText);
                                 setDrop(false);
                             }}
