@@ -61,14 +61,17 @@ export const PickupLocation = ({
     diffLoc,
     dropOff,
     onChange,
-    onChangeDrop,
+    onChangeDrop
 }) => {
+
     const [drop1, setDrop1] = useState(false);
     const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
     const [pickup, setPickup] = useState("Select pick-up location");
-    const [dropoff, setDropoff] = useState("Select pick-up location");
+    const [dropoff, setDropoff] = useState("Select dropoff-off location");
     const wrapperRef = useRef(null);
+
+
 
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -108,13 +111,50 @@ export const PickupLocation = ({
         }, 300);
     }
 
+    /*let appliedFilters = [];
+    let urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.forEach((value, index) => {
+        appliedFilters[index] = value.split(",");
+    });*/
+
     useEffect(()=>{
+
         axios
             .post(route("search.address"), { term: '' })
             .then(function (response) {
                 console.log(response);
                 setResult(response.data);
             });
+
+        if (appliedFilters.hasOwnProperty("pickup")) {
+
+            if (appliedFilters["pickup"]){
+                axios
+                    .post(route("get.address"), { id: appliedFilters["pickup"] })
+                    .then(function (response) {
+                        console.log(response);
+                        setPickup(response.data.text);
+                    });
+            } else setPickup('select pickup loc');
+
+
+        } else setPickup('select pickup loc');
+
+        if (appliedFilters.hasOwnProperty("dropoff")) {
+
+            if(appliedFilters["dropoff"]){
+                axios
+                    .post(route("get.address"), { id: appliedFilters["dropoff"] })
+                    .then(function (response) {
+                        console.log(response);
+                        setDropoff(response.data.text);
+                    });
+            } else setDropoff('select dsropoff loc');
+
+
+        } else setDropoff('select dsropoff loc');
+
     },[])
 
     return (

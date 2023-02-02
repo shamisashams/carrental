@@ -271,6 +271,7 @@ Route::prefix('{locale?}')
 
 
         Route::post('/search/address', [\App\Http\Controllers\Client\SearchController::class, 'searchAddress'])->name('search.address');
+        Route::post('/search/address/get', [\App\Http\Controllers\Client\SearchController::class, 'getAddress'])->name('get.address');
             //checkout
 
             Route::get('checkout',[\App\Http\Controllers\Client\OrderController::class,'index'])->name('client.checkout.index');

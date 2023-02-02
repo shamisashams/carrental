@@ -47,16 +47,36 @@ const SingleCar = ({ seo }) => {
 
     //console.log(car)
 
+    let pickup_id,dropoff_id,pickup_date,dropoff_date = null;
+    let same = false;
+    if (appliedFilters.hasOwnProperty("pickup")) {
+        pickup_id = appliedFilters['pickup'][0]
+    }
+    if (appliedFilters.hasOwnProperty("dropoff")) {
+        dropoff_id = appliedFilters['dropoff'][0]
+    }
+    if (appliedFilters.hasOwnProperty("pickup_date")) {
+        pickup_date = appliedFilters['pickup_date']
+    }
+    if (appliedFilters.hasOwnProperty("dropoff_date")) {
+        dropoff_date = appliedFilters['dropoff_date']
+    }
+
+    if (!appliedFilters.hasOwnProperty("same")) {
+        same = true
+    }
+
+
     const [values, setValues] = useState({
         options: [],
         car_id: car.id,
-        pickup_id: "",
-        dropoff_id: "",
-        pickup_date: "",
-        dropoff_date: "",
+        pickup_id: pickup_id,
+        dropoff_id: dropoff_id,
+        pickup_date: pickup_date,
+        dropoff_date: dropoff_date,
         pickup_time: "",
         dropoff_time: "",
-        same_address: true
+        same_address: same
     });
 
     useEffect(() => {
@@ -185,6 +205,14 @@ const SingleCar = ({ seo }) => {
     }
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
+
+    useEffect(()=>{
+        if (appliedFilters.hasOwnProperty("same")) {
+            if (appliedFilters["same"].includes((1).toString())) {
+                setDiffLoc(true)
+            } else setDiffLoc(false)
+        } else setDiffLoc(false)
+    },[])
 
     return (
         <Layout seo={seo}>

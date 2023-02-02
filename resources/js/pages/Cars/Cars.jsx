@@ -17,6 +17,7 @@ import Layout from "@/Layouts/Layout";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import { CgChevronLeft, CgChevronRight } from "react-icons/cg";
 import { Inertia } from "@inertiajs/inertia";
+import axios from "axios";
 
 const Cars = ({ seo }) => {
     const {
@@ -96,12 +97,12 @@ const Cars = ({ seo }) => {
         ) : null;
     };
 
-    let appliedFilters = [];
+    /*let appliedFilters = [];
     let urlParams = new URLSearchParams(window.location.search);
 
     urlParams.forEach((value, index) => {
         appliedFilters[index] = value.split(",");
-    });
+    });*/
 
     function removeA(arr) {
         var what,
@@ -145,6 +146,18 @@ const Cars = ({ seo }) => {
         //console.log(appliedFilters);
     };
 
+    const handleFilterClickBoolean2 = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+
+        if (event.target.checked === false) {
+            appliedFilters[code] = [value.toString()];
+        } else {
+            delete appliedFilters[code];
+        }
+
+        //console.log(appliedFilters);
+    };
+
     const handleFilterClickAddress = function (event, code, value) {
         //Inertia.visit('?brand=12');
 
@@ -175,12 +188,28 @@ const Cars = ({ seo }) => {
         } else aic_checked = false;
     } else aic_checked = false;
 
+
+
+
+
+
     //const [aicChecked, setAicChecked] = useState(aic_checked);
 
     //console.log(cars);
 
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
+
+
+    useEffect(()=>{
+        if (appliedFilters.hasOwnProperty("same")) {
+            if (appliedFilters["same"].includes((1).toString())) {
+                setDiffLoc(true)
+            } else setDiffLoc(false)
+        } else setDiffLoc(false)
+    },[])
+
+
 
     return (
         <Layout seo={seo}>
@@ -206,17 +235,12 @@ const Cars = ({ seo }) => {
                         <PickupLocation
                             diffLoc={diffLoc}
                             dropOff={false}
-                            onChange={(value, text) => {
-                                setValues((values) => ({
-                                    ...values,
-                                    pickup_id: value,
-                                }));
+                            onChange={(value, event) => {
+
+                                handleFilterClickAddress(event,'pickup',value)
                             }}
-                            onChangeDrop={(value) => {
-                                setValues((values) => ({
-                                    ...values,
-                                    dropoff_id: value,
-                                }));
+                            onChangeDrop={(value,event) => {
+                                handleFilterClickAddress(event,'dropoff',value)
                             }}
                         />
 
@@ -227,9 +251,14 @@ const Cars = ({ seo }) => {
                                 name=""
                                 id="dropLocationCheck"
                                 checked={diffLoc}
+                                onChange={(event) => {
+                                    handleFilterClickBoolean2(event,'same',1)
+                                }}
                             />
                             <label
-                                onClick={() => setDiffLoc(!diffLoc)}
+                                onClick={(event) => {
+                                    setDiffLoc(!diffLoc);
+                                }}
                                 htmlFor="dropLocationCheck"
                             >
                                 <div></div>

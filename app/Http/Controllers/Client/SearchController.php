@@ -279,7 +279,16 @@ class SearchController extends Controller
                 ->orWhereTranslationLike('text', '%'.$request['term'].'%');
         });
 
+
         return $query->get();
+    }
+
+    public function getAddress(Request $request){
+
+        $query = Address::with('translation')->where('id',$request['id']);
+
+
+        return $query->first();
     }
 
 }
