@@ -31,26 +31,35 @@ const Home = ({ seo }) => {
 
     /*--------------------------------*/
 
-    /*let appliedFilters = {};
+    let appliedFilters2 = {};
     let urlParams = new URLSearchParams(window.location.search);
 
     urlParams.forEach((value, index) => {
-        appliedFilters[index] = value.split(",");
+        appliedFilters2[index] = value.split(",");
     });
 
-    function removeA(arr) {
-        var what,
-            a = arguments,
-            L = a.length,
-            ax;
-        while (L > 1 && arr.length) {
-            what = a[--L];
-            while ((ax = arr.indexOf(what)) !== -1) {
-                arr.splice(ax, 1);
-            }
+    const handleFilterClick = function (event, code, value) {
+        //Inertia.visit('?brand=12');
+
+
+        if (event === false) {
+            if (appliedFilters2.hasOwnProperty(code)) {
+                appliedFilters2[code].push(value.toString());
+            } else appliedFilters2[code] = [value.toString()];
+        } else {
+            if (appliedFilters2[code].length > 1)
+                removeA(appliedFilters2[code], value.toString());
+            else delete appliedFilters2[code];
         }
-        return arr;
-    }*/
+
+        let params = [];
+
+        for (let key in appliedFilters2) {
+            params.push(key + "=" + appliedFilters2[key].join(","));
+        }
+
+        Inertia.visit("?" + params.join("&"));
+    };
 
 
     /* -----------------------------------*/
@@ -293,9 +302,9 @@ const Home = ({ seo }) => {
                             {categories.map((tag, index) => {
                                 let checked;
 
-                                if (appliedFilters.hasOwnProperty("tag")) {
+                                if (appliedFilters2.hasOwnProperty("tag")) {
                                     if (
-                                        appliedFilters["tag"].includes(
+                                        appliedFilters2["tag"].includes(
                                             tag.id.toString()
                                         )
                                     ) {
