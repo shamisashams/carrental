@@ -40,11 +40,17 @@ const Signup = ({seo}) => {
                   <div>{__('client.signup_t',localizations)}</div>
                   <div className="grid">
                       <input type="text" placeholder={__('client.form_name',localizations)} name="name" onChange={handleChange} />
+                      {errors.name && <span>{errors.name}</span>}
                       <input type="text" placeholder={__('client.form_surname',localizations)} name="surname" onChange={handleChange} />
+                      {errors.surname && <span>{errors.surname}</span>}
                       <input type="text" placeholder={__('client.form_email',localizations)} name="email" onChange={handleChange} />
+                      {errors.email && <span>{errors.email}</span>}
                       <input type="text" placeholder={__('client.form_phone',localizations)} name="phone" onChange={handleChange} />
+                      {errors.phone && <span>{errors.phone}</span>}
                       <input type="password" placeholder={__('client.form_password',localizations)} name="password" onChange={handleChange} />
+                      {errors.password && <span>{errors.password}</span>}
                       <input type="password" placeholder={__('client.form_password_repeat',localizations)} name="password_repeat" onChange={handleChange} />
+                      {errors.password_repeat && <span>{errors.password_repeat}</span>}
                   </div>
                   <div>{__('client.form_upload',localizations)}</div>
                   <div className="grid">
