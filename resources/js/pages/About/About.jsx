@@ -5,7 +5,7 @@ import Layout from "@/Layouts/Layout";
 import { Link, usePage } from "@inertiajs/inertia-react";
 
 const About = ({seo}) => {
-    const {page} =  usePage().props;
+    const {page,images} =  usePage().props;
     const renderHTML = (rawHTML) =>
         React.createElement("p", {
             dangerouslySetInnerHTML: { __html: rawHTML },
@@ -13,7 +13,7 @@ const About = ({seo}) => {
   return (
       <Layout seo={seo}>
           <div className="wrapper aboutPage ">
-              <img src="/client/assets/images/other/2.png" alt="" />
+              <img src={images[0]} alt="" />
               <h3>{page.title}</h3>
               {renderHTML(page.description)}
               {/*<p>

@@ -27,7 +27,7 @@ import axios from "axios";
 import moment from "moment";
 
 const Home = ({ seo }) => {
-    const { localizations, destinations, categories, cars } = usePage().props;
+    const { localizations, destinations, categories, cars, images } = usePage().props;
 
     /*--------------------------------*/
 
@@ -162,7 +162,7 @@ const Home = ({ seo }) => {
                 >
                     <div className="wrapper main-bg">
                         <h1>{__("client.home_sec1_h", localizations)}</h1>
-                        <p>S{__("client.home_sec1_t", localizations)}</p>
+                        <p>{__("client.home_sec1_t", localizations)}</p>
                     </div>
                 </section>
                 <section className="wrapper homeFilter flex">
@@ -239,7 +239,7 @@ const Home = ({ seo }) => {
                     </div>
                     <img
                         className="animated"
-                        src="/client/assets/images/other/2.png"
+                        src={images[0]}
                         alt=""
                     />
                 </section>
@@ -293,7 +293,7 @@ const Home = ({ seo }) => {
                         </Link>
                         <img
                             className="animated"
-                            src="/client/assets/images/other/1.png"
+                            src={images[1]}
                             alt=""
                         />
                     </div>

@@ -13,7 +13,7 @@ import {ImLocation} from "react-icons/im";
 
 const Contact = ({seo}) => {
 
-    const { errors, info, localizations } = usePage().props;
+    const { errors, info, localizations, images } = usePage().props;
 
     const contactInfo = [
         {
@@ -59,7 +59,7 @@ const Contact = ({seo}) => {
     return (
       <Layout seo={seo}>
           <div className="contactPage">
-              <img className="carImg" src="/client/assets/images/other/4.png" alt="" />
+              <img className="carImg" src={images[0]} alt="" />
               <div className="wrapper">
                   <div className="container">
                       <div className="title">

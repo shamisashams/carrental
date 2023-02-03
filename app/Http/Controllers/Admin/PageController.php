@@ -115,13 +115,13 @@ class PageController extends Controller
         $this->pageSectionRepository->saveFile($page->id, $request);
 
 
-        if ($page->key == 'home'){
+        /*if ($page->key == 'home'){
             foreach ($saveData['section'] as $id => $data){
                 $section = PageSection::find($id);
 
                 $section->update($data);
             }
-        }
+        }*/
 
         return redirect(locale_route('page.index', $page->id))->with('success', __('admin.update_successfully'));
     }
