@@ -122,8 +122,8 @@ const Home = ({ seo }) => {
     const [diffLoc, setDiffLoc] = useState(false);
     const dropLocationCheck = useRef();
 
-    const [pickupd, setPickupd] = useState("pickup date");
-    const [dropoffd, setDropoffd] = useState("dropoff date");
+    const [pickupd, setPickupd] = useState(__('client.select_pickup_date',localizations));
+    const [dropoffd, setDropoffd] = useState(__('client.select_drop_date',localizations));
 
     const [pickupdo, setPickupdo] = useState(null);
     const [dropoffdo, setDroroffdo] = useState(null);
@@ -202,7 +202,7 @@ const Home = ({ seo }) => {
                                     onClick={() => setDiffLoc(!diffLoc)}
                                     htmlFor="dropLocationCheck"
                                 >
-                                    Drop on different location
+                                    {__('client.drop_diff_location',localizations)}
                                 </label>
                             </div>
                         </div>

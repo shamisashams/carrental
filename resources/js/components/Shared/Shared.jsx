@@ -63,7 +63,7 @@ export const PickupLocation = ({
     onChange,
     onChangeDrop
 }) => {
-
+    const { localizations } = usePage().props;
     const [drop1, setDrop1] = useState(false);
     const [drop2, setDrop2] = useState(false);
     const [result, setResult] = useState([]);
@@ -136,10 +136,10 @@ export const PickupLocation = ({
                         console.log(response);
                         setPickup(response.data.text);
                     });
-            } else setPickup('select pickup loc');
+            } else setPickup(__('client.select_pickup_loc',localizations));
 
 
-        } else setPickup('select pickup loc');
+        } else setPickup(__('client.select_pickup_loc',localizations));
 
         if (appliedFilters.hasOwnProperty("dropoff")) {
 
@@ -150,10 +150,10 @@ export const PickupLocation = ({
                         console.log(response);
                         setDropoff(response.data.text);
                     });
-            } else setDropoff('select dsropoff loc');
+            } else setDropoff(__('client.select_drop_loc',localizations));
 
 
-        } else setDropoff('select dsropoff loc');
+        } else setDropoff(__('client.select_drop_loc',localizations));
 
     },[])
 
@@ -301,6 +301,7 @@ export const PickupDate = ({ onChange, value, cvalue }) => {
 };
 
 export const DropoffDate = ({ onChange, value, cvalue }) => {
+    const { localizations } = usePage().props;
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
 
@@ -339,6 +340,8 @@ export const DropoffDate = ({ onChange, value, cvalue }) => {
 };
 
 export const TimeSelect = ({ onChange, drops }) => {
+    const { localizations } = usePage().props;
+
 
     const [drop, setDrop] = useState(false);
     const wrapperRef = useRef(null);
@@ -391,14 +394,14 @@ export const TimeSelect = ({ onChange, drops }) => {
                 //alert(appliedFilters['pickup_time'])
                 setDropv(appliedFilters['pickup_time']);
 
-            } else setDropv('pickup time select')
+            } else setDropv(__('client.select_pickup_time',localizations))
         } else {
-            if (appliedFilters.hasOwnProperty("dropoff_time")) {
+            if (appliedFilters.hasOwnProperty("drop_time")) {
 
                 //alert(appliedFilters['pickup_time'])
                 setDropv(appliedFilters['dropoff_time']);
 
-            } else setDropv('drop time select')
+            } else setDropv(__('client.select_drop_time',localizations))
         }
 
     },[])
