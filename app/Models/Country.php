@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Translations\BrandTranslation;
+use App\Models\Translations\CarTypeTranslation;
 use App\Models\Translations\CityTranslation;
+use App\Models\Translations\CountryTranslation;
+use App\Models\Translations\FuelTranslation;
 use App\Models\Translations\SliderTranslation;
 use App\Traits\ScopeFilter;
 use Astrotomic\Translatable\Translatable;
@@ -12,20 +16,20 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class City extends Model
+class Country extends Model
 {
-    use Translatable, HasFactory, ScopeFilter;
+    use HasFactory, ScopeFilter, Translatable;
 
 
-    protected $table = 'cities';
+    protected $table = 'countries';
 
 
     protected $fillable = [
-        'status',
+        'status'
     ];
 
 
-    protected $translationModel = CityTranslation::class;
+    protected $translationModel = CountryTranslation::class;
 
     /** @var array */
     public $translatedAttributes = [
@@ -62,8 +66,8 @@ class City extends Model
         return $this->morphOne(File::class, 'fileable');
     }
 
-    public function country(){
-        return $this->belongsTo(Country::class);
+    public function cities(){
+        return $this->hasMany(City::class);
     }
 
     public function addresses(){
