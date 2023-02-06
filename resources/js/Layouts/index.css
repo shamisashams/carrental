@@ -269,6 +269,13 @@ p {
     background: #1b5a65 !important;
 }
 
+.pagination a {
+    margin: 0 8px;
+}
+.pagination a svg {
+    vertical-align: middle;
+}
+
 @media screen and (max-width: 1530px) {
     .wrapper {
         width: 96%;
